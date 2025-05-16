@@ -14,3 +14,25 @@
     width: 320px;
     text-align: center;
 }
+
+.menu-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 320px;
+    height: 475px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.menu-card h3 {
+    min-height: 48px;
+    margin: 0 0 20px;
+}
+
+.button {
+    /* margin-top: auto; */
+}

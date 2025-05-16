@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import getMenu from './menu-items'
 import "./styles/styles.css";
+import getMenu from './menu-items';
+import axios from 'axios';
+import cors from 'cors';
 
 
 type MenuItems = {
@@ -11,6 +13,24 @@ type MenuItems = {
   dsc: string;
   img: string;
 };
+
+//when the button clicks it should reroute to the success page and send an api post to the order service. 
+const handleBtnClick = async (id: number, name: string, img: string) => {
+  try {
+    await axios.post("http://localhost:3005", {
+      id: id,
+      name: name,
+      img: img
+    });
+
+
+  } catch (error) {
+    console.log(`There is an issue with sending your data: ${error}`);
+
+  }
+
+
+}
 
 function App() {
   const [menu, setMenu] = useState<MenuItems[]>([]);
@@ -33,10 +53,13 @@ function App() {
     <>
       <h1>Menu Items</h1>
       <ul className="menu-items">
-        {menu.map((item) => (
-          <li key={item.id}>
-            <img src={item.img} width="300 " height="300" />
-            <h3>{item.dsc}</h3>
+        {menu.map(({ id, img, dsc: name }) => (
+          <li key={id} className='menu-card'>
+            <img src={img} width="300 " height="300" />
+            <h3>{name}</h3>
+            <div className='button'>
+              <button onClick={() => handleBtnClick(id, img, name)}>One Click Purchase</button>
+            </div>
           </li>
         )
         )}
