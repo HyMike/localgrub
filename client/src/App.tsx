@@ -2,28 +2,45 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import getStatus from './status'
+import getMenu from './menu-items'
+import "./styles/styles.css";
+
+
+type MenuItems = {
+  id: number;
+  dsc: string;
+  img: string;
+};
 
 function App() {
-  const [status, setStatus] = useState("");
+  const [menu, setMenu] = useState<MenuItems[]>([]);
 
   useEffect(() => {
-    const retrieveStatus = async () => {
+    const menuItems = async () => {
+      const getMenuItems = await getMenu();
+      const itemsWithImage = getMenuItems.filter(
+        (item: MenuItems) => {
+          return item.img && item.img.trim() !== "";
+        })
+      const topSixItems = itemsWithImage.slice(2, 8);
 
-      const callStatus = await getStatus();
-      console.log("Response from backend:", callStatus); // 👈 Add this
-
-      setStatus(callStatus.message);
+      setMenu(topSixItems);
     }
-
-    retrieveStatus();
-
+    menuItems();
   }, []);
 
   return (
-
     <>
-      <h1>This is the message: {status}</h1>
+      <h1>Menu Items</h1>
+      <ul className="menu-items">
+        {menu.map((item) => (
+          <li key={item.id}>
+            <img src={item.img} width="300 " height="300" />
+            <h3>{item.dsc}</h3>
+          </li>
+        )
+        )}
+      </ul>
     </>
   )
 }
