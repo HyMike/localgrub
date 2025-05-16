@@ -1,0 +1,16 @@
+.menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    list-style-type: none;
+}
+
+.menu-items li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    width: 320px;
+    text-align: center;
+}
