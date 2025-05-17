@@ -9,7 +9,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Login';
 import Success from './Success';
-import SignUp from './SignUp';
+import SignUp from './components/SignUp';
 
 
 type MenuItems = {
