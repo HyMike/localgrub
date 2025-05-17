@@ -5,7 +5,11 @@ import './App.css'
 import "./styles/styles.css";
 import getMenu from './menu-items';
 import axios from 'axios';
-import cors from 'cors';
+import ProtectedRoute from './routes/ProtectedRoute';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './Login';
+import Success from './Success';
+import SignUp from './SignUp';
 
 
 type MenuItems = {
@@ -51,19 +55,44 @@ function App() {
 
   return (
     <>
-      <h1>Menu Items</h1>
-      <ul className="menu-items">
-        {menu.map(({ id, img, dsc: name }) => (
-          <li key={id} className='menu-card'>
-            <img src={img} width="300 " height="300" />
-            <h3>{name}</h3>
-            <div className='button'>
-              <button onClick={() => handleBtnClick(id, img, name)}>One Click Purchase</button>
-            </div>
-          </li>
-        )
-        )}
-      </ul>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+
+          {/* <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+               
+              </ProtectedRoute>
+            }
+          /> */}
+        </Routes>
+
+      </Router>
+
+      <div>
+        <h1>Menu Items</h1>
+        <ul className="menu-items">
+          {menu.map(({ id, img, dsc: name }) => {
+
+            return (
+              <li key={id} className='menu-card'>
+                <img src={img} width="300" height="300" />
+                <h3>{name}</h3>
+                <div className='button'>
+                  <button onClick={() => handleBtnClick(id, name, img)}>One Click Purchase</button>
+                </div>
+              </li>
+            )
+          }
+          )}
+        </ul>
+
+      </div>
+
+
     </>
   )
 }
