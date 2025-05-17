@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "./authentication/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { SignUpUser } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
 
 const SignUp = () => {
@@ -9,22 +8,15 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const navigate = useNavigate();
 
 
     const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const userCred = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCred.user;
-
-            await setDoc(doc(db, "users", user.uid), {
-                email: user.email,
-                firstName: firstName,
-                lastName: lastName,
-                createdAt: new Date(),
-            });
-            //need to redirect to success page.
-            alert("Signup successful!");
+            await SignUpUser(email, password,
+                { email, firstName, lastName });
+            navigate("/success");
 
         } catch (error) {
             console.error(error);
