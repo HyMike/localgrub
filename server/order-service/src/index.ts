@@ -4,8 +4,8 @@ import sendOrder from "./services/order-queue-producer";
 import admin from 'firebase-admin';
 import dotenv from "dotenv";
 import { ServiceAccount } from 'firebase-admin';
-import { userDoc } from "./services/firebase-db";
 import { getFirestore } from 'firebase-admin/firestore';
+import { send } from "process";
 
 
 dotenv.config();
@@ -27,7 +27,6 @@ type Order = {
 };
 
 
-
 admin.initializeApp({
     credential: admin.credential.cert({
         type: process.env.FIREBASE_TYPE,
@@ -41,7 +40,6 @@ const db = getFirestore();
 
 app.post("/success", async (req: Request, res: Response) => {
     const authHeader = req.headers.authorization;
-    // const { id, name, img } = req.body
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).send('Unauthorized');
@@ -66,7 +64,7 @@ app.post("/success", async (req: Request, res: Response) => {
         const firstName = userData?.firstName || '';
         const lastName = userData?.lastName || '';
 
-
+        //need to add in the order stuff. So we can send it to rabbitMq so it can be consume. !~   
         const order = {
             uid,
             firstName,
@@ -76,23 +74,10 @@ app.post("/success", async (req: Request, res: Response) => {
             createdAt: new Date().toISOString(),
         };
 
-        // const { id, name, img } = req.body as Order;
-
-        // if (!id || !name || !img) {
-        //     return res.status(400).json({ message: "Missing fields in request" });
-        // }
-
-        // const order: Order = { id, name, img };
+        await sendOrder(order);
 
         console.log("Received Order:", order);
 
-        // try {
-        //     // await sendOrder(order);
-        //     res.status(201).json({ message: "Order received successfully" });
-        // } catch (err) {
-        //     console.error("Failed to send order to queue:", err);
-        //     res.status(500).json({ message: "Internal Server Error" });
-        // }
     } catch (error) {
         console.error("Order service is not processing!", error);
         res.status(500).json({ message: "Internal Server Error", error });

@@ -12,13 +12,13 @@ const app = express();
 app.use(express.json());
 
 
-admin.initializeApp({
-    credential: admin.credential.cert({
-        type: process.env.FIREBASE_TYPE,
-        project_id: process.env.FIREBASE_PROJECT_ID,
-        client_email: process.env.FIREBASE_CLIENT_EMAIL,
-    } as ServiceAccount),
-});
+// admin.initializeApp({
+//     credential: admin.credential.cert({
+//         type: process.env.FIREBASE_TYPE,
+//         project_id: process.env.FIREBASE_PROJECT_ID,
+//         client_email: process.env.FIREBASE_CLIENT_EMAIL,
+//     } as ServiceAccount),
+// });
 
 
 const sendOrder = async (order: object): Promise<void> => {
@@ -38,9 +38,9 @@ const sendOrder = async (order: object): Promise<void> => {
 };
 
 
-const PORT = process.env.PORT || 3005;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// const PORT = process.env.PORT || 3005;
+// app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}`);
+// });
 
 export default sendOrder; 
