@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run --prefix order-service start:producer\" \"npm run --prefix notification-service start:consumer\"",
+    "dev": "ts-node src/services/restaurant-queue-consumer.ts",
+    "start:consumer": "ts-node src/services/restaurant-queue-consumer.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,8 +16,10 @@
     "express": "^5.1.0"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.10.7",
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.17",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   }

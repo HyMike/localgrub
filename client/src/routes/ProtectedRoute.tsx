@@ -1,6 +1,6 @@
 import { useContext, type JSX } from 'react';
-import { AuthContext } from '../authentication/AuthContext';
-import { Navigate } from "react-router-dom";
+import { useAuth } from '../authentication/AuthContext';
+import { Navigate, useLocation } from "react-router-dom";
 
 
 type ChildrenProp = {
@@ -8,9 +8,11 @@ type ChildrenProp = {
 
 }
 const ProtectedRoute = ({ children }: ChildrenProp) => {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
+    const location = useLocation();
 
-    return user ? children : <Navigate to="/login" replace />;
+    return user ? children : <Navigate to="/login" state={
+        { from: location }} replace />;
 
 };
 

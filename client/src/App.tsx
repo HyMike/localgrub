@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, use } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import "./styles/styles.css";
-import getMenu from './menu-items';
+import getMenu from './services/menu-items';
 import axios from 'axios';
 import ProtectedRoute from './routes/ProtectedRoute';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useLocation, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Login';
-import Success from './Success';
+import SuccessPage from './pages/SuccessPage';
 import SignUp from './components/SignUp';
-
+import SubmitBtn from "./components/SubmitBtn";
+import { useAuth } from './authentication/AuthContext';
+import LogOutBtn from './components/LogOutBtn';
 
 type MenuItems = {
   id: number;
@@ -38,6 +40,8 @@ const handleBtnClick = async (id: number, name: string, img: string) => {
 
 function App() {
   const [menu, setMenu] = useState<MenuItems[]>([]);
+  const { user } = useAuth();
+  const location = useLocation();
 
   useEffect(() => {
     const menuItems = async () => {
@@ -53,27 +57,44 @@ function App() {
     menuItems();
   }, []);
 
+  if (location.pathname === "/login" || location.pathname === "/signup") {
+    return (
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+
+    );
+  }
+
+  if (location.pathname === "/success") {
+    return (
+      <Routes>
+        <Route path="/success" element={<SuccessPage />} />
+      </Routes>
+    )
+
+  }
+
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
+      <Routes>
 
-          {/* <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-               
-              </ProtectedRoute>
-            }
-          /> */}
-        </Routes>
-
-      </Router>
+        <Route
+          path="/success"
+          element={
+            <ProtectedRoute>
+              <SuccessPage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
 
       <div>
         <h1>Menu Items</h1>
+        {user ? (
+          <h2>{user.email}</h2>) : (<h2>user doesn't exist!</h2>)}
+        <LogOutBtn />
         <ul className="menu-items">
           {menu.map(({ id, img, dsc: name }) => {
 
@@ -82,6 +103,7 @@ function App() {
                 <img src={img} width="300" height="300" />
                 <h3>{name}</h3>
                 <div className='button'>
+                  <SubmitBtn formData={{ id, name, img }} />
                   <button onClick={() => handleBtnClick(id, name, img)}>One Click Purchase</button>
                 </div>
               </li>
@@ -91,8 +113,6 @@ function App() {
         </ul>
 
       </div>
-
-
     </>
   )
 }
