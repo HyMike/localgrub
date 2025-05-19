@@ -19,8 +19,6 @@ app.use(cors({
 }));
 
 app.use(express.json());
-***REMOVED***
-
 
 type Order = {
     id: number;
@@ -28,11 +26,13 @@ type Order = {
     img: string;
 };
 
+
+
 admin.initializeApp({
     credential: admin.credential.cert({
         type: process.env.FIREBASE_TYPE,
         project_id: process.env.FIREBASE_PROJECT_ID,
-        privateKey: privateKey,
+        private_key: process.env.FIREBASE_PRIVATE_KEY,
         client_email: process.env.FIREBASE_CLIENT_EMAIL,
     } as ServiceAccount),
 });
