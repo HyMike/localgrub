@@ -40,6 +40,7 @@ const db = getFirestore();
 
 app.post("/success", async (req: Request, res: Response) => {
     const authHeader = req.headers.authorization;
+    const { id: itemId, name: itemName } = req.body;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).send('Unauthorized');
@@ -52,25 +53,23 @@ app.post("/success", async (req: Request, res: Response) => {
 
 
         const uid = decodedToken.uid;
-        const name = decodedToken.firstName || '';
-        const email = decodedToken.email || '';
 
         const userDoc = await db.collection('users').doc(uid).get();
         if (!userDoc.exists) {
             return res.status(404).json({ message: 'User data not found' });
         }
-
+        const email = decodedToken.email || '';
         const userData = userDoc.data();
         const firstName = userData?.firstName || '';
         const lastName = userData?.lastName || '';
 
-        //need to add in the order stuff. So we can send it to rabbitMq so it can be consume. !~   
         const order = {
             uid,
             firstName,
             lastName,
             email,
-            // item: req.body.item || 'Sample Order',
+            itemId,
+            itemName,
             createdAt: new Date().toISOString(),
         };
 
