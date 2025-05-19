@@ -10,7 +10,6 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-// ***REMOVED***
 
 admin.initializeApp({
     credential: admin.credential.cert({
