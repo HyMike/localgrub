@@ -103,7 +103,6 @@ function App() {
                 <h3>{name}</h3>
                 <div className='button'>
                   <SubmitBtn formData={{ id, name, img }} />
-                  <button onClick={() => handleBtnClick(id, name, img)}>One Click Purchase</button>
                 </div>
               </li>
             )
