@@ -3,7 +3,6 @@ import { auth } from "../firebase/firebaseConfig";
 import { useAuth } from "../authentication/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-
 const LogOutBtn = () => {
     const navigate = useNavigate();
     const { user } = useAuth();
@@ -15,13 +14,11 @@ const LogOutBtn = () => {
         } catch (error) {
             console.error("Error Logging Out", error);
         }
-
     };
 
     if (!user) return null;
 
-    return <button onClick={handleLogOut} >Log Out</button>;
-
+    return <button onClick={handleLogOut}>Log Out</button>;
 };
 
 export default LogOutBtn;
