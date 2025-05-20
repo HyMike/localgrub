@@ -20,6 +20,7 @@ const Login = () => {
 
     return (
         <div>
+            <h1>Sign In To Complete Your Purchase</h1>
             <input
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)} />

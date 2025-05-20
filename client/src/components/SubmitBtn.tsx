@@ -32,6 +32,7 @@ const SubmitBtn = ({ formData }: Props) => {
         } else {
             try {
                 const token = await user.getIdToken();
+                navigate("/success");
                 await sendData(formData, token);
             } catch (err) {
                 console.error("Failed to get token or send data:", err);
