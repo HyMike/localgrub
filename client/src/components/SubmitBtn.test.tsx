@@ -6,7 +6,6 @@ import SubmitBtn from "./SubmitBtn";
 import { MemoryRouter } from "react-router-dom";
 import { useAuth } from "../authentication/AuthContext";
 
-// --- Mock useNavigate ---
 const mockNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {
     const actual = await vi.importActual("react-router-dom");
@@ -16,16 +15,16 @@ vi.mock("react-router-dom", async () => {
     };
 });
 
-// --- Mock useAuth ---
+
 const mockGetIdToken = vi.fn();
 vi.mock("../authentication/AuthContext", () => ({
     useAuth: () => ({
-        user: null, // default: not logged in
+        user: null,
         loading: false,
     }),
 }));
 
-// --- Mock axios ---
+
 vi.mock("axios");
 
 describe("SubmitBtn", () => {
@@ -59,7 +58,6 @@ describe("SubmitBtn", () => {
     });
 
     it("calls getIdToken, sends data, and navigates if user is logged in", async () => {
-        // Override mock to simulate logged-in user
         vi.mocked(await import("../authentication/AuthContext")).useAuth = () => ({
             user: { getIdToken: mockGetIdToken },
             loading: false,

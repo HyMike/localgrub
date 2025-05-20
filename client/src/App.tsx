@@ -1,6 +1,4 @@
 import { useState, useEffect, use } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import "./styles/styles.css";
 import getMenu from './services/menu-items';
@@ -15,32 +13,12 @@ import { useAuth } from './authentication/AuthContext';
 import LogOutBtn from './components/LogOutBtn';
 import NavBar from "./components/NavBar";
 
+
+
 type MenuItems = {
   id: number;
   dsc: string;
   img: string;
-};
-
-//when the button clicks it should reroute to the success page and send an api post to the order service. 
-const handleBtnClick = async (id: number, name: string, img: string) => {
-  try {
-    await axios.post("http://localhost:3005", {
-      id: id,
-      name: name,
-      img: img
-    });
-
-
-  } catch (error) {
-    console.log(`There is an issue with sending your data: ${error}`);
-
-  }
-
-}
-
-const handleLogout = () => {
-  console.log("User logged out");
-  // Add your logout logic here
 };
 
 function App() {
@@ -93,9 +71,35 @@ function App() {
           }
         />
       </Routes>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <NavBar userName={user?.email} />
+              <h1>Menu Items</h1>
+              <ul className="menu-items">
+                {menu.map(({ id, img, dsc: name }) => {
+                  return (
+                    <li key={id} className='menu-card'>
+                      <img src={img} width="300" height="300" />
+                      <h3>{name}</h3>
+                      <div className='button'>
+                        <SubmitBtn formData={{ id, name, img }} />
+                      </div>
+                    </li>
+                  )
+                }
+                )}
+              </ul>
+            </div>
+          }
+        >
+        </Route>
+      </Routes>
+      {/* <div>
 
-      <div>
-        <NavBar userName={user?.email} onLogout={handleLogout} />
+        <NavBar userName={user?.email} />
 
         <h1>Menu Items</h1>
         <ul className="menu-items">
@@ -114,7 +118,7 @@ function App() {
           )}
         </ul>
 
-      </div>
+      </div> */}
     </>
   )
 }

@@ -9,7 +9,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ userName }) => {
     return (
-        <nav className="bg-blue-600 text-white px-6 py-4 flex justify-between items-center shadow-md">
+        <nav className="bg-grey-600 text-white px-6 py-4 flex justify-between items-center shadow-md">
             <div className="text-xl font-bold">
                 <a href="/">LocalGrub</a>
             </div>

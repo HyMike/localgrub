@@ -25,35 +25,90 @@ const SignUp = () => {
     };
 
     return (
-        <form onSubmit={handleSignUp}>
+        <form
+            onSubmit={handleSignUp}
+            className="max-w-md mx-auto mt-16 bg-white p-10 rounded-2xl shadow-xl space-y-6"
+        >
+            <h1 className="text-3xl font-bold text-center text-gray-800">
+                Sign Up To Order Food
+            </h1>
+
             <input
+                type="text"
                 placeholder="First Name"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
+                className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
+
             <input
+                type="text"
                 placeholder="Last Name"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
+                className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
+
             <input
-                placeholder="Email"
                 type="email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
+
             <input
-                placeholder="Password"
                 type="password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
-            <button>Sign Up</button>
+
+            <button
+                type="submit"
+                className="w-full py-4 bg-orange-500 text-white text-lg font-semibold rounded-xl hover:bg-orange-600 transition duration-200"
+            >
+                Sign Up
+            </button>
         </form>
+
+
+
+        // <form onSubmit={handleSignUp}>
+        //     <h1>Sign Up To Order Food</h1>
+        //     <input
+        //         placeholder="First Name"
+        //         value={firstName}
+        //         onChange={(e) => setFirstName(e.target.value)}
+        //         required
+        //     />
+        //     <input
+        //         placeholder="Last Name"
+        //         value={lastName}
+        //         onChange={(e) => setLastName(e.target.value)}
+        //         required
+        //     />
+        //     <input
+        //         placeholder="Email"
+        //         type="email"
+        //         value={email}
+        //         onChange={(e) => setEmail(e.target.value)}
+        //         required
+        //     />
+        //     <input
+        //         placeholder="Password"
+        //         type="password"
+        //         value={password}
+        //         onChange={(e) => setPassword(e.target.value)}
+        //         required
+        //     />
+        //     <button>Sign Up</button>
+        // </form>
 
     );
 };
