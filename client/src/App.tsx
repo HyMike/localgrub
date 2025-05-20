@@ -7,12 +7,13 @@ import getMenu from './services/menu-items';
 import axios from 'axios';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { useLocation, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './Login';
+import Login from './components/Login';
 import SuccessPage from './pages/SuccessPage';
 import SignUp from './components/SignUp';
 import SubmitBtn from "./components/SubmitBtn";
 import { useAuth } from './authentication/AuthContext';
 import LogOutBtn from './components/LogOutBtn';
+import NavBar from "./components/NavBar";
 
 type MenuItems = {
   id: number;
@@ -35,8 +36,12 @@ const handleBtnClick = async (id: number, name: string, img: string) => {
 
   }
 
-
 }
+
+const handleLogout = () => {
+  console.log("User logged out");
+  // Add your logout logic here
+};
 
 function App() {
   const [menu, setMenu] = useState<MenuItems[]>([]);
@@ -90,10 +95,9 @@ function App() {
       </Routes>
 
       <div>
+        <NavBar userName={user?.email} onLogout={handleLogout} />
+
         <h1>Menu Items</h1>
-        {user ? (
-          <h2>{user.email}</h2>) : (<h2>user doesn't exist!</h2>)}
-        <LogOutBtn />
         <ul className="menu-items">
           {menu.map(({ id, img, dsc: name }) => {
 

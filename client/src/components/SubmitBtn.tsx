@@ -42,6 +42,7 @@ const SubmitBtn = ({ formData }: Props) => {
     const sendData = async ({ id, name, img }: FormData, token: string) => {
         try {
             await axios.post("http://localhost:3005/success", {
+                //this is the food item that we are working with
                 id: id,
                 name: name,
                 img: img
