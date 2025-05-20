@@ -16,7 +16,7 @@ const consumeOrder = async (): Promise<void> => {
                 if (msg) {
                     try {
                         const content = JSON.parse(msg.content.toString());
-                        console.log("Message Received in Restaurant:", content);
+                        console.log("Preparing Order:", content);
 
                         channel.ack(msg);
                     } catch (err) {

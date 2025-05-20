@@ -72,10 +72,11 @@ app.post("/success", async (req: Request, res: Response) => {
             itemName,
             createdAt: new Date().toISOString(),
         };
+        console.log("Received Order:", order);
 
         await sendOrder(order);
 
-        console.log("Received Order:", order);
+
 
     } catch (error) {
         console.error("Order service is not processing!", error);
