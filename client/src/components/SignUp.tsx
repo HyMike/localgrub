@@ -78,38 +78,6 @@ const SignUp = () => {
         </form>
 
 
-
-        // <form onSubmit={handleSignUp}>
-        //     <h1>Sign Up To Order Food</h1>
-        //     <input
-        //         placeholder="First Name"
-        //         value={firstName}
-        //         onChange={(e) => setFirstName(e.target.value)}
-        //         required
-        //     />
-        //     <input
-        //         placeholder="Last Name"
-        //         value={lastName}
-        //         onChange={(e) => setLastName(e.target.value)}
-        //         required
-        //     />
-        //     <input
-        //         placeholder="Email"
-        //         type="email"
-        //         value={email}
-        //         onChange={(e) => setEmail(e.target.value)}
-        //         required
-        //     />
-        //     <input
-        //         placeholder="Password"
-        //         type="password"
-        //         value={password}
-        //         onChange={(e) => setPassword(e.target.value)}
-        //         required
-        //     />
-        //     <button>Sign Up</button>
-        // </form>
-
     );
 };
 

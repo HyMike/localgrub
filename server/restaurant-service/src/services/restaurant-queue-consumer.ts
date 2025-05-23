@@ -6,12 +6,14 @@ const consumeOrder = async (): Promise<void> => {
 
         const channel = await conn.createChannel();
 
-        const queue = 'order';
+        await channel.assertExchange("topic_exc", "topic", { durable: true });
 
-        await channel.assertQueue(queue, { durable: true });
+        const queueRes = await channel.assertQueue("", { durable: true });
+
+        await channel.bindQueue(queueRes.queue, "topic_exc", "order.placed");
 
         channel.consume(
-            queue,
+            queueRes.queue,
             (msg: ConsumeMessage | null) => {
                 if (msg) {
                     try {
@@ -28,7 +30,7 @@ const consumeOrder = async (): Promise<void> => {
             { noAck: false }
         );
 
-        console.log("Waiting for messages in queue:", queue);
+        console.log("Waiting for messages in queue:");
     } catch (error) {
         console.error("Error in consumeOrder:", error);
     }

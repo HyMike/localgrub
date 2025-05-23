@@ -18,8 +18,14 @@ const sendOrder = async (order: object): Promise<void> => {
     const queue = 'order';
     const msg = JSON.stringify(order);
 
-    await channel.assertQueue(queue, { durable: true });
-    channel.sendToQueue(queue, Buffer.from(msg));
+    await channel.assertExchange("topic_exc", "topic", { durable: true });
+
+    // await channel.assertQueue(queue, { durable: true });
+    channel.publish(
+        "topic_exc",
+        "order.placed",
+        Buffer.from(msg), { persistent: true });
+    // channel.sendToQueue(queue, Buffer.from(msg));
 
     console.log("Message is sent to queue:", msg);
 

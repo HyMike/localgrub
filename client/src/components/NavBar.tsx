@@ -14,7 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ userName }) => {
                 <a href="/">LocalGrub</a>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex text-black items-center gap-4">
                 {userName ? (
                     <>
                         <span className="font-medium">Signed in as {userName}</span>
