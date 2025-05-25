@@ -20,7 +20,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 320px;
-    height: 475px;
+    height: auto;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px;
@@ -30,9 +30,6 @@
 
 .menu-card h3 {
     min-height: 48px;
-    margin: 0 0 20px;
-}
-
-.button {
-    /* margin-top: auto; */
+    margin: 8px 0 0px 0px;
+    font-weight: bold;
 }
