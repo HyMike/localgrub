@@ -13,5 +13,5 @@ app.get("/users", (req, res) => {
 });
 
 app.listen(3001, () => {
-    console.log("delivery service is running on port 3001");
+    console.log("Payment Service is running on 3001");
 });

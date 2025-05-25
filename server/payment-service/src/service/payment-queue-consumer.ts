@@ -17,7 +17,9 @@ const consumeOrder = async (): Promise<void> => {
                 if (msg) {
                     try {
                         const content = JSON.parse(msg.content.toString());
-                        console.log(content);
+
+                        console.log(`Payment Received from:`, content);
+
                         channel.ack(msg);
 
                     } catch (error) {

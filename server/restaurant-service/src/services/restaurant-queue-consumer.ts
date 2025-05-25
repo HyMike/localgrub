@@ -30,7 +30,7 @@ const consumeOrder = async (): Promise<void> => {
             { noAck: false }
         );
 
-        console.log("Waiting for messages in queue:");
+        console.log("Waiting for messages in restaurant queue:");
     } catch (error) {
         console.error("Error in consumeOrder:", error);
     }

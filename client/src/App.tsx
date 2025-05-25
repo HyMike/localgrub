@@ -21,7 +21,7 @@ function App() {
       const itemsWithImage = getMenuItems.filter(
         (item: MenuItems) => item.img && item.img.trim() !== ''
       );
-      const topSixItems = itemsWithImage.slice(2, 8);
+      const topSixItems = itemsWithImage.slice(31, 37);
       setMenu(topSixItems);
     };
     fetchMenu();

@@ -1,0 +1,16 @@
+{
+  "name": "localgrub-app",
+  "version": "1.0.0",
+  "description": "LocalGrub 🍔  Food Delivery Platform",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -k \"npm run dev  --prefix client \" \"npm run dev --prefix server/payment-service \" \" npm run dev --prefix server/restaurant-service \" \" npm run dev --prefix server/order-service \" \" npm run dev --prefix server/notification-service \" ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
