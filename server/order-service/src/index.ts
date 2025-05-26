@@ -5,7 +5,6 @@ import admin from 'firebase-admin';
 import dotenv from "dotenv";
 import { ServiceAccount } from 'firebase-admin';
 import { getFirestore } from 'firebase-admin/firestore';
-import { send } from "process";
 
 
 dotenv.config();
@@ -20,11 +19,11 @@ app.use(cors({
 
 app.use(express.json());
 
-type Order = {
-    id: number;
-    name: string;
-    img: string;
-};
+// type Order = {
+//     id: number;
+//     name: string;
+//     img: string;
+// };
 
 
 admin.initializeApp({
@@ -40,7 +39,7 @@ const db = getFirestore();
 
 app.post("/success", async (req: Request, res: Response) => {
     const authHeader = req.headers.authorization;
-    const { id: itemId, name: itemName } = req.body;
+    const { id: itemId, name: itemName, quantity, price } = req.body;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).send('Unauthorized');
@@ -58,10 +57,12 @@ app.post("/success", async (req: Request, res: Response) => {
         if (!userDoc.exists) {
             return res.status(404).json({ message: 'User data not found' });
         }
+        //get user data from firestore
         const email = decodedToken.email || '';
         const userData = userDoc.data();
         const firstName = userData?.firstName || '';
         const lastName = userData?.lastName || '';
+
 
         const order = {
             uid,
@@ -70,6 +71,8 @@ app.post("/success", async (req: Request, res: Response) => {
             email,
             itemId,
             itemName,
+            quantity,
+            price,
             createdAt: new Date().toISOString(),
         };
         console.log("Received Order:", order);

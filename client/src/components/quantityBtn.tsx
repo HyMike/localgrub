@@ -1,14 +1,22 @@
 import { useState } from "react";
 
-export const QuantityBtn = () => {
+type QuantityBtnProps = {
+    onQuantityChange: (quantity: number) => void;
+}
+
+export const QuantityBtn = ({ onQuantityChange }: QuantityBtnProps) => {
     const [quantity, SetQuantity] = useState(1);
 
 
     const handleQuantity = (event: React.MouseEvent<HTMLButtonElement>) => {
         if (event.currentTarget.textContent === "+") {
-            SetQuantity(quantity + 1);
+            const quantitySum = quantity + 1;
+            SetQuantity(quantitySum);
+            onQuantityChange(quantitySum);
         } else {
-            SetQuantity((quantity) => Math.max(1, quantity - 1));
+            const quantityDiff = Math.max(1, quantity - 1)
+            SetQuantity(quantityDiff);
+            onQuantityChange(quantityDiff);
         }
     };
 

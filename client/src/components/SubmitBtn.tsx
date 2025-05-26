@@ -4,9 +4,10 @@ import { sendData } from "../utils/sendData.utils";
 
 
 type FormData = {
-    id: number;
+    id: string;
     name: string;
-    img: string;
+    quantity: number;
+    price: number;
 }
 
 type Props = {
@@ -18,7 +19,6 @@ type Props = {
 const SubmitBtn = ({ formData }: Props) => {
     const { user, loading } = useAuth();
     const navigate = useNavigate();
-
     if (loading) return null;
 
     const handleClick = async () => {

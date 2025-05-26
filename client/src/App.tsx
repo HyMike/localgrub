@@ -8,7 +8,7 @@ import Login from './components/Login';
 import SuccessPage from './pages/SuccessPage';
 import SignUp from './components/SignUp';
 import { MenuItems } from './types/menu';
-import MenuPage from './pages/menu';
+import MenuPage from './pages/MenuPage';
 
 
 
@@ -19,7 +19,7 @@ function App() {
     const fetchMenu = async () => {
       const getMenuItems = await getMenu();
       const itemsWithImage = getMenuItems.filter(
-        (item: MenuItems) => item.img && item.img.trim() !== ''
+        (item) => item.img && item.img.trim() !== ''
       );
       const topSixItems = itemsWithImage.slice(31, 37);
       setMenu(topSixItems);

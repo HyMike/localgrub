@@ -4,7 +4,7 @@ type MenuItem = {
     id: number;
     img: string;
     dsc: string;
-
+    price: number;
 };
 
 const getMenu = async (): Promise<MenuItem[]> => {

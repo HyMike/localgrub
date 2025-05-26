@@ -3,7 +3,8 @@ import axios from "axios";
 export type FormData = {
     id: number;
     name: string;
-    img: string;
+    quantity: number;
+    price: number;
 };
 
 export const sendData = async (formData: FormData, token: string) => {
@@ -13,7 +14,8 @@ export const sendData = async (formData: FormData, token: string) => {
             {
                 id: formData.id,
                 name: formData.name,
-                img: formData.img,
+                quantity: formData.quantity,
+                price: formData.price,
             },
             {
                 headers: {
