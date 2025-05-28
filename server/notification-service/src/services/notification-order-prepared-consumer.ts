@@ -28,7 +28,7 @@ const notificationsOrderPrepared = async () => {
 
                     const subject = `Your order is being prepared, ${firstName}`
                     const text = `Hey ${firstName}. Just a quick update—your order.
-                     ${itemName} x ${quantity} is now being freshly prepared in our kitchen. We’re making 
+                     Your order of ${quantity} x ${itemName} is now being freshly prepared in our kitchen. We’re making 
                      sure everything is just right so it’s hot and delicious when you arrive. 
                      You’ll receive another message as soon as it’s ready for pickup.
                      Thanks for your patience and support! Hungrily yours,localgrub`
@@ -36,8 +36,6 @@ const notificationsOrderPrepared = async () => {
 
                     sendEmail(email,subject,text);
                         
-
-
 
                     channel.ack;
                 }
