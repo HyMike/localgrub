@@ -15,7 +15,6 @@ const sendOrder = async (order: object): Promise<void> => {
     const conn = await amqp.connect('amqp://localhost:5672');
     const channel = await conn.createChannel();
 
-    const queue = 'order';
     const msg = JSON.stringify(order);
 
     await channel.assertExchange("topic_exc", "topic", { durable: true });

@@ -48,15 +48,30 @@ app.post("/success", async (req: Request, res: Response) => {
     const idToken = authHeader.split('Bearer ')[1];
 
     try {
+        //get and verify user.
         const decodedToken = await admin.auth().verifyIdToken(idToken);
-
-
         const uid = decodedToken.uid;
-
         const userDoc = await db.collection('users').doc(uid).get();
+
         if (!userDoc.exists) {
             return res.status(404).json({ message: 'User data not found' });
         }
+        //create an order collection. 
+        const ordersRef =  db.collection('users').doc(uid).collection('orders');
+
+        const userOrder = {
+            itemId, 
+            itemName,
+            quantity, 
+            price,
+            createdAt: new Date().toISOString(),
+        }
+        
+        const orderRef = await ordersRef.add({
+            ...userOrder,
+            status: "pending",
+        });
+
         //get user data from firestore
         const email = decodedToken.email || '';
         const userData = userDoc.data();
@@ -69,11 +84,7 @@ app.post("/success", async (req: Request, res: Response) => {
             firstName,
             lastName,
             email,
-            itemId,
-            itemName,
-            quantity,
-            price,
-            createdAt: new Date().toISOString(),
+            ...userOrder,
         };
         console.log("Received Order:", order);
 

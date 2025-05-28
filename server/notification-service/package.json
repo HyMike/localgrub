@@ -6,19 +6,23 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/services/notification-queue-consumer.ts",
     "start:consumer": "ts-node src/services/order-queue-consumer.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "notification": "ts-node src/services/notification-order-prepared-consumer.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.10.8",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "nodemailer": "^7.0.3"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.7",
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.17",
+    "@types/nodemailer": "^6.4.17",
+    "concurrently": "^9.1.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   }

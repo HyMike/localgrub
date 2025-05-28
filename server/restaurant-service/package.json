@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/services/restaurant-queue-consumer.ts",
+    "dev": "concurrently -k \"ts-node src/index.ts\" \" ts-node src/services/restaurant-queue-consumer.ts\" ",
     "start:consumer": "ts-node src/services/restaurant-queue-consumer.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,12 +13,15 @@
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.10.8",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "pg": "^8.16.0"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.7",
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.17",
+    "@types/pg": "^8.15.2",
+    "concurrently": "^9.1.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
