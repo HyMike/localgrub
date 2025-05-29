@@ -33,10 +33,8 @@ const notificationsOrderPrepared = async () => {
                      You’ll receive another message as soon as it’s ready for pickup.
                      Thanks for your patience and support! Hungrily yours,localgrub`
 
-
                     sendEmail(email,subject,text);
                         
-
                     channel.ack;
                 }
 

@@ -9,6 +9,7 @@ import SuccessPage from './pages/SuccessPage';
 import SignUp from './components/SignUp';
 import { MenuItems } from './types/menu';
 import MenuPage from './pages/MenuPage';
+import CustomerOrderPage from "./pages/CustomerOrderPage";
 
 
 
@@ -41,6 +42,7 @@ function App() {
         }
       />
       <Route path="/" element={<MenuPage menu={menu} />} />
+      <Route path="orders" element={<CustomerOrderPage />} />
     </Routes>
   );
 }

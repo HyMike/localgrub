@@ -3,9 +3,7 @@ import cors from 'cors';
 import sendOrder from "./services/order-queue-producer";
 import admin from 'firebase-admin';
 import dotenv from "dotenv";
-import { ServiceAccount } from 'firebase-admin';
-import { getFirestore } from 'firebase-admin/firestore';
-
+import { db } from "./utils/firebaseAdmin";
 
 dotenv.config();
 const app = express();
@@ -18,24 +16,6 @@ app.use(cors({
 }));
 
 app.use(express.json());
-
-// type Order = {
-//     id: number;
-//     name: string;
-//     img: string;
-// };
-
-
-admin.initializeApp({
-    credential: admin.credential.cert({
-        type: process.env.FIREBASE_TYPE,
-        project_id: process.env.FIREBASE_PROJECT_ID,
-        private_key: process.env.FIREBASE_PRIVATE_KEY,
-        client_email: process.env.FIREBASE_CLIENT_EMAIL,
-    } as ServiceAccount),
-});
-const db = getFirestore();
-
 
 app.post("/success", async (req: Request, res: Response) => {
     const authHeader = req.headers.authorization;
@@ -96,6 +76,29 @@ app.post("/success", async (req: Request, res: Response) => {
         console.error("Order service is not processing!", error);
         res.status(500).json({ message: "Internal Server Error", error });
     }
+});
+
+//order page to update the status to ready
+app.post("/order-ready", async (req, res) => {
+  const { orderId, userId } = req.body;
+
+  try {
+
+    const orderRef = db.doc(`users/${userId}/orders/${orderId}`);
+    const orderSnap = await orderRef.get();
+
+    if (!orderSnap.exists) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+
+    await orderRef.update({ status: "Ready" });
+
+    res.status(200).json({ message: "Order status updated to Ready" });
+  } catch (error) {
+    console.error("Error updating order status:", error);
+    res.status(500).json({ error: "Failed to update order status" });
+  }
 });
 
 

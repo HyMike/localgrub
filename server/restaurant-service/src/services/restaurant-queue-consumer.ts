@@ -18,7 +18,7 @@ const consumeOrder = async (): Promise<void> => {
             (msg: ConsumeMessage | null) => {
                 if (msg) {
                     try {
-                        const order = JSON.parse(msg.content.toString());
+                        const order = JSON.parse (msg.content.toString());
                         console.log("Preparing Order:", order);
                         
                         //pass entire order into it. 
