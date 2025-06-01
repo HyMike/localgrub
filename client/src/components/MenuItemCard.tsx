@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { QuantityBtn } from "./quantityBtn";
+import { QuantityBtn } from "./QuantityBtn";
 import SubmitBtn from "./SubmitBtn";
 
 
@@ -10,7 +10,7 @@ function MenuItemCard({ id, name, img, price }: { id: string, name: string, img:
         setQuantity(q);
     };
 
-    const formData = { id, name, quantity, price };
+    const formData = { id, name, quantity, price, img };
 
     return (
         <li className="menu-card">
@@ -18,7 +18,7 @@ function MenuItemCard({ id, name, img, price }: { id: string, name: string, img:
             <h3>{name}</h3>
             <QuantityBtn onQuantityChange={handleQuantityChange} />
             <div className="button">
-                <SubmitBtn formData={formData} />
+                <SubmitBtn formData={formData} toPage={"checkout"}  />
             </div>
         </li>
     );

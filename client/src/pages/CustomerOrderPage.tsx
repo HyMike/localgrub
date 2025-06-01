@@ -49,7 +49,6 @@ const getAllOrdersForAllUsers = async (): Promise<[]> => {
 };
 
 
-
 const CustomerOrderPage = () => {
   const [allOrders, setAllOrders] = useState<Order[][]>([]);
   const [readyOrder, setReadyOrder] = useState<Set<string>>(new Set());

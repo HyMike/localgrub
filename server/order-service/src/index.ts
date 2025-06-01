@@ -4,6 +4,10 @@ import sendOrder from "./services/order-queue-producer";
 import admin from 'firebase-admin';
 import dotenv from "dotenv";
 import { db } from "./utils/firebaseAdmin";
+import { getNameEmailItemQuantity } from "./services/user-service";
+import { orderReady } from "./services/order-ready-producer";
+
+
 
 dotenv.config();
 const app = express();
@@ -17,9 +21,17 @@ app.use(cors({
 
 app.use(express.json());
 
+type userInfo = {
+    name: string;
+    email: string;
+    itemName: string;
+    quantity: number;
+} | null
+
+
 app.post("/success", async (req: Request, res: Response) => {
     const authHeader = req.headers.authorization;
-    const { id: itemId, name: itemName, quantity, price } = req.body;
+    const { id: itemId, name: itemName, quantity, price, creditCardInfo } = req.body;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).send('Unauthorized');
@@ -38,12 +50,13 @@ app.post("/success", async (req: Request, res: Response) => {
         }
         //create an order collection. 
         const ordersRef =  db.collection('users').doc(uid).collection('orders');
-
+        
         const userOrder = {
             itemId, 
             itemName,
             quantity, 
             price,
+            creditCardInfo,
             createdAt: new Date().toISOString(),
         }
         
@@ -91,8 +104,11 @@ app.post("/order-ready", async (req, res) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
-
     await orderRef.update({ status: "Ready" });
+
+    //call producer to emit to notification to let customer know order is ready for pickup. 
+    const userInfo = await getNameEmailItemQuantity(userId, orderId);
+    orderReady(userInfo!);
 
     res.status(200).json({ message: "Order status updated to Ready" });
   } catch (error) {
@@ -101,10 +117,6 @@ app.post("/order-ready", async (req, res) => {
   }
 });
 
-
-app.get("/users", (req, res) => {
-    res.json([{ id: 1, name: "alice" }]);
-});
 
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => {

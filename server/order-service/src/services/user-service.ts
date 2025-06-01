@@ -1,30 +1,12 @@
-import {db} from "../"
- 
-// export const getOrderByUserId = async (orderId: string, userId: string) => {
-//   try {
-//     const orderRef = db.doc(`users/${userId}/orders/${orderId}`);
-//     const orderSnap = await orderRef.get(); // Firebase Admin SDK method
-
-//     if (orderSnap.exists) {
-//       return orderSnap.data(); // this is the Firestore document's data
-//     } else {
-//       console.log("Order not found");
-//       return null;
-//     }
-//   } catch (error) {
-//     console.error("Error fetching order:", error);
-//     return null;
-//   }
-// };
+import { db } from "../utils/firebaseAdmin";
 
 
 export const getOrderByUserId = async (orderId: string, userId: string) => {
   try {
-   const path = `users/${userId}/orders/${orderId}`;
-console.log("📌 Fetching from path:", path);
+   const orderPath = `users/${userId}/orders/${orderId}`;
 
-const orderRef = db.doc(path);
-const orderSnap = await orderRef.get();
+    const orderRef = db.doc(orderPath);
+    const orderSnap = await orderRef.get();
 
     if (orderSnap.exists) {
       return orderSnap.data();
@@ -37,3 +19,36 @@ const orderSnap = await orderRef.get();
     throw new Error("Failed to fetch order.");
   }
 };
+
+export const getNameEmailItemQuantity = async (userId: string, orderId: string) => {
+  try {
+    const userRef = db.doc(`users/${userId}`);
+    const orderRef = db.doc(`users/${userId}/orders/${orderId}`);
+
+    const [userSnap, orderSnap] = await Promise.all([userRef.get(), orderRef.get()]);
+
+    if (!userSnap.exists) {
+      console.log("User not found");
+      return null;
+    }
+
+    if (!orderSnap.exists) {
+      console.log("Order not found");
+      return null;
+    }
+
+    const userData = userSnap.data();
+    const orderData = orderSnap.data();
+
+    return {
+      name: userData?.firstName || "",
+      email: userData?.email || "",
+      itemName: orderData?.itemName || "",
+      quantity: orderData?.quantity || 0,
+    };
+  } catch (error) {
+    console.error("🔥 Error fetching order and user info:", error);
+    throw new Error("Failed to fetch order and user data.");
+  }
+};
+

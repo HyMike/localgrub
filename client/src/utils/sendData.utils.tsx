@@ -5,6 +5,7 @@ export type FormData = {
     name: string;
     quantity: number;
     price: number;
+    creditCardInfo: string;
 };
 
 export const sendData = async (formData: FormData, token: string) => {
@@ -16,6 +17,7 @@ export const sendData = async (formData: FormData, token: string) => {
                 name: formData.name,
                 quantity: formData.quantity,
                 price: formData.price,
+                creditCardInfo: formData.creditCardInfo,
             },
             {
                 headers: {
