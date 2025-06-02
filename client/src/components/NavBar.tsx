@@ -17,19 +17,13 @@ const Navbar: React.FC<NavbarProps> = ({ userName }) => {
             <div className="flex text-black items-center gap-4">
                 {userName ? (
                     <>
-                        <span className="font-medium">Signed in as {userName}</span>
+                        <span className="font-medium">Hi, {userName}</span>
                         <LogOutBtn />
                     </>
                 ) : (
                     <LoginBtn />
                 )}
 
-                {/* <button
-                    onClick={onLogout}
-                    className="bg-white text-blue-600 px-4 py-1 rounded hover:bg-gray-100 transition"
-                >
-                    Log Out
-                </button> */}
             </div>
         </nav>
     );

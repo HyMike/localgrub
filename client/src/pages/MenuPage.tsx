@@ -10,7 +10,9 @@ function MenuPage({ menu }: { menu: MenuItems[] }) {
     return (
         <div>
             <NavBar userName={user?.email} />
-            <h1>Menu Items</h1>
+              <h1 className="text-3xl font-bold text-gray-800 mb-6 mt-6">
+                    Best Sellers
+                </h1>
             <ul className="menu-items">
                 {menu.map(({ id, img, dsc: name, price }) => (
                     <MenuItemCard key={id} id={id} img={img} name={name} price={price} />

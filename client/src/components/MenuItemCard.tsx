@@ -12,13 +12,18 @@ function MenuItemCard({ id, name, img, price }: { id: string, name: string, img:
 
     const formData = { id, name, quantity, price, img };
 
-    return (
+    return (    
+    
         <li className="menu-card">
             <img src={img} width="300" height="300" />
             <h3>{name}</h3>
             <QuantityBtn onQuantityChange={handleQuantityChange} />
             <div className="button">
                 <SubmitBtn formData={formData} toPage={"checkout"}  />
+            </div>
+
+            <div className="mt-2">
+                <p>Pickup with 10-15 mins</p>
             </div>
         </li>
     );

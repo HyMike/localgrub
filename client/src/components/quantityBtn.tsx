@@ -21,7 +21,7 @@ export const QuantityBtn = ({ onQuantityChange }: QuantityBtnProps) => {
     };
 
     return (
-        <div className="flex items-center justify-around w-full max-w-sm mb-5 mt-3">
+        <div className="flex items-center justify-around w-full max-w-sm mb-5 ">
             <label className="text-base leading-none mr-4">Quantity</label>
 
             <div className="flex items-center space-x-2">

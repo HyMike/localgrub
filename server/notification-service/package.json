@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/services/notification-queue-consumer.ts",
-    "start:consumer": "ts-node src/services/order-queue-consumer.ts",
+   "dev": "concurrently -k -n queue,prepared,ready -c green,blue,magenta \"ts-node src/services/notification-queue-consumer.ts\" \"ts-node src/services/notification-order-prepared-consumer.ts\" \"ts-node src/services/notification-order-ready-consumer.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "notification": "ts-node src/services/notification-order-prepared-consumer.ts",
     "order-ready": "ts-node src/services/notification-order-ready-consumer.ts"

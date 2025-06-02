@@ -22,7 +22,6 @@ const orderReadyNotification = async (): Promise<void> => {
         channel.consume(
             queueRes.queue,
             (msg: ConsumeMessage | null) => {
-                console.log("i am running!");
                 if (msg) {
                     const content = JSON.parse(msg.content.toString());
                     console.log(`Sending Out Notifications:`, content);

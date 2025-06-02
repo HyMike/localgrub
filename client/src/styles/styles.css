@@ -26,10 +26,18 @@
     padding: 10px;
     box-sizing: border-box;
     text-align: center;
+    transition: border 0.3s ease;
+
 }
 
 .menu-card h3 {
     min-height: 48px;
     margin: 8px 0 0px 0px;
     font-weight: bold;
+}
+
+.menu-items li:hover,
+.menu-card:hover {
+       border-color: #000000;
+    border-width: 2px;
 }
