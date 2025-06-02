@@ -15,11 +15,12 @@ type Props = {
     formData: FormData;
     toPage: string;
     creditCardInfo?: string;
+    btnTxt: string;
 };
 
 
 // this now just pass the data into the checkout page. and you would do the submit and sendData there. 
-const SubmitBtn = ({ formData, toPage, creditCardInfo= "" }: Props) => {
+const SubmitBtn = ({ formData, toPage, creditCardInfo= "", btnTxt="" }: Props) => {
 
     const { user, loading } = useAuth();
     const navigate = useNavigate();
@@ -63,7 +64,7 @@ const SubmitBtn = ({ formData, toPage, creditCardInfo= "" }: Props) => {
         }
     };
 
-    return <button onClick={handleClick}>Buy Now One-Click</button>;
+    return <button onClick={handleClick}>{btnTxt}</button>;
 
 };
 

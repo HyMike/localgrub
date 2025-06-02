@@ -19,7 +19,7 @@ function MenuItemCard({ id, name, img, price }: { id: string, name: string, img:
             <h3>{name}</h3>
             <QuantityBtn onQuantityChange={handleQuantityChange} />
             <div className="button">
-                <SubmitBtn formData={formData} toPage={"checkout"}  />
+                <SubmitBtn formData={formData} toPage={"checkout"} btnTxt="Buy Now With 1-Click" />
             </div>
 
             <div className="mt-2">
