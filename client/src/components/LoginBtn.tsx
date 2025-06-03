@@ -13,7 +13,9 @@ const LoginBtn = () => {
         }
     };
 
-    return <button onClick={handleLogin}>Log In</button>;
+    return <button className="text-white bg-gray-600 px-4 py-2 rounded-full hover:bg-gray-700 transition duration-200"
+ onClick={handleLogin}>Sign In</button>;
+
 };
 
 export default LoginBtn;
