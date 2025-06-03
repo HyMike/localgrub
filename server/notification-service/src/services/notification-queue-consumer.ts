@@ -34,7 +34,32 @@ const consumeOrder = async (): Promise<void> => {
                     Thanks again for choosing us—we can’t wait to serve you!
                     Warm regards,The localgrub Team`
 
-                    sendEmail(email,subject,text);
+                    const html = `
+                        <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
+                            <h2 style="color: #e67e22;">🍴 Thanks for your order, ${firstName}!</h2>
+                            <p>We’ve successfully received your order and are about to get started.</p>
+                            <p>You’ll get another update once we begin preparing your food—and again when it’s ready for pickup.</p>
+
+                            <div style="margin: 20px 0; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #e67e22;">
+                            <p><strong>Order Summary:</strong></p>
+                            <p>${quantity} × ${itemName}</p>
+                            </div>
+
+                            <p>If you have any questions, just reply to this email—we’re happy to help!</p>
+
+                            <p>Thanks again for choosing <strong>localgrub</strong>—we can’t wait to serve you!</p>
+
+                            <p style="margin-top: 30px;">Warm regards,<br/>The localgrub Team</p>
+
+                            <hr style="margin-top: 40px;" />
+                            <footer style="font-size: 12px; color: #888;">
+                            <p>localgrub | 123 Pickup Street | Foodtown, CA</p>
+                            <p>Need help? <a href="mailto:support@localgrub.com">support@localgrub.com</a></p>
+                            </footer>
+                        </div>
+                        `;
+
+                    sendEmail(email,subject,html);
 
                     channel.ack(msg);
                 }

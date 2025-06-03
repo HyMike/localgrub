@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const sendEmail = async (to: string, subject: string, text: string): Promise<void> => {
+export const sendEmail = async (to: string, subject: string, html: string): Promise<void> => {
     const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -17,7 +17,7 @@ export const sendEmail = async (to: string, subject: string, text: string): Prom
     from: process.env.EMAIL_USER, 
     to, 
     subject,
-    text,
+    html,
     };
 
     await transporter.sendMail(mailOptions);

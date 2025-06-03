@@ -33,7 +33,32 @@ const notificationsOrderPrepared = async () => {
                      You’ll receive another message as soon as it’s ready for pickup.
                      Thanks for your patience and support! Hungrily yours,localgrub`
 
-                    sendEmail(email,subject,text);
+                     const html = `
+                        <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
+                            <h2 style="color: #f39c12;">🍳 Cooking up something delicious for you, ${firstName}!</h2>
+
+                            <p>Just a quick update—your order is now being freshly prepared in our kitchen.</p>
+
+                            <div style="margin: 20px 0; padding: 15px; background-color: #fef9f4; border-left: 4px solid #f39c12;">
+                            <p><strong>Order Summary:</strong></p>
+                            <p>${quantity} × ${itemName}</p>
+                            </div>
+
+                            <p>We’re making sure everything is hot, fresh, and just the way you like it. You’ll receive another message once your order is ready for pickup.</p>
+
+                            <p>Thanks for your patience and support—we truly appreciate you!</p>
+
+                            <p style="margin-top: 30px;">Hungrily yours,<br/>The <strong>localgrub</strong> Team</p>
+
+                            <hr style="margin-top: 40px;" />
+                            <footer style="font-size: 12px; color: #888;">
+                            <p>localgrub | 123 Pickup Street | Foodtown, CA</p>
+                            <p>Need help? <a href="mailto:support@localgrub.com">support@localgrub.com</a></p>
+                            </footer>
+                        </div>
+                        `;
+
+                    sendEmail(email,subject,html);
                         
                     channel.ack;
                 }
