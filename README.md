@@ -9,7 +9,7 @@ Enable customers to order food, notify restaurants, assign drivers, track delive
 
 Data flow Diagram: 
 
-**1.Customer Order Placement**
+**1. Customer Order Placement**
   The customer selects menu items and checks out using their credit card. The frontend application sends an API request to the Order Service, containing all necessary order and payment details.
 
 **2. Order Storage**
