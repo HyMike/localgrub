@@ -25,10 +25,9 @@ const Checkout = () => {
   
   return (
   <div className="p-6 bg-white text-black max-w-2xl mx-auto mt-10 shadow-2xl rounded-xl border border-gray-200">
-    {/* Heading */}
+  
     <h1 className="text-3xl font-bold mb-6 text-gray-800">Checkout</h1>
 
-    {/* Product Section */}
     <div className="flex flex-col md:flex-row gap-6 mb-6">
       <img
         src={img}
@@ -53,7 +52,7 @@ const Checkout = () => {
     </div>
 
 
-    {/* Credit Card Info */}
+
     <div className="mt-6">
       <label className="block text-sm font-medium text-gray-700 mb-2">
         Credit Card Information
@@ -67,7 +66,7 @@ const Checkout = () => {
       />
     </div>
 
-    {/* Submit Button */}
+
     <div className="mt-8">
       <SubmitBtn
         formData={formData}
@@ -78,34 +77,7 @@ const Checkout = () => {
     </div>
   </div>
 );
-  // return (
-  //   <div className="p-4 bg-white text-black max-w-lg mx-auto mt-10 shadow-lg rounded-lg">
-  //     <h1 className="text-2xl font-bold mb-4">Checkout</h1>
-  //     <img src={img} alt={name} className="w-full h-72 object-contain rounded mb-4" />
-  //     <p><strong>Item:</strong> {name}</p>
-  //     <p><strong>Quantity:</strong> {quantity}</p>
-  //     <p><strong>Price:</strong> ${price}</p>
-  //     <p className="text-lg font-semibold mt-2">Total: ${total}</p>
-
-
-  //     <div className="mt-6">
-  //       <label className="block mb-2">Please Enter Your Credit Card Info</label>
-  //       <input
-  //         onChange={onChangeHandler}
-  //         type="text"
-  //         value={creditCardInfo}
-  //         placeholder="1234 5678 9012 3456"
-  //         className="w-full p-2 border rounded mb-4"
-  //       />
-  //     </div>
-  //     <SubmitBtn 
-  //     formData={formData}
-  //     creditCardInfo={creditCardInfo} 
-  //     toPage={"success"}
-  //     btnTxt="Complete Your Purchase"
-  //     />
-  //   </div>
-  // );
+  
 };
 
 export default Checkout;
