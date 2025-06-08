@@ -4,7 +4,7 @@ Food Delivery Platform
 Goal:
 Enable customers to order food, notify restaurants, assign drivers, track deliveries, and manage payments—all through asynchronous, event-driven microservices.
 
-
+![ALT TEXT](./data_flow_diagram.png)
 
 
 Data flow Diagram: 
