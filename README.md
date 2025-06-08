@@ -2,7 +2,7 @@ LocalGrub 🍔
 Food Delivery Platform
 
 Goal:
-Enable customers to order food, notify restaurants, assign drivers, track deliveries, and manage payments—all through asynchronous, event-driven microservices.
+Enable customers to order food, notify restaurants, and manage payments—all through asynchronous, event-driven microservices.
 
 ![ALT TEXT](./data-flow-diagram.png)
 
