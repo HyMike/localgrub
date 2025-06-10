@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { defineConfig as defineVitestConfig } from 'vitest/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({

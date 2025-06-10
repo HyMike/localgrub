@@ -1,24 +1,27 @@
 {
-  "name": "delivery-service",
+  "name": "notification-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-   "dev": "concurrently -k -n queue,prepared,ready -c green,blue,magenta \"ts-node src/services/notification-queue-consumer.ts\" \"ts-node src/services/notification-order-prepared-consumer.ts\" \"ts-node src/services/notification-order-ready-consumer.ts\"",
+    "dev": "concurrently -k -n queue,prepared,ready -c green,blue,magenta \"ts-node src/services/notification-queue-consumer.ts\" \"ts-node src/services/notification-order-prepared-consumer.ts\" \"ts-node src/services/notification-order-ready-consumer.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "notification": "ts-node src/services/notification-order-prepared-consumer.ts",
-    "order-ready": "ts-node src/services/notification-order-ready-consumer.ts"
+    "order-ready": "ts-node src/services/notification-order-ready-consumer.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.10.8",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "nodemailer": "^7.0.3"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.7",
+    "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.17",
     "@types/nodemailer": "^6.4.17",

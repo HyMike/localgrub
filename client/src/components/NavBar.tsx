@@ -4,10 +4,9 @@ import LoginBtn from "./LoginBtn";
 
 interface NavbarProps {
     userName: string;
-    onLogout: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ userName, onLogout }) => {
+const Navbar: React.FC<NavbarProps> = ({ userName }) => {
     return (
         <nav className="bg-white shadow-md px-4 py-2 w-full">
             <div className="max-w-7xl mx-auto flex justify-between items-center">

@@ -11,7 +11,7 @@ const orderPrepared = async (order: OrderType): Promise<void> => {
 
     const { email, firstName, uid, itemName, quantity } = order;
 
-    const conn = await ampq.connect('amqp://localhost:5672');
+    const conn = await ampq.connect('amqp://rabbitmq:5672');
     const channel = await conn.createChannel();
 
     await channel.assertExchange("order_prep_exch", 'topic', {durable: true});

@@ -3,7 +3,7 @@ import { sendEmail } from "../utils/send-email";
 
 const consumeOrder = async (): Promise<void> => {
     try {
-        const conn = await amqp.connect("amqp://localhost:5672");
+        const conn = await amqp.connect("amqp://rabbitmq:5672");
         const channel = await conn.createChannel();
 
         await channel.assertExchange("topic_exc", "topic", { durable: true });

@@ -14,7 +14,7 @@ type Order = {
 };
 
 
-const getAllOrdersForAllUsers = async (): Promise<[]> => {
+const getAllOrdersForAllUsers = async (): Promise<Order[]> => {
     const userRef = await collection(db, 'users');
     const userSnapshots = await getDocs(userRef);
 
@@ -48,7 +48,7 @@ const getAllOrdersForAllUsers = async (): Promise<[]> => {
 };
 
 const CustomerOrderPage = () => {
-  const [allOrders, setAllOrders] = useState<Order[][]>([]);
+  const [allOrders, setAllOrders] = useState<Order[]>([]);
   const [readyOrder, setReadyOrder] = useState<Set<string>>(new Set());
 
   useEffect(() => {

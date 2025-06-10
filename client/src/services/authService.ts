@@ -17,8 +17,8 @@ export const SignUpUser = async (
     const user = userCred.user;
 
     await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
         ...userData,
+        email: user.email,
         createdAt: new Date(),
     });
 

@@ -3,7 +3,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/FirebaseConfig";
 import { useLocation, useNavigate } from "react-router-dom";
 import SignUpBtn from "./SignUpBtn";
-import { sendData, FormData } from "../utils/sendData.utils";
+import { sendData } from "../utils/sendData.utils";
+import { OrderFormData } from "../types/orderformdata";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -11,8 +12,8 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const state = location.state as { formData?: FormData; from?: string } || {};
-    const formData = state.formData;
+    const state = location.state as { OrderFormData?: OrderFormData; from?: string } || {};
+    const OrderFormData = state.OrderFormData;
     const from = state.from;
 
     const handleLogin = async () => {
@@ -20,10 +21,10 @@ const Login = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            if (formData && from) {
+            if (OrderFormData && from) {
                 const token = await user.getIdToken();
                 navigate(from);
-                await sendData(formData, token);
+                await sendData(OrderFormData, token);
 
             } else {
                 navigate("/");
@@ -88,7 +89,7 @@ export default Login;
 //     const navigate = useNavigate();
 //     const location = useLocation();
 
-//     const { formData, from } = location.state || {};
+//     const { OrderFormData, from } = location.state || {};
 
 
 //     const handleLogin = async () => {
@@ -96,9 +97,9 @@ export default Login;
 //             const userCredential = await signInWithEmailAndPassword(auth, email, password);
 //             const user = userCredential.user;
 
-//             if (formData && from) {
+//             if (OrderFormData && from) {
 //                 const token = await user.getIdToken();
-//                 await sendData(formData, token);
+//                 await sendData(OrderFormData, token);
 //                 navigate(from);
 //             } else {
 //                 navigate("/");

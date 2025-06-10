@@ -5,7 +5,7 @@ import { sendEmail } from "../utils/send-email";
 const notificationsOrderPrepared = async () => {
     try {
 
-        const conn = await amqp.connect('amqp://localhost:5672');
+        const conn = await amqp.connect('amqp://rabbitmq:5672');
         const channel = await conn.createChannel();
 
 

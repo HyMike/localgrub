@@ -9,9 +9,17 @@ const Checkout = () => {
   const [creditCardInfo, setCreditCardInfo] = useState('');
 
   const formData = location.state?.formData;
+  console.log(formData);
+
+  useEffect(()=> {
+    if (!formData) {
+      navigate("/");
+    }
+
+  }, [formData, navigate])
 
   if (!formData) {
-    navigate("/");
+    // navigate("/");
     return null;
   }
 

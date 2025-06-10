@@ -1,23 +1,23 @@
 import axios from "axios";
 
-export type FormData = {
-    id: number;
+export type OrderFormData = {
+    id: string;
     name: string;
     quantity: number;
     price: number;
     creditCardInfo: string;
 };
 
-export const sendData = async (formData: FormData, token: string) => {
+export const sendData = async (OrderFormData: OrderFormData, token: string) => {
     try {
         await axios.post(
             "http://localhost:3005/success",
             {
-                id: formData.id,
-                name: formData.name,
-                quantity: formData.quantity,
-                price: formData.price,
-                creditCardInfo: formData.creditCardInfo,
+                id: OrderFormData.id,
+                name: OrderFormData.name,
+                quantity: OrderFormData.quantity,
+                price: OrderFormData.price,
+                creditCardInfo: OrderFormData.creditCardInfo,
             },
             {
                 headers: {

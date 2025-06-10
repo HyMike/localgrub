@@ -29,7 +29,7 @@ type userInfo = {
 } | null
 
 
-app.post("/success", async (req: Request, res: Response) => {
+app.post("/success", async (req: Request, res: Response): Promise<any> => {
     const authHeader = req.headers.authorization;
     const { id: itemId, name: itemName, quantity, price, creditCardInfo } = req.body;
 
@@ -92,7 +92,7 @@ app.post("/success", async (req: Request, res: Response) => {
 });
 
 //order page to update the status to ready
-app.post("/order-ready", async (req, res) => {
+app.post("/order-ready", async (req: Request, res: Response): Promise<any> => {
   const { orderId, userId } = req.body;
 
   try {

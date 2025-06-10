@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../authentication/AuthContext";
 import { sendData } from "../utils/sendData.utils";
 
-type FormData = {
+type OrderFormData = {
     id: string;
     name: string;
     quantity: number;
@@ -12,7 +12,7 @@ type FormData = {
 }
 
 type Props = {
-    formData: FormData;
+    formData: OrderFormData;
     toPage: string;
     creditCardInfo?: string;
     btnTxt: string;
@@ -26,8 +26,6 @@ const SubmitBtn = ({ formData, toPage, creditCardInfo= "", btnTxt="" }: Props) =
     const navigate = useNavigate();
     if (loading) return null;
 
-
-    //formdata is not passing the credit card information. 
 
     const handleClick = async () => {
           const newData = {

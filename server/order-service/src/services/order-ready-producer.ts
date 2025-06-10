@@ -12,7 +12,7 @@ type OrderObj = {
 export const orderReady = async (order: OrderObj) => {
 
     //order email, order item name, quantity, person name 
-    const conn = await amqp.connect('amqp://localhost:5672');
+    const conn = await amqp.connect('amqp://rabbitmq:5672');
     const channel = await conn.createChannel();
 
     const msg = JSON.stringify(order);

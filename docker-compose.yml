@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  client:
+    build: ./client
+    ports: 
+    - "4173:4173"
+    command: npm run preview
+    env_file: 
+    - ./client/.env
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"   
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  order-service:
+    build: ./server/order-service
+    ports:
+      - "3005:3005"
+    env_file:
+      - ./server/order-service/.env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+  notification-queue:
+    build: ./server/notification-service
+    command: ["node", "dist/services/notification-queue-consumer.js"]
+    env_file: 
+      - ./server/notification-service/.env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+  notification-prepared:
+    build: ./server/notification-service
+    command: ["node", "dist/services/notification-order-prepared-consumer.js"]
+    env_file: 
+      - ./server/notification-service/.env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  notification-ready:
+    build: ./server/notification-service
+    command: ["node", "dist/services/notification-order-ready-consumer.js"]
+    env_file: 
+      - ./server/notification-service/.env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+  postgres:
+    image: postgres
+    environment:
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+        POSTGRES_DB: ${DB_NAME}
+    ports:
+        - "5432:5432"
+        

@@ -3,7 +3,7 @@ import amqp, { ConsumeMessage } from "amqplib";
 
 const consumeOrder = async (): Promise<void> => {
     try {
-        const connection = await amqp.connect("amqp://localhost:5672");
+        const connection = await amqp.connect("amqp://rabbitmq:5672");
         const channel = await connection.createChannel();
 
         await channel.assertExchange("topic_exc", "topic", { durable: true });
