@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
                         <div className="col-span-1 md:col-span-2">
                             <div className="flex items-center space-x-3 mb-4">
                                 {/* <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-pink-500 rounded-xl flex items-center justify-center shadow-lg"> */}
-                                    <img src='../src/assets/Localgrub_logo.png' style={{maxWidth: "100px"}}/>
+                                    <img src='/Localgrub_logo.png' style={{maxWidth: "100px"}}/>
 
                                 {/* </div> */}
 

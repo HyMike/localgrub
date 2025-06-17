@@ -14,7 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ userName }) => {
           
                 <a href="/" className="flex items-center space-x-2">
                     <img
-                        src="../src/assets/Localgrub_logo.png"
+                        src="/Localgrub_logo.png"
                         alt="LocalGrub"
                         className="h-17 w-auto"
                     />
