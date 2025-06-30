@@ -1,7 +1,10 @@
-import { collection, getDoc, getDocFromServer, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/FirebaseConfig";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { AuthContext } from "../authentication/AuthContext";
+import Navbar from "../components/NavBar";
+// import { useAuth } from "../authentication/AuthContext";
 
 
 type Order = {
@@ -14,14 +17,13 @@ type Order = {
 };
 
 
+
+//if user == superuser then I should use this function. 
 const getAllOrdersForAllUsers = async (): Promise<Order[]> => {
     const userRef = await collection(db, 'users');
     const userSnapshots = await getDocs(userRef);
 
-
     const allOrders: any[] = [];
-
-
 
     for (const userDoc of userSnapshots.docs) {
         const userId = userDoc.id;
@@ -47,17 +49,47 @@ const getAllOrdersForAllUsers = async (): Promise<Order[]> => {
 
 };
 
+const getOrdersForUser = async (userId: string): Promise<Order[]> => {
+  const userDoc = await getDocs(collection(db, `users/${userId}/orders`));
+  const parentUser = await getDocs(collection(db, "users"));
+  let firstName = "";
+  let lastName = "";
+
+  parentUser.forEach((doc) => {
+  if (doc.id === userId) {
+    firstName = doc.data().firstName;
+    lastName = doc.data().lastName;
+  }
+  });
+
+  const orders = userDoc.docs.map((doc) => ({
+    orderId: doc.id,
+    userId,
+    firstName,
+    lastName,
+    ...doc.data(),
+  })) as Order[];
+
+  return orders;
+};
+
 const CustomerOrderPage = () => {
   const [allOrders, setAllOrders] = useState<Order[]>([]);
   const [readyOrder, setReadyOrder] = useState<Set<string>>(new Set());
+  const { user, superuser, loading } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const orders = await getAllOrdersForAllUsers();
+      if (!user) return;
+
+      const orders = superuser 
+        ? await getAllOrdersForAllUsers()
+      : await getOrdersForUser(user.uid); 
+      // const orders = await getAllOrdersForAllUsers();
       setAllOrders(orders);
     };
     fetchOrders();
-  }, []);
+  }, [user, superuser]);
 
   const handleReadyClick = async (orderId: string, userId: string) => {
     setReadyOrder((prev) => new Set(prev).add(orderId));
@@ -76,7 +108,9 @@ const CustomerOrderPage = () => {
     // which then triggers producer to emit producer to notifiy the customer order is ready for pickup.
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
+    <>
+    <Navbar userName={user?.email ?? "Guest"} />
+       <div className="p-8 bg-gray-50 min-h-screen">
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-gray-900">Customer Orders</h2>
         <p className="text-gray-500">Track and manage customer orders</p>
@@ -144,74 +178,10 @@ const CustomerOrderPage = () => {
         </table>
       </div>
     </div>
+    </>
+ 
   );
 };
-
-
-// const CustomerOrderPage = () => {
-//   const [allOrders, setAllOrders] = useState<Order[][]>([]);
-//   const [readyOrder, setReadyOrder] = useState<Set<string>>(new Set());
-
-//   useEffect(() => {
-//     const fetchOrders = async () => {
-//       const orders = await getAllOrdersForAllUsers();
-//       setAllOrders(orders);
-//     };
-
-//     fetchOrders();
-//   }, []);
-
-//      const handleReadyClick = async (orderId: string, userId: string) => {
-//       setReadyOrder((previous)=> new Set(previous).add(orderId));
-
-//       try {
-//         const response = await axios.post("http://localhost:3005/order-ready", {
-//           orderId: orderId,
-//           userId: userId
-//         });
-
-//       } catch (error) {
-//         console.error(error);
-//       }
-
-//       //make API call to firestore to modify the status to completed. 
-//       // which then triggers producer to emit producer to notifiy the customer order is ready for pickup. 
-//   };
-
-//   return (
-//     <div className="p-8">
-//       <h2 className="text-2xl font-bold mb-4">Customer Orders</h2>
-
-//       <table className="w-full border border-gray-300 text-left shadow-md rounded">
-//         <thead className="bg-gray-100">
-//           <tr>
-//             <th className="py-2 px-4 border-b">Item</th>
-//             <th className="py-2 px-4 border-b">Quantity</th>
-//             <th className="py-2 px-4 border-b">Name</th>
-//             <th className="py-2 px-4 border-b">Status</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {allOrders.flat().map(({ orderId, userId, itemName, quantity, firstName, lastName }) => (
-//             <tr key={orderId} className="hover:bg-gray-50">
-//               <td className="py-2 px-4 border-b">{itemName}</td>
-//               <td className="py-2 px-4 border-b">{quantity}</td>
-//               <td className="py-2 px-4 border-b">{firstName} {lastName}</td>
-//               <td className="py-2 px-4 border-b">
-//                 <button
-//                   onClick={() => handleReadyClick(orderId,userId)}
-//                   className="bg-green-600 hover:bg-green-700 text-white text-sm font-medium py-1 px-3 rounded"
-//                 >
-//                   { readyOrder.has(orderId) ? "Completed" : "Not Ready"}
-//                 </button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// };
 
 
 export default CustomerOrderPage;

@@ -7,7 +7,6 @@ import { db } from "./utils/firebaseAdmin";
 import { getNameEmailItemQuantity } from "./services/user-service";
 import { orderReady } from "./services/order-ready-producer";
 
-
 dotenv.config();
 const app = express();
 
@@ -116,9 +115,9 @@ app.post("/order-ready", async (req: Request, res: Response): Promise<any> => {
   }
 });
 
-
 const PORT = process.env.PORT || 3005;
 
   app.listen(PORT, () => {
       console.log(`🚀 Order Service running on port ${PORT}`);
     });
+
