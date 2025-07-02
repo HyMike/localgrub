@@ -1,5 +1,6 @@
 import amqp, { ConsumeMessage } from 'amqplib';
 import checkInventory from '../repositories/orderRepository';
+import axios from 'axios';
 
 const consumeOrder = async (): Promise<void> => {
     try {
@@ -14,23 +15,39 @@ const consumeOrder = async (): Promise<void> => {
         await channel.bindQueue(queueRes.queue, "topic_exc", "order.placed");
 
         channel.consume(
-            queueRes.queue,
+            queueRes.queue, 
             (msg: ConsumeMessage | null) => {
                 if (msg) {
-                    try {
-                        const order = JSON.parse (msg.content.toString());
+                    (async () => {
+                        try {
+                        const order = JSON.parse(msg.content.toString());
                         console.log("Preparing Order:", order);
                         
                         //pass entire order into it. 
                         // const item = order.itemName; 
                         // const quantity = order.quantity;
                         //make a call to your main logic and the main logic would make a call to the producer. 
-                        checkInventory(order);
+                        const isAvailable = await checkInventory(order);
+                        if (isAvailable) {
+                            //makes API call to producer
+                            try {
+                                await axios.post("http://restaurant-service:3003/incredients-found", order);
+
+                            } catch (err) {
+                                console.error("Failed to process order message:", err);
+                            }
+                        } else {
+                                console.log("Inventory not available.");
+                            }
+                        // checkInventory(order);
                         channel.ack(msg);
                     } catch (err) {
                         console.error("Failed to process message", err);
 
                     }
+
+                    })();
+                    
                 }
             },
             { noAck: false }

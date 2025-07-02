@@ -56,7 +56,6 @@ const orderReadyNotification = async (): Promise<void> => {
                             </footer>
                         </div>
                         `;
-
                     sendEmail(email,subject,html);
 
                     channel.ack(msg);

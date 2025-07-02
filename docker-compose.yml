@@ -39,9 +39,11 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
-  restaurant-service-producer:
+  restaurant-service:
     build: ./server/restaurant-service
-    command: ["node", "dist/services/restaurant-queue-producer.js"]
+    ports: 
+      - "3003:3003"
+    command: ["node", "dist/index.js"]
     depends_on:
       rabbitmq:
         condition: service_healthy

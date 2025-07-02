@@ -19,13 +19,17 @@ const checkInventory = async (order: OrderType) => {
     if (result.rows.length === 0) {
         console.log("No such item found in inventory");
         return false;
-    }    
+    } else {
+        const item = result.rows[0];
+        // if item available then send producer to say order preparing in the producer. 
+        if (item.incredients_available) {
+            return true;
+            // orderPrepared(order);
+        }
 
-    const item = result.rows[0];
-    // if item available then send producer to say order preparing in the producer. 
-    if (item.incredients_available) {
-        orderPrepared(order);
-    }
+    }   
+
+  
 
 
 }
