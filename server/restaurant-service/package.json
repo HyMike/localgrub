@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "concurrently -k \"ts-node src/index.ts\" \" ts-node src/services/restaurant-queue-consumer.ts\" ",
     "start:consumer": "ts-node src/services/restaurant-queue-consumer.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,11 +14,13 @@
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.10.8",
+    "dotenv": "^17.0.1",
     "express": "^5.1.0",
     "pg": "^8.16.0"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.7",
+    "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.17",
     "@types/pg": "^8.15.2",

@@ -27,6 +27,24 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
+  payment-service:
+    build: ./server/payment-service
+    command: ["node", "dist/service/payment-queue-consumer.js"]
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+  restaurant-service-consumer:
+    build: ./server/restaurant-service
+    command: ["node", "dist/services/restaurant-queue-consumer.js"]
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+  restaurant-service-producer:
+    build: ./server/restaurant-service
+    command: ["node", "dist/services/restaurant-queue-producer.js"]
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
   notification-queue:
     build: ./server/notification-service
     command: ["node", "dist/services/notification-queue-consumer.js"]
@@ -54,6 +72,9 @@ services:
         condition: service_healthy
   postgres:
     image: postgres
+    restart: always
+    env_file: 
+      - .env
     environment:
         POSTGRES_USER: ${DB_USER}
         POSTGRES_PASSWORD: ${DB_PASSWORD}
