@@ -11,9 +11,11 @@ const notificationsOrderPrepared = async () => {
 
         await channel.assertExchange("order_prep_exch", "topic", {durable: true});
 
-        const queueRes = await channel.assertQueue("", {durable: true});
+        const queueName = "orderPreparedNotification";
+
+        const queueRes = await channel.assertQueue(queueName, {durable: true});
         
-        await channel.bindQueue(queueRes.queue, "order_prep_exch", "order_prepared");
+        await channel.bindQueue(queueName, "order_prep_exch", "order_prepared");
 
         channel.consume(queueRes.queue, (msg: ConsumeMessage | null) => {
             if (msg) {

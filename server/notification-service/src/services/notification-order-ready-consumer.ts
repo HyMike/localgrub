@@ -15,9 +15,11 @@ const orderReadyNotification = async (): Promise<void> => {
 
         await channel.assertExchange("order_ready_exch", "topic", { durable: true });
 
-        const queueRes = await channel.assertQueue("", { exclusive: false });
+        const queueName = "orderReadyNotification";
 
-        await channel.bindQueue(queueRes.queue, "order_ready_exch", "order.ready");
+        const queueRes = await channel.assertQueue(queueName, { durable: true });
+
+        await channel.bindQueue(queueName, "order_ready_exch", "order.ready");
 
         channel.consume(
             queueRes.queue,

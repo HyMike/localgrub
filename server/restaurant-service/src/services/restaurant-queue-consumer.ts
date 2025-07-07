@@ -9,10 +9,11 @@ const consumeOrder = async (): Promise<void> => {
         const channel = await conn.createChannel();
 
         await channel.assertExchange("topic_exc", "topic", { durable: true });
+        const queueName = "orderCheck"
 
-        const queueRes = await channel.assertQueue("", { durable: true });
+        const queueRes = await channel.assertQueue(queueName, { durable: true });
 
-        await channel.bindQueue(queueRes.queue, "topic_exc", "order.placed");
+        await channel.bindQueue(queueName, "topic_exc", "order.placed");
 
         channel.consume(
             queueRes.queue, 

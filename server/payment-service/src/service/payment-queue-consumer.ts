@@ -8,9 +8,11 @@ const consumeOrder = async (): Promise<void> => {
 
         await channel.assertExchange("topic_exc", "topic", { durable: true });
 
-        const queueRes = await channel.assertQueue("", { exclusive: false });
+        const queueName = "paymentQueue";
 
-        await channel.bindQueue(queueRes.queue, "topic_exc", "order.*");
+        const queueRes = await channel.assertQueue(queueName, { exclusive: false });
+
+        await channel.bindQueue(queueName, "topic_exc", "order.*");
 
         channel.consume(
             queueRes.queue, (msg: ConsumeMessage | null) => {
