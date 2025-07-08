@@ -6,9 +6,7 @@ Enable customers to order food, notify restaurants, and manage payments—all th
 
 ![ALT TEXT](./data-flow-diagram.png)
 
-[![Local Grub Happy Path & When A Microservice Goes Down](LocalGrub_Vid_Thumbnail.png)](https://drive.google.com/file/d/1CAJFTE5mmKluq33BG0cP1vH9e5ZSUN98/view?usp=sharing)
-[![Watch the video](video-thumbnail.png)](https://drive.google.com/file/d/1AbCDeFgHIjkLmnopQRStUvWxyz/view)
-
+[![Local Grub Happy Path & When A Microservice Goes Down](./LocalGrub_VId_Thumbnail.png)](https://drive.google.com/file/d/1CAJFTE5mmKluq33BG0cP1vH9e5ZSUN98/view?usp=sharing)
 
 Data flow Diagram: 
 
