@@ -4,11 +4,11 @@ Food Delivery Platform
 Goal:
 Enable customers to order food, notify restaurants, and manage payments—all through asynchronous, event-driven microservices.
 
-![ALT TEXT](./data-flow-diagram.png)
 
- Local Grub Happy Path & When A Microservice Goes Down Video
- 
+Local Grub Happy Path & When A Microservice Goes Down Video
 [![Local Grub Happy Path & When A Microservice Goes Down](./LocalGrub_Thumbnail.png)](https://drive.google.com/file/d/1CAJFTE5mmKluq33BG0cP1vH9e5ZSUN98/view?usp=sharing)
+
+![ALT TEXT](./data-flow-diagram.png)
 
 Data flow Diagram: 
 
