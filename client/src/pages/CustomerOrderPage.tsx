@@ -17,7 +17,6 @@ type Order = {
 };
 
 
-
 //if user == superuser then I should use this function. 
 const getAllOrdersForAllUsers = async (): Promise<Order[]> => {
     const userRef = await collection(db, 'users');

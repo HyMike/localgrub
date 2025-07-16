@@ -10,4 +10,16 @@ admin.initializeApp({
         client_email: process.env.FIREBASE_CLIENT_EMAIL,
     } as ServiceAccount),
 });
+
+
+const uid = "binx9lEtSaY3YQBoMYNrnKN9YJk2";
+
+admin.auth().setCustomUserClaims(uid, { superuser: true })
+  .then(() => {
+    console.log(`${uid} is now a superuser.`);
+  })
+  .catch((error) => {
+    console.error("Error setting custom claim:", error);
+  });
+
 export const db = getFirestore();
