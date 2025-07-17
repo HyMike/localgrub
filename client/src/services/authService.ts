@@ -4,24 +4,19 @@ import { doc, setDoc } from "firebase/firestore";
 import type { NewUser } from "../types/user";
 
 export const SignUpUser = async (
-    email: string,
-    password: string,
-    userData: NewUser
+  email: string,
+  password: string,
+  userData: NewUser,
 ) => {
-    const userCred = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-    );
+  const userCred = await createUserWithEmailAndPassword(auth, email, password);
 
-    const user = userCred.user;
+  const user = userCred.user;
 
-    await setDoc(doc(db, "users", user.uid), {
-        ...userData,
-        email: user.email,
-        createdAt: new Date(),
-    });
+  await setDoc(doc(db, "users", user.uid), {
+    ...userData,
+    email: user.email,
+    createdAt: new Date(),
+  });
 
-    return user;
-
-}
+  return user;
+};

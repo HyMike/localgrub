@@ -1,17 +1,17 @@
-version: '3.8'
+version: "3.8"
 
 services:
   client:
     build: ./client
-    ports: 
-    - "4173:4173"
+    ports:
+      - "4173:4173"
     command: npm run preview
-    env_file: 
-    - ./client/.env
+    env_file:
+      - ./client/.env
   rabbitmq:
     image: rabbitmq:3-management
     ports:
-      - "5672:5672"   
+      - "5672:5672"
       - "15672:15672"
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "ping"]
@@ -41,7 +41,7 @@ services:
         condition: service_healthy
   restaurant-service:
     build: ./server/restaurant-service
-    ports: 
+    ports:
       - "3003:3003"
     command: ["node", "dist/index.js"]
     depends_on:
@@ -50,7 +50,7 @@ services:
   notification-queue:
     build: ./server/notification-service
     command: ["node", "dist/services/notification-queue-consumer.js"]
-    env_file: 
+    env_file:
       - ./server/notification-service/.env
     depends_on:
       rabbitmq:
@@ -58,7 +58,7 @@ services:
   notification-prepared:
     build: ./server/notification-service
     command: ["node", "dist/services/notification-order-prepared-consumer.js"]
-    env_file: 
+    env_file:
       - ./server/notification-service/.env
     depends_on:
       rabbitmq:
@@ -67,7 +67,7 @@ services:
   notification-ready:
     build: ./server/notification-service
     command: ["node", "dist/services/notification-order-ready-consumer.js"]
-    env_file: 
+    env_file:
       - ./server/notification-service/.env
     depends_on:
       rabbitmq:
@@ -75,12 +75,11 @@ services:
   postgres:
     image: postgres
     restart: always
-    env_file: 
+    env_file:
       - .env
     environment:
-        POSTGRES_USER: ${DB_USER}
-        POSTGRES_PASSWORD: ${DB_PASSWORD}
-        POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-        - "5432:5432"
-        
+      - "5432:5432"

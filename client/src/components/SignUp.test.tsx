@@ -4,7 +4,6 @@
 // import { MemoryRouter } from "react-router-dom";
 // import SignUp from "./SignUp";
 
-
 // vi.mock("../services/authService", () => ({
 //     SignUpUser: vi.fn(() => Promise.resolve()),
 // }));
@@ -29,12 +28,10 @@
 //             </MemoryRouter>
 //         );
 
-
 //         await user.type(screen.getByPlaceholderText("First Name"), "John");
 //         await user.type(screen.getByPlaceholderText("Last Name"), "Doe");
 //         await user.type(screen.getByPlaceholderText("Email"), "john@example.com");
 //         await user.type(screen.getByPlaceholderText("Password"), "password123");
-
 
 //         await user.click(screen.getByRole("button", { name: /sign up/i }));
 

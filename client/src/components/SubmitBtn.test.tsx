@@ -15,7 +15,6 @@
 //     };
 // });
 
-
 // const mockGetIdToken = vi.fn();
 // vi.mock("../authentication/AuthContext", () => ({
 //     useAuth: () => ({
@@ -23,7 +22,6 @@
 //         loading: false,
 //     }),
 // }));
-
 
 // vi.mock("axios");
 

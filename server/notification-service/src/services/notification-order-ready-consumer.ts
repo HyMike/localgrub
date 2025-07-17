@@ -2,40 +2,38 @@ import amqp, { ConsumeMessage } from "amqplib";
 import { sendEmail } from "../utils/send-email";
 
 type userInfo = {
-    name: string;
-    email: string;
-    itemName: string;
-    quantity: number;
-} | null
+  name: string;
+  email: string;
+  itemName: string;
+  quantity: number;
+} | null;
 
 const orderReadyNotification = async (): Promise<void> => {
-    try {
-        const conn = await amqp.connect("amqp://rabbitmq:5672");
-        const channel = await conn.createChannel();
+  try {
+    const conn = await amqp.connect("amqp://rabbitmq:5672");
+    const channel = await conn.createChannel();
 
-        await channel.assertExchange("order_ready_exch", "topic", { durable: true });
+    await channel.assertExchange("order_ready_exch", "topic", {
+      durable: true,
+    });
 
-        const queueName = "orderReadyNotification";
+    const queueName = "orderReadyNotification";
 
-        const queueRes = await channel.assertQueue(queueName, { durable: true });
+    const queueRes = await channel.assertQueue(queueName, { durable: true });
 
-        await channel.bindQueue(queueName, "order_ready_exch", "order.ready");
+    await channel.bindQueue(queueName, "order_ready_exch", "order.ready");
 
-        channel.consume(
-            queueRes.queue,
-            (msg: ConsumeMessage | null) => {
-                if (msg) {
-                    const content = JSON.parse(msg.content.toString());
-                    console.log(`Sending Out Notifications:`, content);
-                    const { name,
-                            email,
-                            itemName,
-                            quantity
-                    } = content;
-                    
-                    const subject = `Your order is ready for pickup, ${name}!`;
-                    const text = `Your order of ${quantity} of ${itemName} is ready for pickup!`
-                    const html = `
+    channel.consume(
+      queueRes.queue,
+      (msg: ConsumeMessage | null) => {
+        if (msg) {
+          const content = JSON.parse(msg.content.toString());
+          console.log(`Sending Out Notifications:`, content);
+          const { name, email, itemName, quantity } = content;
+
+          const subject = `Your order is ready for pickup, ${name}!`;
+          const text = `Your order of ${quantity} of ${itemName} is ready for pickup!`;
+          const html = `
                         <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
                             <h2 style="color: #27ae60;">✅ Your order is ready, ${name}!</h2>
                             <p>We’ve just finished preparing your meal—it’s hot and ready for you to pick up!</p>
@@ -58,18 +56,15 @@ const orderReadyNotification = async (): Promise<void> => {
                             </footer>
                         </div>
                         `;
-                    sendEmail(email,subject,html);
+          sendEmail(email, subject, html);
 
-                    channel.ack(msg);
-                }
-
-            },
-            { noAck: false }
-        );
-
-    } catch (error) {
-        console.error("Error consuming messages:", error);
-    }
-
-}
-orderReadyNotification();  
+          channel.ack(msg);
+        }
+      },
+      { noAck: false },
+    );
+  } catch (error) {
+    console.error("Error consuming messages:", error);
+  }
+};
+orderReadyNotification();

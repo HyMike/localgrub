@@ -18,23 +18,26 @@ const Success = () => {
 
         <h1 className="text-3xl font-bold text-green-600 mb-2">Thank You!</h1>
         <p className="text-gray-700 text-lg mb-4">
-          Your order <span className="font-medium"></span> has been placed successfully.
+          Your order <span className="font-medium"></span> has been placed
+          successfully.
         </p>
 
         <p className="text-gray-600 mb-4">
-          It will be ready for pickup in approximately <span className="font-semibold">10–15 minutes</span>.
+          It will be ready for pickup in approximately{" "}
+          <span className="font-semibold">10–15 minutes</span>.
         </p>
 
         <p className="text-gray-600 mb-6">
-          We'll notify you via email at <span className="font-semibold"></span> once your order is ready.
+          We'll notify you via email at <span className="font-semibold"></span>{" "}
+          once your order is ready.
         </p>
 
         <a
-            href="/"
-            style={{ color: "#ffffff" }}
-            className="inline-block mt-4 px-6 py-2 bg-[#5797fd] text-white no-underline rounded-md font-semibold shadow hover:brightness-90 transition"
+          href="/"
+          style={{ color: "#ffffff" }}
+          className="inline-block mt-4 px-6 py-2 bg-[#5797fd] text-white no-underline rounded-md font-semibold shadow hover:brightness-90 transition"
         >
-            Back to Home
+          Back to Home
         </a>
       </div>
     </div>

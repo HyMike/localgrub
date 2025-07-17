@@ -8,7 +8,6 @@
 //     signOut: vi.fn(() => Promise.resolve()),
 // }));
 
-
 // vi.mock("../firebase/firebaseConfig", () => ({
 //     auth: {},
 // }));

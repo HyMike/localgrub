@@ -9,9 +9,8 @@ COPY . .
 
 RUN npm run build
 
-RUN npm install -g serve
+RUN npm install -g serve --unsafe-perm
 
 CMD ["serve", "-s", "dist"]
 
 EXPOSE 4173
-

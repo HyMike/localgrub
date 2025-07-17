@@ -1,9 +1,8 @@
 import { db } from "../utils/firebaseAdmin";
 
-
 export const getOrderByUserId = async (orderId: string, userId: string) => {
   try {
-   const orderPath = `users/${userId}/orders/${orderId}`;
+    const orderPath = `users/${userId}/orders/${orderId}`;
 
     const orderRef = db.doc(orderPath);
     const orderSnap = await orderRef.get();
@@ -20,12 +19,18 @@ export const getOrderByUserId = async (orderId: string, userId: string) => {
   }
 };
 
-export const getNameEmailItemQuantity = async (userId: string, orderId: string) => {
+export const getNameEmailItemQuantity = async (
+  userId: string,
+  orderId: string,
+) => {
   try {
     const userRef = db.doc(`users/${userId}`);
     const orderRef = db.doc(`users/${userId}/orders/${orderId}`);
 
-    const [userSnap, orderSnap] = await Promise.all([userRef.get(), orderRef.get()]);
+    const [userSnap, orderSnap] = await Promise.all([
+      userRef.get(),
+      orderRef.get(),
+    ]);
 
     if (!userSnap.exists) {
       console.log("User not found");
@@ -51,4 +56,3 @@ export const getNameEmailItemQuantity = async (userId: string, orderId: string) 
     throw new Error("Failed to fetch order and user data.");
   }
 };
-

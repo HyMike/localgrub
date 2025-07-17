@@ -2,41 +2,37 @@ import amqp, { ConsumeMessage } from "amqplib";
 import { sendEmail } from "../utils/send-email";
 
 const consumeOrder = async (): Promise<void> => {
-    try {
-        const conn = await amqp.connect("amqp://rabbitmq:5672");
-        const channel = await conn.createChannel();
+  try {
+    const conn = await amqp.connect("amqp://rabbitmq:5672");
+    const channel = await conn.createChannel();
 
-        await channel.assertExchange("topic_exc", "topic", { durable: true });
+    await channel.assertExchange("topic_exc", "topic", { durable: true });
 
-        const queueName = "orderNotifications";
+    const queueName = "orderNotifications";
 
-        const queueRes = await channel.assertQueue(queueName, { durable: true });
+    const queueRes = await channel.assertQueue(queueName, { durable: true });
 
-        await channel.bindQueue(queueName, "topic_exc", "order.placed");
+    await channel.bindQueue(queueName, "topic_exc", "order.placed");
 
-        channel.consume(
-            queueRes.queue,
-            (msg: ConsumeMessage | null) => {
-                if (msg) {
-                    const content = JSON.parse(msg.content.toString());
-                    console.log(`Sending Out Notifications:`, content);
-                    const { email,
-                            firstName,
-                            itemName,
-                            quantity
-                    } = content;
-                    
-                    const subject = `We've received your order, ${firstName}!`;
-                    const text = `Thanks for ordering with localgrub! We’ve 
+    channel.consume(
+      queueRes.queue,
+      (msg: ConsumeMessage | null) => {
+        if (msg) {
+          const content = JSON.parse(msg.content.toString());
+          console.log(`Sending Out Notifications:`, content);
+          const { email, firstName, itemName, quantity } = content;
+
+          const subject = `We've received your order, ${firstName}!`;
+          const text = `Thanks for ordering with localgrub! We’ve 
                     successfully received your order and are about to get started. 
                     You’ll get another update once we begin preparing your food—and again 
                     when it’s ready for pickup.
                     Here’s what you ordered:${quantity} orders of ${itemName} . 
                     If you have any questions, feel free to reply to this email.
                     Thanks again for choosing us—we can’t wait to serve you!
-                    Warm regards,The localgrub Team`
+                    Warm regards,The localgrub Team`;
 
-                    const html = `
+          const html = `
                         <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
                             <h2 style="color: #e67e22;">🍴 Thanks for your order, ${firstName}!</h2>
                             <p>We’ve successfully received your order and are about to get started.</p>
@@ -61,18 +57,15 @@ const consumeOrder = async (): Promise<void> => {
                         </div>
                         `;
 
-                    sendEmail(email,subject,html);
+          sendEmail(email, subject, html);
 
-                    channel.ack(msg);
-                }
-
-            },
-            { noAck: false }
-        );
-
-    } catch (error) {
-        console.error("Error consuming messages:", error);
-    }
-
-}
-consumeOrder();  
+          channel.ack(msg);
+        }
+      },
+      { noAck: false },
+    );
+  } catch (error) {
+    console.error("Error consuming messages:", error);
+  }
+};
+consumeOrder();
