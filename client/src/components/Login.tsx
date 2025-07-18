@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/FirebaseConfig";
 import { useLocation, useNavigate } from "react-router-dom";
 import SignUpBtn from "./SignUpBtn";
-import { sendData } from "../utils/sendData.utils";
+import { sendData } from "../services/orderService";
 import { OrderFormData } from "../types/orderformdata";
 
 const Login = () => {

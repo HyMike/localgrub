@@ -1,12 +1,9 @@
-import { useState, useEffect } from "react";
 import "./App.css";
 import "./styles/styles.css";
-import getMenu from "./services/menu-items";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
-import { MenuItems } from "./types/menu";
 import MenuPage from "./pages/MenuPage";
 import CustomerOrderPage from "./pages/CustomerOrderPage";
 import Checkout from "./pages/CheckoutPage";

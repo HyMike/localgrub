@@ -1,12 +1,5 @@
 import axios from "axios";
-
-export type OrderFormData = {
-  id: string;
-  name: string;
-  quantity: number;
-  price: number;
-  creditCardInfo: string;
-};
+import { OrderFormData } from "../types/orderformdata";
 
 export const sendData = async (OrderFormData: OrderFormData, token: string) => {
   try {

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../authentication/AuthContext";
-import { sendData } from "../utils/sendData.utils";
+import { sendData } from "../services/orderService";
 
 type OrderFormData = {
   id: string;

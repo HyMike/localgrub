@@ -3,17 +3,13 @@ import React from "react";
 const Footer: React.FC = () => {
   return (
     <>
-      {/* <div className="bg-gradient-to-r from-black-700 to-black-700 h-1 w-full mt-15"></div> */}
       <div className="bg-black w-full mt-25"></div>
       <footer className="bg-white border-t border-gray-100 py-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
-                {/* <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-pink-500 rounded-xl flex items-center justify-center shadow-lg"> */}
                 <img src="/Localgrub_logo.png" style={{ maxWidth: "100px" }} />
-
-                {/* </div> */}
               </div>
               <p className="text-gray-600 mb-4 max-w-md">
                 Connecting you with the best local restaurants in your area.
