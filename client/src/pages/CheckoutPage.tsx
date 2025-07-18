@@ -1,32 +1,16 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SubmitBtn from "../components/SubmitBtn";
+import useCheckoutPage from "../hooks/useCheckoutPage";
 
 const Checkout = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [creditCardInfo, setCreditCardInfo] = useState("");
-
-  const formData = location.state?.formData;
-  console.log(formData);
-
-  useEffect(() => {
-    if (!formData) {
-      navigate("/");
-    }
-  }, [formData, navigate]);
+  const { formData, creditCardInfo, onChangeHandler } = useCheckoutPage();
 
   if (!formData) {
-    // navigate("/");
     return null;
   }
 
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-    setCreditCardInfo(event.target.value);
-  };
-
-  const { id, name, quantity, price, img } = formData;
+  const { name, quantity, price, img } = formData;
   const total = quantity * price;
 
   return (

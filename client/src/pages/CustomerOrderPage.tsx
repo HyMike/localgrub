@@ -1,110 +1,15 @@
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/FirebaseConfig";
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
-import { AuthContext } from "../authentication/AuthContext";
 import Navbar from "../components/NavBar";
-// import { useAuth } from "../authentication/AuthContext";
-
-type Order = {
-  orderId: string;
-  itemName: string;
-  quantity: number;
-  userId: string;
-  firstName: string;
-  lastName: string;
-};
-
-//if user == superuser then I should use this function.
-const getAllOrdersForAllUsers = async (): Promise<Order[]> => {
-  const userRef = await collection(db, "users");
-  const userSnapshots = await getDocs(userRef);
-
-  const allOrders: any[] = [];
-
-  for (const userDoc of userSnapshots.docs) {
-    const userId = userDoc.id;
-    const firstName = userDoc.data().firstName;
-    const lastName = userDoc.data().lastName;
-    const ordersRef = collection(db, `users/${userId}/orders`);
-    const orderSnapshots = await getDocs(ordersRef);
-
-    const userOrders = orderSnapshots.docs.map((doc) => ({
-      orderId: doc.id,
-      userId,
-      firstName,
-      lastName,
-      ...doc.data(),
-    }));
-
-    allOrders.push(userOrders);
-  }
-
-  return allOrders;
-};
-
-const getOrdersForUser = async (userId: string): Promise<Order[]> => {
-  const userDoc = await getDocs(collection(db, `users/${userId}/orders`));
-  const parentUser = await getDocs(collection(db, "users"));
-  let firstName = "";
-  let lastName = "";
-
-  parentUser.forEach((doc) => {
-    if (doc.id === userId) {
-      firstName = doc.data().firstName;
-      lastName = doc.data().lastName;
-    }
-  });
-
-  const orders = userDoc.docs.map((doc) => ({
-    orderId: doc.id,
-    userId,
-    firstName,
-    lastName,
-    ...doc.data(),
-  })) as Order[];
-
-  return orders;
-};
+import { useCustomerOrderPage } from "../hooks/useCustomerOrder";
 
 const CustomerOrderPage = () => {
-  const [allOrders, setAllOrders] = useState<Order[]>([]);
-  const [readyOrder, setReadyOrder] = useState<Set<string>>(new Set());
-  const { user, superuser, loading } = useContext(AuthContext);
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      if (!user) return;
-
-      const orders = superuser
-        ? await getAllOrdersForAllUsers()
-        : await getOrdersForUser(user.uid);
-      // const orders = await getAllOrdersForAllUsers();
-      setAllOrders(orders);
-    };
-    fetchOrders();
-  }, [user, superuser]);
-
-  const handleReadyClick = async (orderId: string, userId: string) => {
-    setReadyOrder((prev) => new Set(prev).add(orderId));
-    try {
-      await axios.post("http://localhost:3005/order-ready", {
-        orderId,
-        userId,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { allOrders, readyOrder, handleReadyClick, user } =
+    useCustomerOrderPage();
 
   const totalOrders = allOrders.flat().length;
   const completedCount = allOrders
     .flat()
     .filter((order) => readyOrder.has(order.orderId)).length;
   const pendingCount = totalOrders - completedCount;
-
-  //make API call to firestore to modify the status to completed.
-  // which then triggers producer to emit producer to notifiy the customer order is ready for pickup.
 
   return (
     <>

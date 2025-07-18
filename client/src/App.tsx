@@ -11,21 +11,10 @@ import MenuPage from "./pages/MenuPage";
 import CustomerOrderPage from "./pages/CustomerOrderPage";
 import Checkout from "./pages/CheckoutPage";
 import Success from "./pages/Success";
+import useMenu from "./hooks/useMenu";
 
 function App() {
-  const [menu, setMenu] = useState<MenuItems[]>([]);
-
-  useEffect(() => {
-    const fetchMenu = async () => {
-      const getMenuItems = await getMenu();
-      const itemsWithImage = getMenuItems.filter(
-        (item) => item.img && item.img.trim() !== "",
-      );
-      const topSixItems = itemsWithImage.slice(31, 37);
-      setMenu(topSixItems);
-    };
-    fetchMenu();
-  }, []);
+  const { menu } = useMenu();
 
   return (
     <Routes>
@@ -39,7 +28,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/success"
         element={
