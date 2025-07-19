@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { db } from "./utils/firebaseAdmin";
 import { getNameEmailItemQuantity } from "./services/user-service";
 import { orderReady } from "./services/order-ready-producer";
+import orderRoutes from "./routes/orderRoutes";
 
 dotenv.config();
 const app = express();
@@ -21,76 +22,70 @@ app.use(
 
 app.use(express.json());
 
-type userInfo = {
-  name: string;
-  email: string;
-  itemName: string;
-  quantity: number;
-} | null;
+app.use("/", orderRoutes);
+// app.post("/success", async (req: Request, res: Response): Promise<any> => {
+  // const authHeader = req.headers.authorization;
+  // const {
+  //   id: itemId,
+  //   name: itemName,
+  //   quantity,
+  //   price,
+  //   creditCardInfo,
+  // } = req.body;
 
-app.post("/success", async (req: Request, res: Response): Promise<any> => {
-  const authHeader = req.headers.authorization;
-  const {
-    id: itemId,
-    name: itemName,
-    quantity,
-    price,
-    creditCardInfo,
-  } = req.body;
+  // if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  //   return res.status(401).send("Unauthorized");
+  // }
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).send("Unauthorized");
-  }
+  // const idToken = authHeader.split("Bearer ")[1];
 
-  const idToken = authHeader.split("Bearer ")[1];
+  // try {
+  //   //get and verify user.
+  //   const decodedToken = await admin.auth().verifyIdToken(idToken);
+  //   const uid = decodedToken.uid;
+  //   const userDoc = await db.collection("users").doc(uid).get();
 
-  try {
-    //get and verify user.
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
-    const uid = decodedToken.uid;
-    const userDoc = await db.collection("users").doc(uid).get();
+  //   if (!userDoc.exists) {
+  //     return res.status(404).json({ message: "User data not found" });
+  //   }
+  //   //create an order collection.
+  //   const ordersRef = db.collection("users").doc(uid).collection("orders");
 
-    if (!userDoc.exists) {
-      return res.status(404).json({ message: "User data not found" });
-    }
-    //create an order collection.
-    const ordersRef = db.collection("users").doc(uid).collection("orders");
+  //   const userOrder = {
+  //     itemId,
+  //     itemName,
+  //     quantity,
+  //     price,
+  //     creditCardInfo,
+  //     createdAt: new Date().toISOString(),
+  //   };
 
-    const userOrder = {
-      itemId,
-      itemName,
-      quantity,
-      price,
-      creditCardInfo,
-      createdAt: new Date().toISOString(),
-    };
+  //   const orderRef = await ordersRef.add({
+  //     ...userOrder,
+  //     status: "pending",
+  //   });
 
-    const orderRef = await ordersRef.add({
-      ...userOrder,
-      status: "pending",
-    });
+  //   //get user data from firestore
+  //   const email = decodedToken.email || "";
+  //   const userData = userDoc.data();
+  //   const firstName = userData?.firstName || "";
+  //   const lastName = userData?.lastName || "";
 
-    //get user data from firestore
-    const email = decodedToken.email || "";
-    const userData = userDoc.data();
-    const firstName = userData?.firstName || "";
-    const lastName = userData?.lastName || "";
+  //   const order = {
+  //     uid,
+  //     firstName,
+  //     lastName,
+  //     email,
+  //     ...userOrder,
+  //   };
+  //   console.log("Received Order:", order);
 
-    const order = {
-      uid,
-      firstName,
-      lastName,
-      email,
-      ...userOrder,
-    };
-    console.log("Received Order:", order);
-
-    await sendOrder(order);
-  } catch (error) {
-    console.error("Order service is not processing!", error);
-    res.status(500).json({ message: "Internal Server Error", error });
-  }
-});
+  //   await sendOrder(order);
+  // } catch (error) {
+  //   console.error("Order service is not processing!", error);
+  //   res.status(500).json({ message: "Internal Server Error", error });
+  // }
+// });
 
 //order page to update the status to ready
 app.post("/order-ready", async (req: Request, res: Response): Promise<any> => {
@@ -120,5 +115,5 @@ app.post("/order-ready", async (req: Request, res: Response): Promise<any> => {
 const PORT = process.env.PORT || 3005;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Order Service running on port ${PORT}`);
+  console.log(`Order Service running on port ${PORT}`);
 });

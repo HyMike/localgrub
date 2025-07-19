@@ -9,7 +9,7 @@ const getAllOrdersForAllUsers = async (): Promise<Order[]> => {
   const userRef = await collection(db, "users");
   const userSnapshots = await getDocs(userRef);
 
-  const allOrders: any[] = [];
+  const allOrders: Order[] = [];
 
   for (const userDoc of userSnapshots.docs) {
     const userId = userDoc.id;
@@ -26,7 +26,7 @@ const getAllOrdersForAllUsers = async (): Promise<Order[]> => {
       ...doc.data(),
     }));
 
-    allOrders.push(userOrders);
+    allOrders.push(...userOrders as Order[]);
   }
 
   return allOrders;
@@ -69,6 +69,7 @@ export const useCustomerOrderPage = () => {
         ? await getAllOrdersForAllUsers()
         : await getOrdersForUser(user.uid);
       setAllOrders(orders);
+      console.log("Orders from database, frontend:", allOrders);
     };
     fetchOrders();
   }, [user, superuser]);

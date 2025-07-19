@@ -1,6 +1,6 @@
 export type Order = {
   orderId: string;
-  itemName: string;
+  name: string;
   quantity: number;
   userId: string;
   firstName: string;

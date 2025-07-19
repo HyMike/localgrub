@@ -14,7 +14,7 @@ export const getOrderByUserId = async (orderId: string, userId: string) => {
       return null;
     }
   } catch (error) {
-    console.error("🔥 Error fetching order:", error);
+    console.error("Error fetching order:", error);
     throw new Error("Failed to fetch order.");
   }
 };
@@ -52,7 +52,7 @@ export const getNameEmailItemQuantity = async (
       quantity: orderData?.quantity || 0,
     };
   } catch (error) {
-    console.error("🔥 Error fetching order and user info:", error);
+    console.error("Error fetching order and user info:", error);
     throw new Error("Failed to fetch order and user data.");
   }
 };

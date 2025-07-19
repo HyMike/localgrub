@@ -61,13 +61,13 @@ const CustomerOrderPage = () => {
                   ({
                     orderId,
                     userId,
-                    itemName,
+                    name,
                     quantity,
                     firstName,
                     lastName,
                   }) => (
                     <tr key={orderId} className="border-t hover:bg-gray-50">
-                      <td className="p-4">{itemName}</td>
+                      <td className="p-4">{name}</td>
                       <td className="p-4">
                         <span className="bg-gray-100 px-2 py-1 rounded-full text-xs font-medium">
                           {quantity}x
@@ -75,7 +75,7 @@ const CustomerOrderPage = () => {
                       </td>
                       <td className="p-4">
                         {firstName} {lastName}
-                      </td>
+                      </td> 
                       <td className="p-4">
                         <span
                           className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
