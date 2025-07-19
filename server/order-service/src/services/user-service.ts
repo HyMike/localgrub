@@ -44,11 +44,11 @@ export const getNameEmailItemQuantity = async (
 
     const userData = userSnap.data();
     const orderData = orderSnap.data();
-
+    console.log("Order data:", orderData);
     return {
       name: userData?.firstName || "",
       email: userData?.email || "",
-      itemName: orderData?.itemName || "",
+      itemName: orderData?.name || "",
       quantity: orderData?.quantity || 0,
     };
   } catch (error) {

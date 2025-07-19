@@ -69,7 +69,7 @@ export const useCustomerOrderPage = () => {
         ? await getAllOrdersForAllUsers()
         : await getOrdersForUser(user.uid);
       setAllOrders(orders);
-      console.log("Orders from database, frontend:", allOrders);
+
     };
     fetchOrders();
   }, [user, superuser]);

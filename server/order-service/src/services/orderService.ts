@@ -16,8 +16,6 @@ export const createOrderInDatabase = async (uid: string, orderData:CreateOrderDa
             status: "pending",
           });
 
-          console.log("Saving order data, backend:", userOrder);
-    
         const order = {
             uid,
             firstName: userData?.firstName || "",
