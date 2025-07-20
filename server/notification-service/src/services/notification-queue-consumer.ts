@@ -22,9 +22,7 @@ const consumeOrder = async (): Promise<void> => {
           const content = JSON.parse(msg.content.toString());
           console.log(`Sending Out Notifications:`, content);
           const { email, firstName, name:itemName, quantity } = content;
-          console.log(`Extracted values:`, { email, firstName, itemName, quantity }); // ✅ ADD THIS LINE
-
-
+          
           const subject = `We've received your order, ${firstName}!`;
           const text = `Thanks for ordering with localgrub! We’ve 
                     successfully received your order and are about to get started. 

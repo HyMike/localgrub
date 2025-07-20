@@ -1,15 +1,9 @@
 import ampq, { ConsumeMessage } from "amqplib";
 import RabbitMQConnection from "./rabbitmq-connection";
+import { OrderType } from "../db/types/OrderType";
 
-type OrderType = {
-  email: string;
-  firstName: string;
-  uid: number;
-  itemName: string;
-  quantity: number;
-};
 const orderPrepared = async (order: OrderType): Promise<void> => {
-  const { email, firstName, uid, itemName, quantity } = order;
+  const { email, firstName, uid, name:itemName, quantity } = order;
 
   const rabbitmq = await RabbitMQConnection.getInstance();
   const channel = await rabbitmq.getChannel();

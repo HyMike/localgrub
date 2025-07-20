@@ -2,14 +2,7 @@ import express, { Request, Response } from "express";
 import setupDatabase from "./db/setup";
 import orderPrepared from "./services/restaurant-queue-producer";
 import RabbitMQConnection from "./services/rabbitmq-connection";
-
-type OrderType = {
-  email: string;
-  firstName: string;
-  uid: number;
-  itemName: string;
-  quantity: number;
-};
+import { OrderType } from "./db/types/OrderType";
 
 const app = express();
 app.use(express.json());

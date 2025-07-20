@@ -1,16 +1,9 @@
 import pool from "../db/index";
 import orderPrepared from "../services/restaurant-queue-producer";
-
-type OrderType = {
-  email: string;
-  firstName: string;
-  uid: number;
-  itemName: string;
-  quantity: number;
-};
+import { OrderType } from "../db/types/OrderType";
 
 const checkInventory = async (order: OrderType) => {
-  const { itemName } = order;
+  const { name:itemName } = order;
 
   const result = await pool.query("SELECT * FROM inventory WHERE item = $1", [
     itemName,
