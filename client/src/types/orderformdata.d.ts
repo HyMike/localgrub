@@ -5,5 +5,3 @@ export type OrderFormData = {
   price: number;
   creditCardInfo: string;
 };
-
-

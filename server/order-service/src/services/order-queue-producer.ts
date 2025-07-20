@@ -21,12 +21,10 @@ const sendOrder = async (order: object): Promise<void> => {
     });
 
     console.log("Message is sent to from Order Service to queue:");
-
   } catch (error) {
     console.error("Failed to send order to queue:", error);
     throw new Error(`Failed to send order to queue: ${error}`);
   }
-
 };
 
 export default sendOrder;

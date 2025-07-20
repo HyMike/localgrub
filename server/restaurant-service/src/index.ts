@@ -23,7 +23,6 @@ app.post(
   },
 );
 
-
 const initializeRabbitMQ = async () => {
   try {
     const rabbitmq = RabbitMQConnection.getInstance();
@@ -39,14 +38,14 @@ app.listen(PORT, async () => {
   console.log("Restaurant service is running on port 3003");
 });
 
-process.on('SIGTERM', async () => {
+process.on("SIGTERM", async () => {
   const rabbitmq = RabbitMQConnection.getInstance();
   await rabbitmq.close();
   process.exit(0);
 });
 
-process.on('SIGINT', async () => {
+process.on("SIGINT", async () => {
   const rabbitmq = RabbitMQConnection.getInstance();
   await rabbitmq.close();
   process.exit(0);
-});               
+});

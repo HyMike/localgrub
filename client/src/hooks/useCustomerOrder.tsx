@@ -26,7 +26,7 @@ const getAllOrdersForAllUsers = async (): Promise<Order[]> => {
       ...doc.data(),
     }));
 
-    allOrders.push(...userOrders as Order[]);
+    allOrders.push(...(userOrders as Order[]));
   }
 
   return allOrders;
@@ -69,7 +69,6 @@ export const useCustomerOrderPage = () => {
         ? await getAllOrdersForAllUsers()
         : await getOrdersForUser(user.uid);
       setAllOrders(orders);
-
     };
     fetchOrders();
   }, [user, superuser]);

@@ -38,13 +38,13 @@ app.listen(PORT, async () => {
 });
 
 // Graceful shutdown
-process.on('SIGTERM', async () => {
+process.on("SIGTERM", async () => {
   const rabbitmq = RabbitMQConnection.getInstance();
   await rabbitmq.close();
   process.exit(0);
 });
 
-process.on('SIGINT', async () => {
+process.on("SIGINT", async () => {
   const rabbitmq = RabbitMQConnection.getInstance();
   await rabbitmq.close();
   process.exit(0);

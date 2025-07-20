@@ -3,7 +3,7 @@ import orderPrepared from "../services/restaurant-queue-producer";
 import { OrderType } from "../db/types/OrderType";
 
 const checkInventory = async (order: OrderType) => {
-  const { name:itemName } = order;
+  const { name: itemName } = order;
 
   const result = await pool.query("SELECT * FROM inventory WHERE item = $1", [
     itemName,

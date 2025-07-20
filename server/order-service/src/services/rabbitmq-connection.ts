@@ -24,11 +24,10 @@ class RabbitMQConnection {
     }
 
     if (this.isConnecting) {
-
       while (this.isConnecting) {
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise((resolve) => setTimeout(resolve, 100));
       }
- 
+
       if (this.connection) {
         return this.connection;
       }
@@ -36,30 +35,29 @@ class RabbitMQConnection {
     }
 
     this.isConnecting = true;
-    
+
     try {
       const rabbitmqUrl = process.env.RABBITMQ_URL || "amqp://rabbitmq:5672";
       this.connection = await amqp.connect(rabbitmqUrl);
-      
 
-      this.connection.on('close', () => {
-        console.log('RabbitMQ connection closed');
+      this.connection.on("close", () => {
+        console.log("RabbitMQ connection closed");
         this.connection = null;
         this.channel = null;
       });
 
-      this.connection.on('error', (error: any) => {
-        console.error('RabbitMQ connection error:', error);
+      this.connection.on("error", (error: any) => {
+        console.error("RabbitMQ connection error:", error);
         this.connection = null;
         this.channel = null;
       });
 
-      console.log('RabbitMQ connection established');
+      console.log("RabbitMQ connection established");
       this.isConnecting = false;
       return this.connection;
     } catch (error) {
       this.isConnecting = false;
-      console.error('Failed to connect to RabbitMQ:', error);
+      console.error("Failed to connect to RabbitMQ:", error);
       throw error;
     }
   }
@@ -72,21 +70,20 @@ class RabbitMQConnection {
     try {
       const connection = await this.getConnection();
       this.channel = await connection.createChannel();
-      
-     
-      this.channel.on('close', () => {
-        console.log('RabbitMQ channel closed');
+
+      this.channel.on("close", () => {
+        console.log("RabbitMQ channel closed");
         this.channel = null;
       });
 
-      this.channel.on('error', (error: any) => {
-        console.error('RabbitMQ channel error:', error);
+      this.channel.on("error", (error: any) => {
+        console.error("RabbitMQ channel error:", error);
         this.channel = null;
       });
 
       return this.channel;
     } catch (error) {
-      console.error('Failed to create channel:', error);
+      console.error("Failed to create channel:", error);
       throw error;
     }
   }
@@ -98,7 +95,7 @@ class RabbitMQConnection {
         this.channel = null;
       }
     } catch (error) {
-      console.error('Error closing channel:', error);
+      console.error("Error closing channel:", error);
     }
 
     try {
@@ -107,7 +104,7 @@ class RabbitMQConnection {
         this.connection = null;
       }
     } catch (error) {
-      console.error('Error closing connection:', error);
+      console.error("Error closing connection:", error);
     }
   }
 }

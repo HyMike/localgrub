@@ -1,1 +1,1 @@
-export { default as RabbitMQConnection } from './rabbitmq-connection'; 
+export { default as RabbitMQConnection } from "./rabbitmq-connection";
