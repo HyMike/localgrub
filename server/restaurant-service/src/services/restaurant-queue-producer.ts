@@ -1,4 +1,5 @@
 import ampq, { ConsumeMessage } from "amqplib";
+import RabbitMQConnection from "./rabbitmq-connection";
 
 type OrderType = {
   email: string;
@@ -10,8 +11,8 @@ type OrderType = {
 const orderPrepared = async (order: OrderType): Promise<void> => {
   const { email, firstName, uid, itemName, quantity } = order;
 
-  const conn = await ampq.connect("amqp://rabbitmq:5672");
-  const channel = await conn.createChannel();
+  const rabbitmq = await RabbitMQConnection.getInstance();
+  const channel = await rabbitmq.getChannel();
 
   await channel.assertExchange("order_prep_exch", "topic", { durable: true });
 
@@ -30,8 +31,6 @@ const orderPrepared = async (order: OrderType): Promise<void> => {
     { persistent: true },
   );
 
-  await channel.close();
-  await conn.close();
 };
 
 export default orderPrepared;

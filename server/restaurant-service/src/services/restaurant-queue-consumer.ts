@@ -1,12 +1,12 @@
 import amqp, { ConsumeMessage } from "amqplib";
 import checkInventory from "../repositories/orderRepository";
 import axios from "axios";
+import RabbitMQConnection from "./rabbitmq-connection";
 
 const consumeOrder = async (): Promise<void> => {
   try {
-    const conn = await amqp.connect("amqp://rabbitmq:5672");
-
-    const channel = await conn.createChannel();
+    const rabbitmq = await RabbitMQConnection.getInstance();
+    const channel = await rabbitmq.getChannel();
 
     await channel.assertExchange("topic_exc", "topic", { durable: true });
     const queueName = "orderCheck";

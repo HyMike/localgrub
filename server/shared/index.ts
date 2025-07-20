@@ -1,0 +1,1 @@
+export { default as RabbitMQConnection } from './rabbitmq-connection'; 

@@ -3,15 +3,13 @@
     "target": "ES6",
     "module": "CommonJS",
     "outDir": "dist",
+    "rootDir": ".",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "src/**/*",
-    "../shared/**/*"
-  ],
+  "include": ["./**/*"],
   "exclude": ["node_modules", "dist"]
-}
+} 

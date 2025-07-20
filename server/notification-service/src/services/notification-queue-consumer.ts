@@ -1,10 +1,11 @@
 import amqp, { ConsumeMessage } from "amqplib";
 import { sendEmail } from "../utils/send-email";
+import RabbitMQConnection from "./rabbitmq-connection";
 
 const consumeOrder = async (): Promise<void> => {
   try {
-    const conn = await amqp.connect("amqp://rabbitmq:5672");
-    const channel = await conn.createChannel();
+    const rabbitmq = await RabbitMQConnection.getInstance();
+    const channel = await rabbitmq.getChannel();
 
     await channel.assertExchange("topic_exc", "topic", { durable: true });
 
@@ -20,7 +21,9 @@ const consumeOrder = async (): Promise<void> => {
         if (msg) {
           const content = JSON.parse(msg.content.toString());
           console.log(`Sending Out Notifications:`, content);
-          const { email, firstName, itemName, quantity } = content;
+          const { email, firstName, name:itemName, quantity } = content;
+          console.log(`Extracted values:`, { email, firstName, itemName, quantity }); // ✅ ADD THIS LINE
+
 
           const subject = `We've received your order, ${firstName}!`;
           const text = `Thanks for ordering with localgrub! We’ve 

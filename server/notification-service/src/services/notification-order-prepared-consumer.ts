@@ -1,10 +1,11 @@
 import amqp, { ConsumeMessage } from "amqplib";
 import { sendEmail } from "../utils/send-email";
+import RabbitMQConnection from "./rabbitmq-connection";
 
 const notificationsOrderPrepared = async () => {
   try {
-    const conn = await amqp.connect("amqp://rabbitmq:5672");
-    const channel = await conn.createChannel();
+    const rabbitmq = await RabbitMQConnection.getInstance();
+    const channel = await rabbitmq.getChannel();
 
     await channel.assertExchange("order_prep_exch", "topic", { durable: true });
 

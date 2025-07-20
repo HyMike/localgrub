@@ -1,9 +1,10 @@
 import amqp, { ConsumeMessage } from "amqplib";
+import RabbitMQConnection from "./rabbitmq-connection";
 
 const consumeOrder = async (): Promise<void> => {
   try {
-    const connection = await amqp.connect("amqp://rabbitmq:5672");
-    const channel = await connection.createChannel();
+    const rabbitmq = await RabbitMQConnection.getInstance();
+    const channel = await rabbitmq.getChannel();
 
     await channel.assertExchange("topic_exc", "topic", { durable: true });
 

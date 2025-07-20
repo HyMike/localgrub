@@ -1,4 +1,4 @@
-import amqp from "amqplib";
+import RabbitMQConnection from "./rabbitmq-connection";
 
 type OrderObj = {
   name: string;
@@ -9,8 +9,8 @@ type OrderObj = {
 
 export const orderReady = async (order: OrderObj) => {
   //order email, order item name, quantity, person name
-  const conn = await amqp.connect("amqp://rabbitmq:5672");
-  const channel = await conn.createChannel();
+  const rabbitmq = RabbitMQConnection.getInstance();
+  const channel = await rabbitmq.getChannel();
 
   const msg = JSON.stringify(order);
 
@@ -23,7 +23,4 @@ export const orderReady = async (order: OrderObj) => {
   console.log(
     "Message is sent to from Order Service to queue that order is ready:",
   );
-
-  await channel.close();
-  await conn.close();
 };
