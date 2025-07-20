@@ -23,17 +23,11 @@ const consumeOrder = async (): Promise<void> => {
             try {
               const order = JSON.parse(msg.content.toString());
               console.log("Preparing Order:", order);
-
-              //pass entire order into it.
-              // const item = order.itemName;
-              // const quantity = order.quantity;
-              //make a call to your main logic and the main logic would make a call to the producer.
               const isAvailable = await checkInventory(order);
               if (isAvailable) {
-                //makes API call to producer
                 try {
                   await axios.post(
-                    "http://restaurant-service:3003/incredients-found",
+                    `http://restaurant-service:3003/inventory/incredients-found`,
                     order,
                   );
                 } catch (err) {
@@ -42,7 +36,6 @@ const consumeOrder = async (): Promise<void> => {
               } else {
                 console.log("Inventory not available.");
               }
-              // checkInventory(order);
               channel.ack(msg);
             } catch (err) {
               console.error("Failed to process message", err);
