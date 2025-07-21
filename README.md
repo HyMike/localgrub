@@ -74,9 +74,9 @@ cd localgrub-app
 ```
 
 ### 2. Set up environment variables
-Copy .env.example to .env in each service and fill in the required values (RabbitMQ URL, Firebase credentials, etc.).
+```Copy .env.example to .env in each service and fill in the required values (RabbitMQ URL, Firebase credentials, etc.).
 You do NOT need to run npm install manually for each service if you use Docker Compose!
-
+```
 
 
 # Contributing
