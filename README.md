@@ -10,10 +10,10 @@ LocalGrub is a microservices-based food delivery platform that enables customers
 # Tech Stack
 - Frontend: React, TypeScript, Vite
 - Backend: Node.js, Express, TypeScript
-- Database: Firestore (orders), PostgreSQL (inventory)
+- Database: Firestore, PostgreSQL 
 - Messaging: RabbitMQ (amqplib)
 - Auth: Firebase Authentication
-- Email: Nodemailer (or similar)
+- Email: Nodemailer 
 - Containerization: Docker, Docker Compose
   
 # Architecture
