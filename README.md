@@ -74,9 +74,103 @@ cd localgrub-app
 ```
 
 ### 2. Set up environment variables
-```Copy .env.example to .env in each service and fill in the required values (RabbitMQ URL, Firebase credentials, etc.).
+Copy .env.example to .env in each service and fill in the required values (RabbitMQ URL, Firebase credentials, etc.).
 You do NOT need to run npm install manually for each service if you use Docker Compose!
+
+## Environment Variables Setup
+This project uses environment variables to securely manage sensitive configuration (such as API keys, database URLs, and service credentials) for each microservice and the frontend.
+You must create your own .env files for each service before running the project.
+
+#### Why use environment variables?
+- Security: Keeps secrets and credentials out of source code.
+- Flexibility: Allows different settings for development, testing, and production.
+- Separation of concerns: Each service only has access to the variables it needs.
+
+#### Frontend (client/.env.example)
+Purpose:
+Stores public configuration for the React frontend, such as API URLs and Firebase client keys.
+
+What to do:
+~~~
+Copy client/.env.example to client/.env
+~~~
+
+Fill in the required values
+Typical variables:
+VITE_API_URL — The base URL for your backend API (e.g., http://localhost:3005)
+VITE_FIREBASE_API_KEY, VITE_FIREBASE_AUTH_DOMAIN, etc. — Your Firebase project’s public config
+
+Where to get Firebase config:
+Firebase Console > Project Settings > General > Your apps > Firebase SDK snippet
+
+#### Order Service (server/order-service/.env.example)
+Purpose:
+Stores sensitive backend configuration for the Order Service, such as RabbitMQ connection, Firebase admin credentials, and service ports.
+
+What to do:
 ```
+Copy server/order-service/.env.example to server/order-service/.env
+```
+
+Fill in the required values
+Typical variables:
+PORT — Port for the Order Service (e.g., 3005)
+RABBITMQ_URL — RabbitMQ connection string (e.g., amqp://rabbitmq:5672)
+FIREBASE_PROJECT_ID, FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL — Firebase Admin SDK credentials
+Where to get Firebase Admin credentials:
+Firebase Console > Project Settings > Service Accounts > Generate new private key
+
+Where to get RabbitMQ URL:
+If using Docker Compose, use the default: amqp://rabbitmq:5672
+Otherwise, see your RabbitMQ server documentation: RabbitMQ Connection Strings
+
+#### Payment Service (server/payment-service/.env.example)
+Purpose:
+Stores sensitive backend configuration for the Payment Service, such as RabbitMQ connection and payment gateway keys.
+
+What to do:
+```
+Copy server/payment-service/.env.example to server/payment-service/.env
+```
+Fill in the required values
+Typical variables:
+PORT — Port for the Payment Service (e.g., 3002)
+RABBITMQ_URL — RabbitMQ connection string
+PAYMENT_GATEWAY_KEY — Your payment processor’s API key (e.g., Stripe, PayPal)
+Where to get payment gateway keys:
+Stripe API Keys
+PayPal Developer
+
+#### Restaurant Service (server/restaurant-service/.env.example)
+Purpose:
+Stores sensitive backend configuration for the Restaurant Service, such as RabbitMQ connection and Postgres database URL.
+What to do:
+```
+Copy server/restaurant-service/.env.example to server/restaurant-service/.env
+```
+Fill in the required values
+Typical variables:
+PORT — Port for the Restaurant Service (e.g., 3003)
+RABBITMQ_URL — RabbitMQ connection string
+POSTGRES_URL — Postgres database connection string
+Where to get Postgres connection string:
+Postgres Connection Strings
+
+#### Notification Service (server/notification-service/.env.example)
+Purpose:
+Stores sensitive backend configuration for the Notification Service, such as RabbitMQ connection and email provider credentials.
+What to do:
+```
+Copy server/notification-service/.env.example to server/notification-service/.env
+```
+Fill in the required values
+Typical variables:
+PORT — Port for the Notification Service (e.g., 3001)
+RABBITMQ_URL — RabbitMQ connection string
+EMAIL_USER, EMAIL_PASS — Email provider credentials (e.g., Gmail, SendGrid)
+Where to get email provider credentials:
+Gmail App Passwords
+SendGrid API Keys
 
 
 # Contributing
