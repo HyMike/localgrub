@@ -60,9 +60,25 @@ After successfully updating the order status, the Order Service emits an order_r
 The Notification Service, listening for the order_ready event, sends a final email to the customer notifying them that their order is ready for pickup.
 
 # Getting Started
-- Coming Soon...
+
+### Prerequisites
+- [Node.js](https://nodejs.org/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Firebase Project](https://firebase.google.com/) (for Firestore/Auth)
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/yourusername/localgrub-app.git
+cd localgrub-app
+```
+
+### 2. Set up environment variables
+Copy .env.example to .env in each service and fill in the required values (RabbitMQ URL, Firebase credentials, etc.).
+You do NOT need to run npm install manually for each service if you use Docker Compose!
+
+
 
 # Contributing
 - Coming Soon...
-
 
