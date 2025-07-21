@@ -7,9 +7,15 @@ LocalGrub is a microservices-based food delivery platform that enables customers
 ## Local Grub Happy Path & When A Microservice Goes Down Video
 [![Local Grub Happy Path & When A Microservice Goes Down](./LocalGrub_Thumbnail.png)](https://drive.google.com/file/d/1CAJFTE5mmKluq33BG0cP1vH9e5ZSUN98/view?usp=sharing)
 
+
+# Architecture
 ![ALT TEXT](./data-flow-diagram.png)
 
-Data flow Diagram:
+
+# Getting Started
+- Still working on...
+
+### Data flow Diagram:
 
 **1. Customer Order Placement**
 The customer selects menu items and checks out using their credit card. The frontend application sends an API request to the Order Service, containing all necessary order and payment details.
@@ -47,3 +53,10 @@ After successfully updating the order status, the Order Service emits an order_r
 
 **11. Final Notification to Customer**
 The Notification Service, listening for the order_ready event, sends a final email to the customer notifying them that their order is ready for pickup.
+
+
+
+# Contributing
+-Still working on...
+
+
