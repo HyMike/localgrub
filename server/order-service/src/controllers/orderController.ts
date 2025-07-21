@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import admin from "firebase-admin";
 import { db } from "../utils/firebaseAdmin";
 import sendOrder from "../services/order-queue-producer";
-import { verifyUserToken } from "../services/authService";
+import { verifyUserToken } from "../middleware/authenticateUser";
 import { createOrderInDatabase } from "../services/orderService";
 
 const createOrder = async (req: Request, res: Response): Promise<any> => {
