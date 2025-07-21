@@ -1,4 +1,4 @@
-LocalGrub 🍔
+# LocalGrub 🍔
 Food Delivery Platform
 
 # About The Project
