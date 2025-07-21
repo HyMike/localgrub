@@ -21,7 +21,7 @@ LocalGrub is a microservices-based food delivery platform that enables customers
 
 
 # Getting Started
-- Still working on...
+- Coming Soon...
 
 ### Data flow Diagram:
 
@@ -65,6 +65,6 @@ The Notification Service, listening for the order_ready event, sends a final ema
 
 
 # Contributing
--Still working on...
+- Coming Soon...
 
 
