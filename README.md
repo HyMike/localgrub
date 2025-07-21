@@ -20,10 +20,6 @@ LocalGrub is a microservices-based food delivery platform that enables customers
 Local Grub uses an event-driven architecture where services communicate asynchronously through RabbitMQ. This allows the system to be fault-tolerant and scalable.
 ![ALT TEXT](./data-flow-diagram.png)
 
-
-# Getting Started
-- Coming Soon...
-
 ### Data flow Diagram:
 
 **1. Customer Order Placement**
@@ -63,7 +59,8 @@ After successfully updating the order status, the Order Service emits an order_r
 **11. Final Notification to Customer**
 The Notification Service, listening for the order_ready event, sends a final email to the customer notifying them that their order is ready for pickup.
 
-
+# Getting Started
+- Coming Soon...
 
 # Contributing
 - Coming Soon...
