@@ -17,6 +17,7 @@ LocalGrub is a microservices-based food delivery platform that enables customers
 - Containerization: Docker, Docker Compose
   
 # Architecture
+Local Grub uses an event-driven architecture where services communicate asynchronously through RabbitMQ. This allows the system to be fault-tolerant and scalable.
 ![ALT TEXT](./data-flow-diagram.png)
 
 
