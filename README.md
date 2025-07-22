@@ -171,7 +171,70 @@ SendGrid API Keys
 
 
 # Contributing
-- Coming Soon...
+
+We welcome contributions from the community! If you’d like to add a feature, fix a bug, or improve documentation, please follow these steps:
+
+### How to Contribute
+
+1. **Fork the repository**  
+   Click the “Fork” button at the top right of this page to create your own copy of the project.
+
+2. **Clone your fork**
+   ```bash
+   git clone https://github.com/your-username/localgrub-app.git
+   cd localgrub-app
+   ```
+
+3. **Create a new branch for your feature or fix**
+   ```bash
+   git checkout -b feature/your-feature-name
+   # or for a bugfix
+   git checkout -b fix/your-bug-description
+   ```
+
+4. **Install dependencies and make your changes**  
+   Follow the [Getting Started](#getting-started) section to set up your environment.  
+   Make your changes in the appropriate service or client directory.
+
+5. **Test your changes**  
+   Make sure all services start and your changes work as expected.  
+   Add or update tests if applicable.
+
+6. **Commit your changes**
+   ```bash
+   git add .
+   git commit -m "Describe your changes"
+   ```
+
+7. **Push to your fork**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+8. **Open a Pull Request**  
+   - Go to your fork on GitHub.
+   - Click “Compare & pull request”.
+   - Fill in the PR template, describing your changes and why they’re needed.
+   - Submit the PR.
+
+9. **Participate in the review**  
+   - Respond to feedback and make any requested changes.
+   - Once approved, your PR will be merged!
+
+---
+
+### Guidelines
+
+- Please keep your pull requests focused and atomic (one feature or fix per PR).
+- Follow the existing code style and structure.
+- Add or update documentation as needed.
+- If your change affects the API or environment variables, update the relevant README sections.
+- Be respectful and constructive in code reviews and discussions.
+
+---
+
+Thank you for helping make LocalGrub better!  
+If you have any questions, feel free to open an issue or start a discussion.
 
 
 # License
