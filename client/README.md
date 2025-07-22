@@ -1,3 +1,31 @@
+# Local Grub (Frontend:Client) 
+
+## Overview
+This is the React frontend for the LocalGrub platform.
+It allows customers to browse menus, place orders, and view order status.
+The client communicates with the backend microservices via REST APIs and receives real-time updates through event-driven notifications.
+
+## Environment Variables
+This app requires a .env file for configuration.
+You must copy .env.example to .env and fill in the required values before running the app.
+
+Where to get it  
+**Example**
+```
+Base URL for backend API:
+VITE_API_URL = http://localhost:3005
+Firebase Client API Key:
+VITE_FIREBASE_API_KEY = Firebase Console
+Firebase Auth Domain :
+VITE_FIREBASE_AUTH_DOMAIN =	Firebase Console
+Firebase Project ID :
+VITE_FIREBASE_PROJECT_ID = Firebase Console
+```
+
+> See the main project README for more details on environment variables and how to obtain them.
+
+## Getting Started
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -52,3 +80,42 @@ export default tseslint.config({
   },
 });
 ```
+
+#### 1. Install dependencies
+```
+npm install
+```
+#### 2. Set up environment variables
+```
+cp .env.example .env
+# Edit .env and fill in the required values
+```
+#### 3. Run the app (development)
+```
+npm run dev
+```
+The app will be available at http://localhost:4173 by default.
+#### 4. Build for production
+```
+npm run build
+```
+#### 5. Preview production build
+```
+npm run preview
+```
+#### 6. With Docker (optional)
+```
+docker build -t localgrub-client .
+docker run -p 4173:4173 localgrub-client
+```
+
+## Tech Stack
+- React
+- TypeScript
+- Vite
+
+# Contributing
+Please see the main project README for guidelines.
+
+# License
+This project is licensed under the MIT License.
