@@ -256,7 +256,9 @@ If you’d like to add a feature, fix a bug, or improve documentation, please fo
 - Health Checks & Service Discovery
     Feature: Add health check endpoints for each service and integrate with monitoring tools.
     How: Implement /health endpoints with Prometheus
-
+- Add More Unit Tests, Integration Tests and System Test
+    How: For Client and Microservices (Notification Service, Order Service, Payment Service, Restaurant Service)
+    
 ### Guidelines
 
 - Please keep your pull requests focused and atomic (one feature or fix per PR).
