@@ -172,7 +172,7 @@ SendGrid API Keys
 
 # Contributing
 
-We welcome contributions from the community! If you’d like to add a feature, fix a bug, or improve documentation, please follow these steps:
+If you’d like to add a feature, fix a bug, or improve documentation, please follow these steps:
 
 ### How to Contribute
 
