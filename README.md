@@ -240,6 +240,23 @@ If you’d like to add a feature, fix a bug, or improve documentation, please fo
 
 ---
 
+# Areas for Future Enhancement
+- Order Tracking & Real-Time Updates
+    Feature: Allow customers to track their order status in real time (e.g., “Order Received”, “Being Prepared”, “Ready for Pickup”).
+    How: Use WebSockets or Server-Sent Events (SSE) to push status updates from backend to frontend.
+- Change Authentications Database
+    Feature: Change Authentications Database from Firebase to in house using PostgreSQL as database. 
+    How: Firebase --> Database
+-  Payment Status & Refunds
+    Feature: Show payment status in the UI, and allow for refunds/cancellations.
+    How: Add refund endpoints.
+- CI/CD Pipeline
+    Feature: Automate testing, linting, Prettier, building, and deployment
+    How: Use GitHub Actions
+- Health Checks & Service Discovery
+    Feature: Add health check endpoints for each service and integrate with monitoring tools.
+    How: Implement /health endpoints with Prometheus
+
 ### Guidelines
 
 - Please keep your pull requests focused and atomic (one feature or fix per PR).
