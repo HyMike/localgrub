@@ -13,13 +13,16 @@ Where to get it
 **Example**
 ```
 Base URL for backend API:
-VITE_API_URL = http://localhost:3005
+VITE_API_URL => http://localhost:3005
+
 Firebase Client API Key:
-VITE_FIREBASE_API_KEY = Firebase Console
+VITE_FIREBASE_API_KEY => Firebase Console
+
 Firebase Auth Domain :
-VITE_FIREBASE_AUTH_DOMAIN =	Firebase Console
+VITE_FIREBASE_AUTH_DOMAIN => Firebase Console
+
 Firebase Project ID :
-VITE_FIREBASE_PROJECT_ID = Firebase Console
+VITE_FIREBASE_PROJECT_ID => Firebase Console
 ```
 
 > See the main project README for more details on environment variables and how to obtain them.
