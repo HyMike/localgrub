@@ -77,7 +77,7 @@ cd localgrub-app
 Copy .env.example to .env in each service and fill in the required values (RabbitMQ URL, Firebase credentials, etc.).
 You do NOT need to run npm install manually for each service if you use Docker Compose!
 
-## Environment Variables Setup
+#### Environment Variables Setup
 This project uses environment variables to securely manage sensitive configuration (such as API keys, database URLs, and service credentials) for each microservice and the frontend.
 You must create your own .env files for each service before running the project.
 
