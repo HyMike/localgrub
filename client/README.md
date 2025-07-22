@@ -115,7 +115,7 @@ docker run -p 4173:4173 localgrub-client
 - Vite
 
 # Contributing
-Please see the main project README for guidelines.
+Please see the main project [README](https://github.com/HyMike/localgrub) for guidelines.
 
 # License
 This project is licensed under the MIT License.
