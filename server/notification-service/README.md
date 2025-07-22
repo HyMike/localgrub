@@ -82,27 +82,6 @@ docker run -p 3001:3001 notification-service
 
 ---
 
-## Project Structure
-
-```
-notification-service/
-├── src/
-│   ├── services/
-│   │   ├── notification-queue-consumer.ts
-│   │   ├── notification-order-prepared-consumer.ts
-│   │   ├── notification-order-ready-consumer.ts
-│   │   └── rabbitmq-connection.ts
-│   ├── utils/
-│   │   └── send-email.ts
-│   └── index.ts
-├── .env.example
-├── Dockerfile
-├── package.json
-└── README.md
-```
-
----
-
 ## Contributing
 
 - Please see the main project [README](../../README.md) for guidelines.
