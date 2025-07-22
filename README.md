@@ -4,6 +4,23 @@ LocalGrub is a microservices-based food delivery platform that enables customers
 ### Local Grub Happy Path & When A Microservice Goes Down Video
 [![Local Grub Happy Path & When A Microservice Goes Down](./LocalGrub_Thumbnail.png)](https://drive.google.com/file/d/1CAJFTE5mmKluq33BG0cP1vH9e5ZSUN98/view?usp=sharing)
 
+---
+
+## Table of Contents
+
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Data Flow Diagram](#data-flow-diagram)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Clone the repository](#1-clone-the-repository)
+  - [Set up environment variables](#2-set-up-environment-variables)
+  - [Environment Variables Setup](#environment-variables-setup)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
 # Tech Stack
 - Frontend: React, TypeScript, Vite
 - Backend: Node.js, Express, TypeScript
