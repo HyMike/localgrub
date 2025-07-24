@@ -1,9 +1,9 @@
 name: Prettier Check
 
-on: 
+on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   prettier-check:

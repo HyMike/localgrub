@@ -1,7 +1,9 @@
 # LocalGrub 🍔
+
 LocalGrub is a microservices-based food delivery platform that enables customers to order food, notifies restaurants, and manages payments—all through asynchronous, event-driven communication using RabbitMQ. The system is designed for resilience, scalability, and clear separation of concerns.
 
 ### Local Grub Happy Path & When A Microservice Goes Down Video
+
 [![Local Grub Happy Path & When A Microservice Goes Down](./LocalGrub_Thumbnail.png)](https://drive.google.com/file/d/1CAJFTE5mmKluq33BG0cP1vH9e5ZSUN98/view?usp=sharing)
 
 ---
@@ -22,15 +24,17 @@ LocalGrub is a microservices-based food delivery platform that enables customers
 ---
 
 # Tech Stack
+
 - Frontend: React, TypeScript, Vite
 - Backend: Node.js, Express, TypeScript
-- Database: Firestore, PostgreSQL 
+- Database: Firestore, PostgreSQL
 - Messaging: RabbitMQ (amqplib)
 - Auth: Firebase Authentication
-- Email: Nodemailer 
+- Email: Nodemailer
 - Containerization: Docker, Docker Compose
-  
+
 # Architecture
+
 Local Grub uses an event-driven architecture where services communicate asynchronously through RabbitMQ. This allows the system to be fault-tolerant and scalable.
 ![ALT TEXT](./data-flow-diagram.png)
 
@@ -76,38 +80,45 @@ The Notification Service, listening for the order_ready event, sends a final ema
 # Getting Started
 
 ### Prerequisites
+
 - [Node.js](https://nodejs.org/)
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [Firebase Project](https://firebase.google.com/) (for Firestore/Auth)
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/yourusername/localgrub-app.git
 cd localgrub-app
 ```
 
 ### 2. Set up environment variables
+
 Copy .env.example to .env in each service and fill in the required values (RabbitMQ URL, Firebase credentials, etc.).
 You do NOT need to run npm install manually for each service if you use Docker Compose!
 
 #### Environment Variables Setup
+
 This project uses environment variables to securely manage sensitive configuration (such as API keys, database URLs, and service credentials) for each microservice and the frontend.
 You must create your own .env files for each service before running the project.
 
 #### Why use environment variables?
+
 - Security: Keeps secrets and credentials out of source code.
 - Flexibility: Allows different settings for development, testing, and production.
 - Separation of concerns: Each service only has access to the variables it needs.
 
 #### Frontend (client/.env.example)
+
 Purpose:
 Stores public configuration for the React frontend, such as API URLs and Firebase client keys.
 
 What to do:
-~~~
+
+```
 Copy client/.env.example to client/.env
-~~~
+```
 
 Fill in the required values
 Typical variables:
@@ -118,10 +129,12 @@ Where to get Firebase config:
 Firebase Console > Project Settings > General > Your apps > Firebase SDK snippet
 
 #### Order Service (server/order-service/.env.example)
+
 Purpose:
 Stores sensitive backend configuration for the Order Service, such as RabbitMQ connection, Firebase admin credentials, and service ports.
 
 What to do:
+
 ```
 Copy server/order-service/.env.example to server/order-service/.env
 ```
@@ -139,13 +152,16 @@ If using Docker Compose, use the default: amqp://rabbitmq:5672
 Otherwise, see your RabbitMQ server documentation: RabbitMQ Connection Strings
 
 #### Payment Service (server/payment-service/.env.example)
+
 Purpose:
 Stores sensitive backend configuration for the Payment Service, such as RabbitMQ connection and payment gateway keys.
 
 What to do:
+
 ```
 Copy server/payment-service/.env.example to server/payment-service/.env
 ```
+
 Fill in the required values
 Typical variables:
 PORT — Port for the Payment Service (e.g., 3002)
@@ -156,12 +172,15 @@ Stripe API Keys
 PayPal Developer
 
 #### Restaurant Service (server/restaurant-service/.env.example)
+
 Purpose:
 Stores sensitive backend configuration for the Restaurant Service, such as RabbitMQ connection and Postgres database URL.
 What to do:
+
 ```
 Copy server/restaurant-service/.env.example to server/restaurant-service/.env
 ```
+
 Fill in the required values
 Typical variables:
 PORT — Port for the Restaurant Service (e.g., 3003)
@@ -171,12 +190,15 @@ Where to get Postgres connection string:
 Postgres Connection Strings
 
 #### Notification Service (server/notification-service/.env.example)
+
 Purpose:
 Stores sensitive backend configuration for the Notification Service, such as RabbitMQ connection and email provider credentials.
 What to do:
+
 ```
 Copy server/notification-service/.env.example to server/notification-service/.env
 ```
+
 Fill in the required values
 Typical variables:
 PORT — Port for the Notification Service (e.g., 3001)
@@ -185,7 +207,6 @@ EMAIL_USER, EMAIL_PASS — Email provider credentials (e.g., Gmail, SendGrid)
 Where to get email provider credentials:
 Gmail App Passwords
 SendGrid API Keys
-
 
 # Contributing
 
@@ -197,12 +218,14 @@ If you’d like to add a feature, fix a bug, or improve documentation, please fo
    Click the “Fork” button at the top right of this page to create your own copy of the project.
 
 2. **Clone your fork**
+
    ```bash
    git clone https://github.com/your-username/localgrub-app.git
    cd localgrub-app
    ```
 
 3. **Create a new branch for your feature or fix**
+
    ```bash
    git checkout -b feature/your-feature-name
    # or for a bugfix
@@ -218,47 +241,50 @@ If you’d like to add a feature, fix a bug, or improve documentation, please fo
    Add or update tests if applicable.
 
 6. **Commit your changes**
+
    ```bash
    git add .
    git commit -m "Describe your changes"
    ```
 
 7. **Push to your fork**
+
    ```bash
    git push origin feature/your-feature-name
    ```
 
-8. **Open a Pull Request**  
+8. **Open a Pull Request**
    - Go to your fork on GitHub.
    - Click “Compare & pull request”.
    - Fill in the PR template, describing your changes and why they’re needed.
    - Submit the PR.
 
-9. **Participate in the review**  
+9. **Participate in the review**
    - Respond to feedback and make any requested changes.
    - Once approved, your PR will be merged!
 
 ---
 
 # Areas for Future Enhancement
+
 - Order Tracking & Real-Time Updates
-    Feature: Allow customers to track their order status in real time (e.g., “Order Received”, “Being Prepared”, “Ready for Pickup”).
-    How: Use WebSockets or Server-Sent Events (SSE) to push status updates from backend to frontend.
+  Feature: Allow customers to track their order status in real time (e.g., “Order Received”, “Being Prepared”, “Ready for Pickup”).
+  How: Use WebSockets or Server-Sent Events (SSE) to push status updates from backend to frontend.
 - Change Authentications Database
-    Feature: Change Authentications Database from Firebase to in house using PostgreSQL as database. 
-    How: Firebase --> Database
--  Payment Status & Refunds
-    Feature: Show payment status in the UI, and allow for refunds/cancellations.
-    How: Add refund endpoints.
+  Feature: Change Authentications Database from Firebase to in house using PostgreSQL as database.
+  How: Firebase --> Database
+- Payment Status & Refunds
+  Feature: Show payment status in the UI, and allow for refunds/cancellations.
+  How: Add refund endpoints.
 - CI/CD Pipeline
-    Feature: Automate testing, linting, Prettier, building, and deployment
-    How: Use GitHub Actions
+  Feature: Automate testing, linting, Prettier, building, and deployment
+  How: Use GitHub Actions
 - Health Checks & Service Discovery
-    Feature: Add health check endpoints for each service and integrate with monitoring tools.
-    How: Implement /health endpoints with Prometheus
+  Feature: Add health check endpoints for each service and integrate with monitoring tools.
+  How: Implement /health endpoints with Prometheus
 - Add More Unit Tests, Integration Tests and System Test
-    How: For Client and Microservices (Notification Service, Order Service, Payment Service, Restaurant Service)
-    
+  How: For Client and Microservices (Notification Service, Order Service, Payment Service, Restaurant Service)
+
 ### Guidelines
 
 - Please keep your pull requests focused and atomic (one feature or fix per PR).
@@ -272,8 +298,8 @@ If you’d like to add a feature, fix a bug, or improve documentation, please fo
 Thank you for helping make LocalGrub better!  
 If you have any questions, feel free to open an issue or start a discussion.
 
-
 # License
+
 MIT License
 
 Copyright (c) 2024 [Local Grub]
@@ -295,4 +321,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-

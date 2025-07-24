@@ -22,14 +22,15 @@ The Restaurant Service is a backend microservice for the LocalGrub platform. It 
 This service requires a `.env` file for configuration.
 
 **Setup:**
+
 - Copy `.env.example` to `.env` in this directory.
 - Fill in the required values before running the service.
 
-| Variable         | Description                                 | Where to get it / Example                      |
-|-----------------|---------------------------------------------|------------------------------------------------|
-| PORT            | Port the service runs on                    | `3003`                                         |
-| RABBITMQ_URL    | RabbitMQ connection string                  | `amqp://rabbitmq:5672` (default for Docker)    |
-| POSTGRES_URL    | PostgreSQL database connection string       | [Postgres Connection Strings](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING) |
+| Variable     | Description                           | Where to get it / Example                                                                                  |
+| ------------ | ------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| PORT         | Port the service runs on              | `3003`                                                                                                     |
+| RABBITMQ_URL | RabbitMQ connection string            | `amqp://rabbitmq:5672` (default for Docker)                                                                |
+| POSTGRES_URL | PostgreSQL database connection string | [Postgres Connection Strings](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING) |
 
 > See the main project [README](../../README.md) for more details on environment variables and how to obtain them.
 

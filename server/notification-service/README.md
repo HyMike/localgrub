@@ -20,15 +20,16 @@ The Notification Service is a backend microservice for the LocalGrub platform. I
 This service requires a `.env` file for configuration.
 
 **Setup:**
+
 - Copy `.env.example` to `.env` in this directory.
 - Fill in the required values before running the service.
 
-| Variable      | Description                        | Where to get it / Example                      |
-|---------------|------------------------------------|------------------------------------------------|
-| PORT          | Port the service runs on           | `3001`                                         |
-| RABBITMQ_URL  | RabbitMQ connection string         | `amqp://rabbitmq:5672` (default for Docker)    |
-| EMAIL_USER    | Email provider username            | e.g., Gmail address or SendGrid username       |
-| EMAIL_PASS    | Email provider password/API key    | e.g., Gmail App Password or SendGrid API key   |
+| Variable     | Description                     | Where to get it / Example                    |
+| ------------ | ------------------------------- | -------------------------------------------- |
+| PORT         | Port the service runs on        | `3001`                                       |
+| RABBITMQ_URL | RabbitMQ connection string      | `amqp://rabbitmq:5672` (default for Docker)  |
+| EMAIL_USER   | Email provider username         | e.g., Gmail address or SendGrid username     |
+| EMAIL_PASS   | Email provider password/API key | e.g., Gmail App Password or SendGrid API key |
 
 > See the main project [README](../../README.md) for more details on environment variables and how to obtain them.
 

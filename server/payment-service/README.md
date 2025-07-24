@@ -20,14 +20,15 @@ The Payment Service is a backend microservice for the LocalGrub platform. It is 
 This service requires a `.env` file for configuration.
 
 **Setup:**
+
 - Copy `.env.example` to `.env` in this directory.
 - Fill in the required values before running the service.
 
-| Variable             | Description                                 | Where to get it / Example                      |
-|---------------------|---------------------------------------------|------------------------------------------------|
-| PORT                | Port the service runs on                    | `3002`                                         |
-| RABBITMQ_URL        | RabbitMQ connection string                  | `amqp://rabbitmq:5672` (default for Docker)    |
-| PAYMENT_GATEWAY_KEY | Payment processor API key                   | [Stripe Dashboard](https://dashboard.stripe.com/apikeys) or [PayPal Developer](https://developer.paypal.com/) |
+| Variable            | Description                | Where to get it / Example                                                                                     |
+| ------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| PORT                | Port the service runs on   | `3002`                                                                                                        |
+| RABBITMQ_URL        | RabbitMQ connection string | `amqp://rabbitmq:5672` (default for Docker)                                                                   |
+| PAYMENT_GATEWAY_KEY | Payment processor API key  | [Stripe Dashboard](https://dashboard.stripe.com/apikeys) or [PayPal Developer](https://developer.paypal.com/) |
 
 > See the main project [README](../../README.md) for more details on environment variables and how to obtain them.
 

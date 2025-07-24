@@ -22,16 +22,17 @@ The Order Service is a backend microservice for the LocalGrub platform. It is re
 This service requires a `.env` file for configuration.
 
 **Setup:**
+
 - Copy `.env.example` to `.env` in this directory.
 - Fill in the required values before running the service.
 
-| Variable              | Description                                 | Where to get it / Example                      |
-|----------------------|---------------------------------------------|------------------------------------------------|
-| PORT                 | Port the service runs on                    | `3005`                                         |
-| RABBITMQ_URL         | RabbitMQ connection string                  | `amqp://rabbitmq:5672` (default for Docker)    |
-| FIREBASE_PROJECT_ID  | Firebase Project ID                         | [Firebase Console](https://console.firebase.google.com/) |
-| FIREBASE_PRIVATE_KEY | Firebase Admin private key                  | [Firebase Console > Service Accounts](https://console.firebase.google.com/) |
-| FIREBASE_CLIENT_EMAIL| Firebase Admin client email                 | [Firebase Console > Service Accounts](https://console.firebase.google.com/) |
+| Variable              | Description                 | Where to get it / Example                                                   |
+| --------------------- | --------------------------- | --------------------------------------------------------------------------- |
+| PORT                  | Port the service runs on    | `3005`                                                                      |
+| RABBITMQ_URL          | RabbitMQ connection string  | `amqp://rabbitmq:5672` (default for Docker)                                 |
+| FIREBASE_PROJECT_ID   | Firebase Project ID         | [Firebase Console](https://console.firebase.google.com/)                    |
+| FIREBASE_PRIVATE_KEY  | Firebase Admin private key  | [Firebase Console > Service Accounts](https://console.firebase.google.com/) |
+| FIREBASE_CLIENT_EMAIL | Firebase Admin client email | [Firebase Console > Service Accounts](https://console.firebase.google.com/) |
 
 > See the main project [README](../../README.md) for more details on environment variables and how to obtain them.
 
