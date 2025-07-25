@@ -1,47 +1,63 @@
-// import { render, screen } from "@testing-library/react";
-// import userEvent from "@testing-library/user-event";
-// import { vi } from "vitest";
-// import LogOutBtn from "./LogOutBtn";
-// import "@testing-Library/jest-dom";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { vi, describe, it, expect } from "vitest";
+import LogOutBtn from "./LogOutBtn";
+import { useAuth } from "../authentication/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
 
-// vi.mock("firebase/auth", () => ({
-//     signOut: vi.fn(() => Promise.resolve()),
-// }));
+vi.mock("../authentication/AuthContext", () => ({
+    useAuth: vi.fn(),
+}));
 
-// vi.mock("../firebase/firebaseConfig", () => ({
-//     auth: {},
-// }));
+vi.mock('react-router-dom', () =>  ({
+    useNavigate: vi.fn(),
+}));
 
-// // Mock useNavigate from react-router-dom
-// const mockNavigate = vi.fn();
-// vi.mock("react-router-dom", async () => {
-//     const actual = await vi.importActual("react-router-dom");
-//     return {
-//         ...actual,
-//         useNavigate: () => mockNavigate,
-//     };
-// });
+vi.mock('firebase/auth', () =>({
+    signOut: vi.fn(),
+    getAuth: vi.fn(),
 
-// vi.mock("../authentication/AuthContext", () => ({
-//     useAuth: () => ({
-//         user: { uid: "123", email: "test@example.com" },
-//     }),
-// }));
+}));
 
-// describe("LogOutBtn", () => {
-//     it("renders the button when user is logged in", () => {
-//         render(<LogOutBtn />);
-//         expect(screen.getByText("Log Out")).toBeInTheDocument();
-//     });
 
-//     it("calls signOut and navigates on click", async () => {
-//         const { signOut } = await import("firebase/auth");
-//         render(<LogOutBtn />);
-//         const button = screen.getByText("Log Out");
+describe('LogOutBtn',() => {
+    beforeEach(() => {
+            vi.clearAllMocks();
 
-//         await userEvent.click(button);
+        })
+    // Want to check if user is null if there is no User. 
+    it('./LogOutBtn', ()=> {
+        (useAuth as vi.Mock).mockReturnValue({user: null});
+        const { container } = render(<LogOutBtn />);
+        expect(container).toBeEmptyDOMElement();
+    });
+    //testing for if there is a user there would be a sign out btn shown.
+    it('./LogOutBtn', ()=> {
+        (useAuth as vi.Mock).mockReturnValue({user: {uid:'charlie'}});
+        render(<LogOutBtn />);
+        expect(screen.getByRole('button', {name: /sign out/i })).toBeInTheDocument();
+    })
 
-//         expect(signOut).toHaveBeenCalled();
-//         expect(mockNavigate).toHaveBeenCalledWith("/");
-//     });
-// });
+    // Testing if logout btn will redirect when clicked to the main page
+    it('LogOutBtn', async () => {
+        (useAuth as vi.Mock).mockReturnValue({user: {name: 'charlie'}});
+        const mockSignOut = signOut as vi.Mock
+        const mockNavigate =  vi.fn();
+        (useNavigate as vi.mock).mockReturnValue(mockNavigate);
+
+        render(<LogOutBtn />);
+        fireEvent.click(screen.getByRole("button", {name: /sign out/i}));
+
+        await waitFor(()=> {
+            expect(mockSignOut).toBeCalled();
+            expect(mockNavigate).toBeCalledWith("/");
+
+        })
+
+        render(<LogOutBtn />)
+
+    })
+
+
+
+});
