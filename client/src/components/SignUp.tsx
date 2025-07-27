@@ -11,11 +11,15 @@ const SignUp = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!firstName || !lastName || !email || !password) {
+      console.error("Please fill in all fields");
+      return;
+    }
     try {
       await SignUpUser(email, password, { email, firstName, lastName });
       navigate("/success");
     } catch (error) {
-      console.error(error);
+      console.error("Error logging out:", error);
     }
   };
 
@@ -23,6 +27,7 @@ const SignUp = () => {
     <form
       onSubmit={handleSignUp}
       className="max-w-md mx-auto mt-16 bg-white p-10 rounded-2xl shadow-xl space-y-6"
+      data-testid="signup-form"
     >
       <h1 className="text-3xl font-bold text-center text-gray-800">
         Sign Up To Order Food
