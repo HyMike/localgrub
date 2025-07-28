@@ -1,22 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../authentication/AuthContext";
 import { sendData } from "../services/orderService";
-
-type OrderFormData = {
-  id: string;
-  name: string;
-  quantity: number;
-  price: number;
-  img?: string;
-  // creditCardInfo?: string;
-};
-
-type Props = {
-  formData: OrderFormData;
-  toPage: string;
-  creditCardInfo?: string;
-  btnTxt: string;
-};
+import { OrderFormData, Props } from "../types/SubmitBtn";
 
 // this now just pass the data into the checkout page. and you would do the submit and sendData there.
 const SubmitBtn = ({

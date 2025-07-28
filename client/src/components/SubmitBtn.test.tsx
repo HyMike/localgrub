@@ -1,86 +1,330 @@
-// import { render, screen } from "@testing-library/react";
-// import userEvent from "@testing-library/user-event";
-// import { vi } from "vitest";
-// import axios from "axios";
-// import SubmitBtn from "./SubmitBtn";
-// import { MemoryRouter } from "react-router-dom";
-// import { useAuth } from "../authentication/AuthContext";
+import SubmitBtn from "./SubmitBtn";
+import { vi, describe, it, beforeEach } from "vitest";
+import { screen, render, fireEvent, waitFor } from "@testing-library/react";
+import { useNavigate } from "react-router-dom";
+import { sendData } from "../services/orderService";
+import { useAuth } from "../authentication/AuthContext";
+import { getIdToken } from "firebase/auth";
+import { OrderFormData } from "../types/SubmitBtn";
 
-// const mockNavigate = vi.fn();
-// vi.mock("react-router-dom", async () => {
-//     const actual = await vi.importActual("react-router-dom");
-//     return {
-//         ...actual,
-//         useNavigate: () => mockNavigate,
-//     };
-// });
+vi.mock("react-router-dom", () => ({
+  useNavigate: vi.fn(),
+}));
 
-// const mockGetIdToken = vi.fn();
-// vi.mock("../authentication/AuthContext", () => ({
-//     useAuth: () => ({
-//         user: null,
-//         loading: false,
-//     }),
-// }));
+vi.mock("../authentication/AuthContext", () => ({
+  useAuth: vi.fn(),
+}));
 
-// vi.mock("axios");
+vi.mock("../services/orderService", () => ({
+  sendData: vi.fn(),
+}));
 
-// describe("SubmitBtn", () => {
-//     const formData = {
-//         id: 1,
-//         name: "Test User",
-//         quantity: 1,
-//         price: 9.99,
-//         img: "test.png",
-//     };
+type renderSubmitBtn = {
+  user: any;
+  loading: boolean;
+  formData: any;
+  toPage: string;
+  btnTxt: string;
+};
 
-//     beforeEach(() => {
-//         vi.clearAllMocks();
-//     });
+describe("SubmitBtn", () => {
+  const mockNavigate = vi.fn();
+  const mockSendData = sendData as any;
+  const mockUseAuth = useAuth as any;
 
-//     it("navigates to /login if user is not logged in", async () => {
-//         const user = userEvent.setup();
+  const renderSubmitBtn = ({
+    user,
+    loading,
+    formData,
+    toPage,
+    btnTxt,
+  }: renderSubmitBtn) => {
+    mockUseAuth.mockReturnValue({ user, loading });
+    return render(
+      <SubmitBtn formData={formData} toPage={toPage} btnTxt={btnTxt} />,
+    );
+  };
 
-//         render(
-//             <MemoryRouter>
-//                 <SubmitBtn formData={formData} />
-//             </MemoryRouter>
-//         );
+  beforeEach(() => {
+    vi.clearAllMocks();
+    (useNavigate as any).mockReturnValue(mockNavigate);
+  });
 
-//         await user.click(screen.getByRole("button", { name: /submit/i }));
+  // if page navigate to sucess is sendData called does it send the right data
+  it("Display the correct text for button", () => {
+    renderSubmitBtn({
+      user: null,
+      loading: false,
+      formData: {},
+      toPage: "checkout",
+      btnTxt: "Submit Order",
+    });
 
-//         expect(mockNavigate).toHaveBeenCalledWith("/login", {
-//             state: {
-//                 formData,
-//                 from: "/success",
-//             },
-//         });
-//     });
+    expect(screen.getByText("Submit Order")).toBeInTheDocument();
+  });
 
-//     it("calls getIdToken, sends data, and navigates if user is logged in", async () => {
-//         vi.mocked(await import("../authentication/AuthContext")).useAuth = () => ({
-//             user: { getIdToken: mockGetIdToken },
-//             loading: false,
-//         });
+  it("Display doesn't render when loading", () => {
+    const { container } = renderSubmitBtn({
+      user: null,
+      loading: true,
+      formData: {},
+      toPage: "checkout",
+      btnTxt: "Submit Order",
+    });
 
-//         mockGetIdToken.mockResolvedValue("mock-token");
-//         vi.mocked(axios.post).mockResolvedValue({ data: "ok" });
+    expect(container.firstChild).toBeNull();
+  });
 
-//         const user = userEvent.setup();
-//         render(
-//             <MemoryRouter>
-//                 <SubmitBtn formData={formData} />
-//             </MemoryRouter>
-//         );
+  // if the user is null is the page redirected to /login
+  it("navigate to login page if user isn't authenticated", () => {
+    renderSubmitBtn({
+      user: null,
+      loading: false,
+      formData: { itemName: "pizza" },
+      toPage: "checkout",
+      btnTxt: "Submit Order",
+    });
 
-//         await user.click(screen.getByRole("button", { name: /submit/i }));
+    const submitBtn = screen.getByRole("button", { name: "Submit Order" });
+    fireEvent.click(submitBtn);
+    expect(mockNavigate).toHaveBeenCalledWith("/login", {
+      state: {
+        formData: { itemName: "pizza", creditCardInfo: "" },
+        from: "/checkout",
+      },
+    });
+  });
 
-//         expect(mockGetIdToken).toHaveBeenCalled();
-//         expect(axios.post).toHaveBeenCalledWith(
-//             "http://localhost:3005/success",
-//             formData,
-//             { headers: { Authorization: "Bearer mock-token" } }
-//         );
-//         expect(mockNavigate).toHaveBeenCalledWith("/success");
-//     });
-// });
+  it("navigate to checkout page if user is authenticated", async () => {
+    const mockUser = { getIdToken: vi.fn().mockResolvedValue("test-user") };
+    renderSubmitBtn({
+      user: mockUser,
+      loading: false,
+      formData: { itemName: "pizza" },
+      toPage: "checkout",
+      btnTxt: "Submit Order",
+    });
+    const submitBtn = screen.getByRole("button", { name: "Submit Order" });
+    fireEvent.click(submitBtn);
+
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith("/checkout", {
+        state: {
+          formData: { itemName: "pizza", creditCardInfo: "" },
+          from: "/checkout",
+        },
+      });
+    });
+  });
+
+  it("Test to combine credit card infor and form data correctly", () => {
+    const mockUser = { getIdToken: vi.fn().mockResolvedValue("test-user") };
+    mockUseAuth.mockResolvedValue({ user: mockUser, loading: false });
+
+    render(
+      <SubmitBtn
+        formData={{
+          id: "pizza123",
+          itemName: "Pizza",
+          quantity: 2,
+          price: 5.99,
+        }}
+        creditCardInfo="1234-5678-9012-3456"
+        toPage="checkout"
+        btnTxt="Submit"
+      />,
+    );
+
+    fireEvent.click(screen.getByText("Submit"));
+
+    expect(mockNavigate).toHaveBeenCalledWith("/login", {
+      state: {
+        formData: {
+          id: "pizza123",
+          itemName: "Pizza",
+          quantity: 2,
+          price: 5.99,
+          creditCardInfo: "1234-5678-9012-3456",
+        },
+        from: "/checkout",
+      },
+    });
+  });
+
+  it("uses empty string for creditCardInfo when not provided", () => {
+    mockUseAuth.mockReturnValue({ user: null, loading: false });
+
+    render(
+      <SubmitBtn
+        formData={{ itemName: "Pizza" }}
+        toPage="checkout"
+        btnTxt="Submit"
+      />,
+    );
+
+    fireEvent.click(screen.getByText("Submit"));
+
+    expect(mockNavigate).toHaveBeenCalledWith("/login", {
+      state: {
+        formData: { itemName: "Pizza", creditCardInfo: "" },
+        from: "/checkout",
+      },
+    });
+  });
+  it("Test if send data is called when success page is navigate to after submit", async () => {
+    const mockUser = { getIdToken: vi.fn().mockResolvedValue("test-user") };
+    mockUseAuth.mockReturnValue({ user: mockUser, loading: false });
+
+    render(
+      <SubmitBtn
+        formData={{
+          id: "pizza123",
+          itemName: "Pizza",
+          quantity: 2,
+          price: 5.99,
+        }}
+        creditCardInfo="1234-5678-9012-3456"
+        toPage="success"
+        btnTxt="Submit"
+      />,
+    );
+
+    const submitBtn = screen.getByText("Submit");
+    fireEvent.click(submitBtn);
+
+    await waitFor(() => {
+      expect(mockSendData).toHaveBeenCalledWith(
+        {
+          id: "pizza123",
+          itemName: "Pizza",
+          quantity: 2,
+          price: 5.99,
+          creditCardInfo: "1234-5678-9012-3456",
+        },
+        "test-user",
+      );
+    });
+  });
+
+  it("Doesn't call sendData if when navigating to other pages", async () => {
+    const mockUser = {
+      getIdToken: vi.fn().mockResolvedValue("test-user"),
+    };
+    mockUseAuth.mockReturnValue({ user: mockUser, loading: false });
+
+    render(
+      <SubmitBtn
+        formData={{
+          id: "pizza123",
+          itemName: "Pizza",
+          quantity: 2,
+          price: 5.99,
+        }}
+        creditCardInfo="1234-5678-9012-3456"
+        toPage="checkout"
+        btnTxt="Submit"
+      />,
+    );
+    const submitBtn = screen.getByText("Submit");
+    fireEvent.click(submitBtn);
+
+    await waitFor(() => {
+      expect(mockSendData).not.toHaveBeenCalled();
+    });
+  });
+
+  it("handles token retrieval error gracefully", async () => {
+    const mockUser = {
+      getIdToken: vi.fn().mockRejectedValue(new Error("Token error")),
+    };
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    mockUseAuth.mockReturnValue({ user: mockUser, loading: false });
+
+    render(
+      <SubmitBtn
+        formData={{ itemName: "Pizza" }}
+        toPage="success"
+        btnTxt="Submit"
+      />,
+    );
+
+    fireEvent.click(screen.getByText("Submit"));
+
+    await waitFor(() => {
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Failed to get token or send data:",
+        expect.any(Error),
+      );
+    });
+  });
+
+  it("handles sendData error gracefully", async () => {
+    const mockUser = { getIdToken: vi.fn().mockResolvedValue("fake-token") };
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    mockUseAuth.mockReturnValue({ user: mockUser, loading: false });
+    mockSendData.mockRejectedValue(new Error("API error"));
+
+    render(
+      <SubmitBtn
+        formData={{ itemName: "Pizza" }}
+        toPage="success"
+        btnTxt="Submit"
+      />,
+    );
+
+    fireEvent.click(screen.getByText("Submit"));
+
+    await waitFor(() => {
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Failed to get token or send data:",
+        expect.any(Error),
+      );
+    });
+  });
+
+  it("handles empty formData", () => {
+    mockUseAuth.mockReturnValue({ user: null, loading: false });
+
+    render(<SubmitBtn formData={{}} toPage="checkout" btnTxt="Submit" />);
+
+    fireEvent.click(screen.getByText("Submit"));
+
+    expect(mockNavigate).toHaveBeenCalledWith("/login", {
+      state: {
+        formData: { creditCardInfo: "" },
+        from: "/checkout",
+      },
+    });
+  });
+
+  it("handles complex formData objects", () => {
+    mockUseAuth.mockReturnValue({ user: null, loading: false });
+
+    const complexFormData = {
+      itemName: "Pizza",
+      quantity: 2,
+      toppings: ["cheese", "pepperoni"],
+      specialInstructions: "Extra crispy",
+    };
+
+    render(
+      <SubmitBtn
+        formData={complexFormData}
+        toPage="checkout"
+        btnTxt="Submit"
+      />,
+    );
+
+    fireEvent.click(screen.getByText("Submit"));
+
+    expect(mockNavigate).toHaveBeenCalledWith("/login", {
+      state: {
+        formData: {
+          ...complexFormData,
+          creditCardInfo: "",
+        },
+        from: "/checkout",
+      },
+    });
+  });
+});
