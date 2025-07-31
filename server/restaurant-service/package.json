@@ -7,7 +7,10 @@
     "dev": "concurrently -k \"ts-node src/index.ts\" \" ts-node src/services/restaurant-queue-consumer.ts\" ",
     "start:consumer": "ts-node src/services/restaurant-queue-consumer.ts",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui"
   },
   "keywords": [],
   "author": "",

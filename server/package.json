@@ -6,15 +6,27 @@
   "scripts": {
     "dev": "concurrently \"npm run --prefix order-service start:producer\" \"npm run --prefix restaurant-service start:consumer\"",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "test:order": "npm run --prefix order-service test",
+    "test:restaurant": "npm run --prefix restaurant-service test",
+    "test:payment": "npm run --prefix payment-service test",
+    "test:notification": "npm run --prefix notification-service test"
   },
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.15.18",
+    "@types/supertest": "^6.0.3",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
     "concurrently": "^9.1.2",
+    "supertest": "^7.1.4",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "amqplib": "^0.10.8",
