@@ -9,6 +9,6 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "../shared/**/*"],
+  "include": ["src/**/*", "../shared/**/*", "vitest.config.ts"],
   "exclude": ["node_modules", "dist"]
 }

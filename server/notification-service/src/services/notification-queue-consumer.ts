@@ -17,8 +17,9 @@ const consumeOrder = async (): Promise<void> => {
 
     channel.consume(
       queueRes.queue,
-      (msg: ConsumeMessage | null) => {
-        if (msg) {
+      async (msg: ConsumeMessage | null) => {
+        try {
+          if (msg) {
           const content = JSON.parse(msg.content.toString());
           console.log(`Sending Out Notifications:`, content);
           const { email, firstName, name: itemName, quantity } = content;
@@ -58,10 +59,16 @@ const consumeOrder = async (): Promise<void> => {
                         </div>
                         `;
 
-          sendEmail(email, subject, html);
+          await sendEmail(email, subject, html);
 
           channel.ack(msg);
         }
+      } catch (error){
+        console.error("Error processing message:", error);
+        if (msg) {
+          channel.nack(msg, false, false); 
+        }
+      }
       },
       { noAck: false },
     );
@@ -70,3 +77,5 @@ const consumeOrder = async (): Promise<void> => {
   }
 };
 consumeOrder();
+
+export default consumeOrder

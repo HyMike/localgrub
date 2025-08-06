@@ -17,7 +17,8 @@ const notificationsOrderPrepared = async () => {
 
     channel.consume(
       queueRes.queue,
-      (msg: ConsumeMessage | null) => {
+      async (msg: ConsumeMessage | null) => {
+        try{
         if (msg) {
           const order = JSON.parse(msg.content.toString());
 
@@ -55,10 +56,16 @@ const notificationsOrderPrepared = async () => {
                         </div>
                         `;
 
-          sendEmail(email, subject, html);
+          await sendEmail(email, subject, html);
 
-          channel.ack;
+          channel.ack(msg);
         }
+      } catch (error){
+        console.error("Error processing message:", error);
+        if (msg) {
+          channel.nack(msg, false, false);
+        }
+      }
       },
       { noAck: false },
     );
