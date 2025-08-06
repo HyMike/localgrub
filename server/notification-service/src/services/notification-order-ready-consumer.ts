@@ -21,13 +21,13 @@ const orderReadyNotification = async (): Promise<void> => {
       async (msg: ConsumeMessage | null) => {
         try {
           if (msg) {
-          const content = JSON.parse(msg.content.toString());
-          console.log(`Sending Out Notifications:`, content);
-          const { name, email, itemName, quantity } = content;
+            const content = JSON.parse(msg.content.toString());
+            console.log(`Sending Out Notifications:`, content);
+            const { name, email, itemName, quantity } = content;
 
-          const subject = `Your order is ready for pickup, ${name}!`;
-          const text = `Your order of ${quantity} of ${itemName} is ready for pickup!`;
-          const html = `
+            const subject = `Your order is ready for pickup, ${name}!`;
+            const text = `Your order of ${quantity} of ${itemName} is ready for pickup!`;
+            const html = `
                         <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
                             <h2 style="color: #27ae60;">✅ Your order is ready, ${name}!</h2>
                             <p>We’ve just finished preparing your meal—it’s hot and ready for you to pick up!</p>
@@ -50,14 +50,14 @@ const orderReadyNotification = async (): Promise<void> => {
                             </footer>
                         </div>
                         `;
-          await sendEmail(email, subject, html);
+            await sendEmail(email, subject, html);
 
-          channel.ack(msg);
+            channel.ack(msg);
           }
-        } catch (error){
+        } catch (error) {
           console.error("Error processing message:", error);
           if (msg) {
-            channel.nack(msg, false, false); 
+            channel.nack(msg, false, false);
           }
         }
       },
@@ -69,4 +69,4 @@ const orderReadyNotification = async (): Promise<void> => {
 };
 orderReadyNotification();
 
-export default orderReadyNotification
+export default orderReadyNotification;

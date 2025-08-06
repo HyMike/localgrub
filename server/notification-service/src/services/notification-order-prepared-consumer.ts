@@ -18,20 +18,20 @@ const notificationsOrderPrepared = async () => {
     channel.consume(
       queueRes.queue,
       async (msg: ConsumeMessage | null) => {
-        try{
-        if (msg) {
-          const order = JSON.parse(msg.content.toString());
+        try {
+          if (msg) {
+            const order = JSON.parse(msg.content.toString());
 
-          const { email, firstName, uid, itemName, quantity } = order;
+            const { email, firstName, uid, itemName, quantity } = order;
 
-          const subject = `Your order is being prepared, ${firstName}`;
-          const text = `Hey ${firstName}. Just a quick update—your order.
+            const subject = `Your order is being prepared, ${firstName}`;
+            const text = `Hey ${firstName}. Just a quick update—your order.
                      Your order of ${quantity} x ${itemName} is now being freshly prepared in our kitchen. We’re making 
                      sure everything is just right so it’s hot and delicious when you arrive. 
                      You’ll receive another message as soon as it’s ready for pickup.
                      Thanks for your patience and support! Hungrily yours,localgrub`;
 
-          const html = `
+            const html = `
                         <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
                             <h2 style="color: #f39c12;">🍳 Cooking up something delicious for you, ${firstName}!</h2>
 
@@ -56,16 +56,16 @@ const notificationsOrderPrepared = async () => {
                         </div>
                         `;
 
-          await sendEmail(email, subject, html);
+            await sendEmail(email, subject, html);
 
-          channel.ack(msg);
+            channel.ack(msg);
+          }
+        } catch (error) {
+          console.error("Error processing message:", error);
+          if (msg) {
+            channel.nack(msg, false, false);
+          }
         }
-      } catch (error){
-        console.error("Error processing message:", error);
-        if (msg) {
-          channel.nack(msg, false, false);
-        }
-      }
       },
       { noAck: false },
     );

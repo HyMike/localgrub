@@ -20,12 +20,12 @@ const consumeOrder = async (): Promise<void> => {
       async (msg: ConsumeMessage | null) => {
         try {
           if (msg) {
-          const content = JSON.parse(msg.content.toString());
-          console.log(`Sending Out Notifications:`, content);
-          const { email, firstName, name: itemName, quantity } = content;
+            const content = JSON.parse(msg.content.toString());
+            console.log(`Sending Out Notifications:`, content);
+            const { email, firstName, name: itemName, quantity } = content;
 
-          const subject = `We've received your order, ${firstName}!`;
-          const text = `Thanks for ordering with localgrub! We’ve 
+            const subject = `We've received your order, ${firstName}!`;
+            const text = `Thanks for ordering with localgrub! We’ve 
                     successfully received your order and are about to get started. 
                     You’ll get another update once we begin preparing your food—and again 
                     when it’s ready for pickup.
@@ -34,7 +34,7 @@ const consumeOrder = async (): Promise<void> => {
                     Thanks again for choosing us—we can’t wait to serve you!
                     Warm regards,The localgrub Team`;
 
-          const html = `
+            const html = `
                         <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
                             <h2 style="color: #e67e22;">🍴 Thanks for your order, ${firstName}!</h2>
                             <p>We’ve successfully received your order and are about to get started.</p>
@@ -59,16 +59,16 @@ const consumeOrder = async (): Promise<void> => {
                         </div>
                         `;
 
-          await sendEmail(email, subject, html);
+            await sendEmail(email, subject, html);
 
-          channel.ack(msg);
+            channel.ack(msg);
+          }
+        } catch (error) {
+          console.error("Error processing message:", error);
+          if (msg) {
+            channel.nack(msg, false, false);
+          }
         }
-      } catch (error){
-        console.error("Error processing message:", error);
-        if (msg) {
-          channel.nack(msg, false, false); 
-        }
-      }
       },
       { noAck: false },
     );
@@ -78,4 +78,4 @@ const consumeOrder = async (): Promise<void> => {
 };
 consumeOrder();
 
-export default consumeOrder
+export default consumeOrder;
