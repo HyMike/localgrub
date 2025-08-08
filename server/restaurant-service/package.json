@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently -k \"ts-node src/index.ts\" \" ts-node src/services/restaurant-queue-consumer.ts\" ",
     "start:consumer": "ts-node src/services/restaurant-queue-consumer.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.json",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",

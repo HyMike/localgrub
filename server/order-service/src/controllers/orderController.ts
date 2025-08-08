@@ -3,7 +3,7 @@ import admin from "firebase-admin";
 import { db } from "../utils/firebaseAdmin";
 import sendOrder from "../services/order-queue-producer";
 import { verifyUserToken } from "../middleware/authenticateUser";
-import { createOrderInDatabase } from "../services/orderService";
+import { createOrderInDatabase } from "../services/order-service";
 
 const createOrder = async (req: Request, res: Response): Promise<any> => {
   const authHeader = req.headers.authorization || "";

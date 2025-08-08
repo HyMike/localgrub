@@ -7,16 +7,19 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
+let cacheChannel: any = null; 
+
 const sendOrder = async (order: object): Promise<void> => {
   try {
     const rabbitmq = RabbitMQConnection.getInstance();
-    const channel = await rabbitmq.getChannel();
+    if (!cacheChannel){
+      cacheChannel = await rabbitmq.getChannel();
+      await cacheChannel.assertExchange("topic_exc", "topic", { durable: true });
+
+    }
 
     const msg = JSON.stringify(order);
-
-    await channel.assertExchange("topic_exc", "topic", { durable: true });
-
-    channel.publish("topic_exc", "order.placed", Buffer.from(msg), {
+    cacheChannel.publish("topic_exc", "order.placed", Buffer.from(msg), {
       persistent: true,
     });
 

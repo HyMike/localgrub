@@ -11,7 +11,7 @@
     "test:ui": "vitest --ui",
     "notification": "ts-node src/services/notification-order-prepared-consumer.ts",
     "order-ready": "ts-node src/services/notification-order-ready-consumer.ts",
-    "build": "tsc"
+    "build": "tsc -p tsconfig.build.json"
   },
   "keywords": [],
   "author": "",
