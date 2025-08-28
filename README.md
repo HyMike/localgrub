@@ -23,6 +23,73 @@ LocalGrub is a microservices-based food delivery platform that enables customers
 
 ---
 
+## Quick Start Guide 🚀
+
+Get LocalGrub running locally in under 5 minutes using Docker Compose!
+
+### Prerequisites
+- [Docker](https://www.docker.com/) (Desktop or Engine)
+- [Docker Compose](https://docs.docker.com/compose/) (usually included with Docker Desktop)
+
+### Run Locally
+
+1. **Clone and navigate to the project**
+   ```bash
+   git clone https://github.com/yourusername/localgrub-app.git
+   cd localgrub-app
+   ```
+
+2. **Set up environment variables** (required)
+   ```bash
+   # Copy environment files for each service
+   cp client/.env.example client/.env
+   cp server/order-service/.env.example server/order-service/.env
+   cp server/payment-service/.env.example server/payment-service/.env
+   cp server/restaurant-service/.env.example server/restaurant-service/.env
+   cp server/notification-service/.env.example server/notification-service/.env
+   
+   # Edit each .env file with your credentials (see Environment Variables Setup below)
+   ```
+
+3. **Start all services with Docker Compose**
+   ```bash
+   docker-compose up -d
+   ```
+
+4. **Access the application**
+   - **Frontend**: http://localhost:5173
+   - **Order Service API**: http://localhost:3005
+   - **Payment Service**: http://localhost:3002
+   - **Restaurant Service**: http://localhost:3003
+   - **Notification Service**: http://localhost:3001
+   - **RabbitMQ Management**: http://localhost:15672 (guest/guest)
+
+### What Just Happened?
+
+Docker Compose automatically:
+- Starts RabbitMQ message broker
+- Builds and runs all microservices
+- Sets up networking between services
+- Mounts your local code for development
+
+### Stop the Services
+
+```bash
+docker-compose down
+```
+
+### View Logs
+
+```bash
+# All services
+docker-compose logs -f
+
+# Specific service
+docker-compose logs -f order-service
+```
+
+---
+
 # Tech Stack
 
 - Frontend: React, TypeScript, Vite
