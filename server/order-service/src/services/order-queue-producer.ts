@@ -10,6 +10,10 @@ app.use(express.json());
 let cacheChannel: any = null; 
 
 const sendOrder = async (order: object): Promise<void> => {
+
+  if (!order || order === undefined || order === null){
+    throw new Error('Order data is required');
+  }
   try {
     const rabbitmq = RabbitMQConnection.getInstance();
     if (!cacheChannel){
