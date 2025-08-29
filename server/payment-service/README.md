@@ -5,7 +5,8 @@
 The Payment Service is a backend microservice for the LocalGrub platform. It is responsible for processing customer payments when an order is placed. The service listens for order events from RabbitMQ, charges the customer using the configured payment gateway, and emits payment status events as needed.
 
 **Scope:** 
-Solo MVP project – Designed and developed frontend and backend
+Solo MVP project – Designed and developed backend microservice
+
 ---
 
 ## Features

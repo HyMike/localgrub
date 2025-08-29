@@ -4,6 +4,9 @@
 
 The Restaurant Service is a backend microservice for the LocalGrub platform. It is responsible for checking inventory, managing order preparation, and emitting order status events. The service listens for order events from RabbitMQ, verifies ingredient availability in its own database, and coordinates with other microservices via event-driven communication.
 
+**Scope:** 
+Solo MVP project – Designed and developed backend microservice
+
 ---
 
 ## Features
