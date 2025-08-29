@@ -1,4 +1,5 @@
 # Order Service
+[![Integration Test](https://github.com/HyMike/localgrub/actions/workflows/integration-tests.yml/badge.svg?branch=main)](https://github.com/HyMike/localgrub/actions/workflows/integration-tests.yml)
 
 ## Overview
 
