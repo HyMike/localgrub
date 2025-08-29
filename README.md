@@ -3,6 +3,9 @@
 
 LocalGrub is a microservices-based food delivery platform that enables customers to order food, notifies restaurants, and manages payments—all through asynchronous, event-driven communication using RabbitMQ. The system is designed for resilience, scalability, and clear separation of concerns.
 
+**Scope:** 
+Solo MVP project – Designed and developed frontend and backend
+
 ### Local Grub Happy Path & When A Microservice Goes Down Video
 
 [![Local Grub Happy Path & When A Microservice Goes Down](./LocalGrub_Thumbnail.png)](https://drive.google.com/file/d/1CAJFTE5mmKluq33BG0cP1vH9e5ZSUN98/view?usp=sharing)
