@@ -9,7 +9,7 @@ export const getOrderByUserId = async (orderId: string, userId: string) => {
 
     if (orderSnap.exists) {
       return orderSnap.data();
-    } else  {
+    } else {
       console.log("Order not found");
       return null;
     }

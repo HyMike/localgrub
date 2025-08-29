@@ -20,11 +20,13 @@ The Order Service is a backend microservice for the LocalGrub platform. It is re
 ## API Documentation
 
 ### Base URL
+
 http://localhost:3005
 
 ### Endpoints
 
 #### POST /success
+
 Creates a new order and triggers the order flow.
 
 **Headers:**
@@ -33,6 +35,7 @@ Authorization: Bearer YOUR_FIREBASE_TOKEN
 Content-Type: application/json
 
 **Request Body:**
+
 ```json
 {
   "id": "item_123",
@@ -44,6 +47,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "message": "Order created successfully",
@@ -52,6 +56,7 @@ Content-Type: application/json
 ```
 
 #### POST /order-ready
+
 Marks an order as ready for pickup.
 
 **Headers:**
@@ -59,6 +64,7 @@ Marks an order as ready for pickup.
 Content-Type: application/json
 
 **Request Body:**
+
 ```json
 {
   "orderId": "order_456",
@@ -67,6 +73,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "message": "Order status updated successfully"
@@ -76,6 +83,7 @@ Content-Type: application/json
 ### cURL Examples
 
 **Create Order:**
+
 ```bash
 curl -X POST http://localhost:3005/success \
   -H "Content-Type: application/json" \
@@ -90,6 +98,7 @@ curl -X POST http://localhost:3005/success \
 ```
 
 **Mark Order Ready:**
+
 ```bash
 curl -X POST http://localhost:3005/order-ready \
   -H "Content-Type: application/json" \
@@ -100,6 +109,7 @@ curl -X POST http://localhost:3005/order-ready \
 ```
 
 ### Testing with Postman
+
 Import the complete API collection: [localgrub-all.postman_collection.json](../../docs/api/postman-collections/localgrub-all.postman_collection.json)
 
 ---
