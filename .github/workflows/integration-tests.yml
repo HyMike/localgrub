@@ -2,14 +2,14 @@ name: Integration Tests
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   integration-test:
     runs-on: ubuntu-latest
-    
+
     services:
       postgres:
         image: postgres:latest
@@ -24,7 +24,7 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-      
+
       rabbitmq:
         image: rabbitmq:3-management
         options: >-
@@ -37,44 +37,44 @@ jobs:
           - 15672:15672
 
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: |
-        cd server/order-service
-        npm ci
-    
-    - name: Wait for services to be ready
-      run: |
-        echo "Waiting for PostgreSQL..."
-        timeout 60 bash -c 'until pg_isready -h localhost -p 5432 -U postgres; do sleep 2; done'
-        
-        echo "Waiting for RabbitMQ..."
-        timeout 60 bash -c 'until curl -s http://localhost:15672/api/overview > /dev/null; do sleep 2; done'
-    
-    - name: Run integration tests
-      run: |
-        cd server/order-service
-        npm run test:integration
-      env:
-        NODE_ENV: test
-        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/localgrub_test
-        RABBITMQ_URL: amqp://localhost:5672
-        FIREBASE_PROJECT_ID: test-project
-        FIREBASE_PRIVATE_KEY: "-----BEGIN PRIVATE KEY-----\nMOCK_KEY\n-----END PRIVATE KEY-----"
-        FIREBASE_CLIENT_EMAIL: test@test.com
-        FIREBASE_TYPE: service_account
-    
-    - name: Upload test results
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: test-results
-        path: server/order-service/coverage/
-        retention-days: 7
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: |
+          cd server/order-service
+          npm ci
+
+      - name: Wait for services to be ready
+        run: |
+          echo "Waiting for PostgreSQL..."
+          timeout 60 bash -c 'until pg_isready -h localhost -p 5432 -U postgres; do sleep 2; done'
+
+          echo "Waiting for RabbitMQ..."
+          timeout 60 bash -c 'until curl -s http://localhost:15672/api/overview > /dev/null; do sleep 2; done'
+
+      - name: Run integration tests
+        run: |
+          cd server/order-service
+          npm run test:integration
+        env:
+          NODE_ENV: test
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/localgrub_test
+          RABBITMQ_URL: amqp://localhost:5672
+          FIREBASE_PROJECT_ID: test-project
+          FIREBASE_PRIVATE_KEY: "-----BEGIN PRIVATE KEY-----\nMOCK_KEY\n-----END PRIVATE KEY-----"
+          FIREBASE_CLIENT_EMAIL: test@test.com
+          FIREBASE_TYPE: service_account
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: server/order-service/coverage/
+          retention-days: 7
