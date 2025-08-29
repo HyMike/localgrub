@@ -15,6 +15,30 @@ The Notification Service is a backend microservice for the LocalGrub platform. I
 
 ---
 
+## API Documentation
+
+**Note:** This service primarily communicates via RabbitMQ events and doesn't expose REST endpoints. It listens for order events and sends emails asynchronously.
+
+### RabbitMQ Events
+
+#### Consumes:
+- `order_placed` - Sends order confirmation email
+- `order_prepared` - Sends order preparation notification
+- `order_ready` - Sends order ready for pickup notification
+
+### Testing with RabbitMQ Management
+
+1. Access RabbitMQ Management UI: http://localhost:15672 (guest/guest)
+2. Navigate to Exchanges → `order_placed`, `order_prepared`, or `order_ready`
+3. Publish test messages to trigger email notifications
+
+### Testing with Postman
+Import the complete API collection: [localgrub-all.postman_collection.json](../../docs/api/postman-collections/localgrub-all.postman_collection.json)
+
+The collection includes a "Notification Service" section with RabbitMQ Management access for testing event-driven communication.
+
+---
+
 ## Environment Variables
 
 This service requires a `.env` file for configuration.

@@ -17,6 +17,67 @@ The Restaurant Service is a backend microservice for the LocalGrub platform. It 
 
 ---
 
+## API Documentation
+
+### Base URL
+http://localhost:3003
+
+### Endpoints
+
+#### POST /inventory/incredients-found
+Notifies that an order has been prepared and ingredients are available.
+
+**Headers:**
+Content-Type: application/json
+
+
+**Request Body:**
+```json
+{
+  "uid": "user_789",
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john@example.com",
+  "itemId": "item_123",
+  "itemName": "Classic Burger",
+  "quantity": 2,
+  "price": 12.99,
+  "creditCardInfo": "encrypted_card_data",
+  "createdAt": "2024-01-15T10:30:00.000Z",
+  "status": "pending"
+}
+```
+
+**Response:**
+Order prepared
+
+
+### cURL Examples
+
+**Order Prepared Notification:**
+```bash
+curl -X POST http://localhost:3003/inventory/incredients-found \
+  -H "Content-Type: application/json" \
+  -d '{
+    "uid": "user_789",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john@example.com",
+    "itemId": "item_123",
+    "itemName": "Classic Burger",
+    "quantity": 2,
+    "price": 12.99,
+    "creditCardInfo": "encrypted_card_data",
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "status": "pending"
+  }'
+```
+
+### Testing with Postman
+Import the complete API collection: [localgrub-all.postman_collection.json](../../docs/api/postman-collections/localgrub-all.postman_collection.json)
+
+---
+
 ## Environment Variables
 
 This service requires a `.env` file for configuration.
