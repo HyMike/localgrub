@@ -1,0 +1,39 @@
+{
+  "info": {
+    "name": "LocalGrub - Restaurant Service API",
+    "description": "API collection for the Restaurant Service microservice",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Order Prepared Notification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"user_789\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"itemId\": \"item_123\",\n  \"itemName\": \"Classic Burger\",\n  \"quantity\": 2,\n  \"price\": 12.99,\n  \"creditCardInfo\": \"encrypted_card_data\",\n  \"createdAt\": \"2024-01-15T10:30:00.000Z\",\n  \"status\": \"pending\"\n}"
+        },
+        "url": {
+          "raw": "{{restaurant_service_url}}/inventory/incredients-found",
+          "host": ["{{restaurant_service_url}}"],
+          "path": ["inventory", "incredients-found"]
+        },
+        "description": "Notifies that an order has been prepared and ingredients are available"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "restaurant_service_url",
+      "value": "http://localhost:3003",
+      "type": "string"
+    }
+  ]
+}

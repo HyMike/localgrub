@@ -1,0 +1,133 @@
+{
+  "info": {
+    "name": "LocalGrub - Complete API Collection",
+    "description": "Complete API collection for all LocalGrub microservices",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Order Service",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{firebase_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"item_123\",\n  \"name\": \"Classic Burger\",\n  \"quantity\": 2,\n  \"price\": 12.99,\n  \"creditCardInfo\": \"encrypted_card_data\"\n}"
+            },
+            "url": {
+              "raw": "{{order_service_url}}/success",
+              "host": ["{{order_service_url}}"],
+              "path": ["success"]
+            },
+            "description": "Creates a new order and triggers the order flow"
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Order Ready",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"order_456\",\n  \"userId\": \"user_789\"\n}"
+            },
+            "url": {
+              "raw": "{{order_service_url}}/order-ready",
+              "host": ["{{order_service_url}}"],
+              "path": ["order-ready"]
+            },
+            "description": "Marks an order as ready for pickup"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Restaurant Service",
+      "item": [
+        {
+          "name": "Order Prepared Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uid\": \"user_789\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"itemId\": \"item_123\",\n  \"itemName\": \"Classic Burger\",\n  \"quantity\": 2,\n  \"price\": 12.99,\n  \"creditCardInfo\": \"encrypted_card_data\",\n  \"createdAt\": \"2024-01-15T10:30:00.000Z\",\n  \"status\": \"pending\"\n}"
+            },
+            "url": {
+              "raw": "{{restaurant_service_url}}/inventory/incredients-found",
+              "host": ["{{restaurant_service_url}}"],
+              "path": ["inventory", "incredients-found"]
+            },
+            "description": "Notifies that an order has been prepared and ingredients are available"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "RabbitMQ Management",
+      "item": [
+        {
+          "name": "Access RabbitMQ Management",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rabbitmq_management_url}}",
+              "host": ["{{rabbitmq_management_url}}"],
+              "path": []
+            },
+            "description": "Access RabbitMQ Management UI to test event-driven communication"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "order_service_url",
+      "value": "http://localhost:3005",
+      "type": "string"
+    },
+    {
+      "key": "restaurant_service_url",
+      "value": "http://localhost:3003",
+      "type": "string"
+    },
+    {
+      "key": "rabbitmq_management_url",
+      "value": "http://localhost:15672",
+      "type": "string"
+    },
+    {
+      "key": "firebase_token",
+      "value": "your_firebase_id_token_here",
+      "type": "string"
+    }
+  ]
+}

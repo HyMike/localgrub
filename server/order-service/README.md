@@ -17,6 +17,93 @@ The Order Service is a backend microservice for the LocalGrub platform. It is re
 
 ---
 
+## API Documentation
+
+### Base URL
+http://localhost:3005
+
+### Endpoints
+
+#### POST /success
+Creates a new order and triggers the order flow.
+
+**Headers:**
+
+Authorization: Bearer YOUR_FIREBASE_TOKEN
+Content-Type: application/json
+
+**Request Body:**
+```json
+{
+  "id": "item_123",
+  "name": "Classic Burger",
+  "quantity": 2,
+  "price": 12.99,
+  "creditCardInfo": "encrypted_card_data"
+}
+```
+
+**Response:**
+```json
+{
+  "message": "Order created successfully",
+  "orderId": "generated_order_id"
+}
+```
+
+#### POST /order-ready
+Marks an order as ready for pickup.
+
+**Headers:**
+
+Content-Type: application/json
+
+**Request Body:**
+```json
+{
+  "orderId": "order_456",
+  "userId": "user_789"
+}
+```
+
+**Response:**
+```json
+{
+  "message": "Order status updated successfully"
+}
+```
+
+### cURL Examples
+
+**Create Order:**
+```bash
+curl -X POST http://localhost:3005/success \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_FIREBASE_TOKEN" \
+  -d '{
+    "id": "item_123",
+    "name": "Classic Burger",
+    "quantity": 2,
+    "price": 12.99,
+    "creditCardInfo": "encrypted_card_data"
+  }'
+```
+
+**Mark Order Ready:**
+```bash
+curl -X POST http://localhost:3005/order-ready \
+  -H "Content-Type: application/json" \
+  -d '{
+    "orderId": "order_456",
+    "userId": "user_789"
+  }'
+```
+
+### Testing with Postman
+Import the complete API collection: [localgrub-all.postman_collection.json](../../docs/api/postman-collections/localgrub-all.postman_collection.json)
+
+---
+
 ## Environment Variables
 
 This service requires a `.env` file for configuration.

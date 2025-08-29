@@ -1,0 +1,53 @@
+{
+  "info": {
+    "name": "LocalGrub - Payment Service API",
+    "description": "API collection for the Payment Service microservice (RabbitMQ-based)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "RabbitMQ Management - Test Payment Processing",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{rabbitmq_management_url}}",
+          "host": ["{{rabbitmq_management_url}}"],
+          "path": []
+        },
+        "description": "Access RabbitMQ Management UI to test payment processing via events"
+      },
+      "response": []
+    },
+    {
+      "name": "Test Order Placed Event",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"user_789\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"itemId\": \"item_123\",\n  \"itemName\": \"Classic Burger\",\n  \"quantity\": 2,\n  \"price\": 12.99,\n  \"creditCardInfo\": \"encrypted_card_data\",\n  \"createdAt\": \"2024-01-15T10:30:00.000Z\",\n  \"status\": \"pending\"\n}"
+        },
+        "url": {
+          "raw": "{{rabbitmq_management_url}}/api/exchanges/%2F/order_placed/publish",
+          "host": ["{{rabbitmq_management_url}}"],
+          "path": ["api", "exchanges", "%2F", "order_placed", "publish"]
+        },
+        "description": "Publish test order_placed event to trigger payment processing"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "rabbitmq_management_url",
+      "value": "http://localhost:15672",
+      "type": "string"
+    }
+  ]
+}
