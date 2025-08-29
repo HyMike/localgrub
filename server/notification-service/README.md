@@ -5,7 +5,8 @@
 The Notification Service is a backend microservice for the LocalGrub platform. It is responsible for sending email notifications to customers at various stages of the order lifecycle. The service listens for order-related events (such as order placed, order prepared, and order ready) from RabbitMQ and sends appropriate emails using the configured email provider.
 
 **Scope:** 
-Solo MVP project – Designed and developed frontend and backend
+Solo MVP project – Designed and developed backend microservice
+
 ---
 
 ## Features
