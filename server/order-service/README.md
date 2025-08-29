@@ -5,6 +5,8 @@
 
 The Order Service is a backend microservice for the LocalGrub platform. It is responsible for handling order creation, updating order status, and emitting order-related events to RabbitMQ. This service acts as the central point for order management and coordinates with other microservices (Payment, Restaurant, Notification) via event-driven communication.
 
+**Scope:** 
+Solo MVP project – Designed and developed frontend and backend
 ---
 
 ## Features
