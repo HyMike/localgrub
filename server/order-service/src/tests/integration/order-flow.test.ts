@@ -49,7 +49,6 @@ describe("Order Flow Integration Test", () => {
     app = express();
     app.use(express.json());
 
-
     app.post("/success", (req, res) => {
       const orderData = req.body;
       const mockOrderId = "test-order-" + Date.now();
@@ -74,7 +73,7 @@ describe("Order Flow Integration Test", () => {
       console.error("RabbitMQ connection failed:", error);
       throw error;
     }
-  }, 30000); 
+  }, 30000);
 
   afterAll(async () => {
     if (rabbitmq && testChannel) {
@@ -92,8 +91,7 @@ describe("Order Flow Integration Test", () => {
     if (testChannel) {
       try {
         await testChannel.purgeQueue("order-queue");
-      } catch (error) {
-      }
+      } catch (error) {}
     }
   });
 
@@ -146,15 +144,19 @@ describe("Order Flow Integration Test", () => {
 
     if (messageCount.messageCount === 0) {
       console.log(" No messages found in queue after order creation");
-      console.log("This suggests the order service isn't publishing to RabbitMQ");
-      console.log("The mock endpoint only simulates the API response, not the actual business logic");
-      
+      console.log(
+        "This suggests the order service isn't publishing to RabbitMQ",
+      );
+      console.log(
+        "The mock endpoint only simulates the API response, not the actual business logic",
+      );
+
       console.log("Skipping RabbitMQ validation for mock endpoint");
       return;
     }
 
     const message = await testChannel.get("order-queue");
-    
+
     if (!message) {
       console.log("No message retrieved from queue");
       return;
@@ -184,9 +186,7 @@ describe("Order Flow Integration Test", () => {
         }
       }
     } else {
-      console.log(
-        "Message has no content property, checking alternatives...",
-      );
+      console.log("Message has no content property, checking alternatives...");
       if (message.data) {
         parsedOrder = JSON.parse(message.data.toString());
       } else {
@@ -203,7 +203,6 @@ describe("Order Flow Integration Test", () => {
   }, 20000);
 
   it("should have working Express app setup", async () => {
-
     const response = await request(app).get("/nonexistent").expect(404);
 
     console.log("Express app setup test passed");
