@@ -20,18 +20,20 @@ The Restaurant Service is a backend microservice for the LocalGrub platform. It 
 ## API Documentation
 
 ### Base URL
+
 http://localhost:3003
 
 ### Endpoints
 
 #### POST /inventory/incredients-found
+
 Notifies that an order has been prepared and ingredients are available.
 
 **Headers:**
 Content-Type: application/json
 
-
 **Request Body:**
+
 ```json
 {
   "uid": "user_789",
@@ -51,10 +53,10 @@ Content-Type: application/json
 **Response:**
 Order prepared
 
-
 ### cURL Examples
 
 **Order Prepared Notification:**
+
 ```bash
 curl -X POST http://localhost:3003/inventory/incredients-found \
   -H "Content-Type: application/json" \
@@ -74,6 +76,7 @@ curl -X POST http://localhost:3003/inventory/incredients-found \
 ```
 
 ### Testing with Postman
+
 Import the complete API collection: [localgrub-all.postman_collection.json](../../docs/api/postman-collections/localgrub-all.postman_collection.json)
 
 ---

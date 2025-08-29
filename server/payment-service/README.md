@@ -22,9 +22,11 @@ The Payment Service is a backend microservice for the LocalGrub platform. It is 
 ### RabbitMQ Events
 
 #### Consumes:
+
 - `order_placed` - Triggers payment processing
 
 #### Produces:
+
 - Payment success/failure events
 
 ### Testing with RabbitMQ Management
@@ -34,6 +36,7 @@ The Payment Service is a backend microservice for the LocalGrub platform. It is 
 3. Publish test messages to trigger payment processing
 
 ### Testing with Postman
+
 Import the complete API collection: [localgrub-all.postman_collection.json](../../docs/api/postman-collections/localgrub-all.postman_collection.json)
 
 The collection includes a "Payment Service" section with RabbitMQ Management access for testing event-driven communication.
