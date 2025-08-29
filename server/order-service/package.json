@@ -10,6 +10,7 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
+    "test:integration": "vitest run src/tests/integration/",
     "build": "tsc -p tsconfig.build.json"
   },
   "keywords": [],
