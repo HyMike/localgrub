@@ -1,4 +1,5 @@
 # LocalGrub 🍔
+[![Integration Test](https://github.com/HyMike/localgrub/actions/workflows/integration-tests.yml/badge.svg?branch=main)](https://github.com/HyMike/localgrub/actions/workflows/integration-tests.yml)
 
 LocalGrub is a microservices-based food delivery platform that enables customers to order food, notifies restaurants, and manages payments—all through asynchronous, event-driven communication using RabbitMQ. The system is designed for resilience, scalability, and clear separation of concerns.
 
