@@ -202,7 +202,7 @@ describe("order-queue-producer", () => {
 
     it("should handle null order data", async () => {
       await expect(sendOrder(null as any)).rejects.toThrow(
-        "Order data is required",
+        "Failed to send order to queue",
       );
     });
 

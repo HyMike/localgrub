@@ -6,8 +6,8 @@ This is the React frontend for the LocalGrub platform.
 It allows customers to browse menus, place orders, and view order status.
 The client communicates with the backend microservices via REST APIs and receives real-time updates through event-driven notifications.
 
-**Scope:** 
-Solo MVP project – Designed and developed frontend. 
+**Scope:**
+Solo MVP project – Designed and developed frontend.
 
 ## Environment Variables
 

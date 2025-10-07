@@ -1,11 +1,12 @@
 # Order Service
+
 [![Integration Test](https://github.com/HyMike/localgrub/actions/workflows/integration-tests.yml/badge.svg?branch=main)](https://github.com/HyMike/localgrub/actions/workflows/integration-tests.yml)
 
 ## Overview
 
 The Order Service is a backend microservice for the LocalGrub platform. It is responsible for handling order creation, updating order status, and emitting order-related events to RabbitMQ. This service acts as the central point for order management and coordinates with other microservices (Payment, Restaurant, Notification) via event-driven communication.
 
-**Scope:** 
+**Scope:**
 Solo MVP project – Designed and developed backend microservice
 
 ---
