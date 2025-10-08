@@ -4,17 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const navigate = useNavigate();
 
   const handleSignUp = async (data: SignUpUser) => {
+    const { firstName, lastName, email, password } = data;
+
     if (!firstName || !lastName || !email || !password) {
       console.error("Please fill in all fields");
       return;
     }
+
     try {
       await SignUpUser(email, password, { email, firstName, lastName });
       navigate("/success");
@@ -108,59 +107,6 @@ const SignUp = () => {
         type="submit"
       />
     </form>
-
-    // <form
-    //   onSubmit={handleSignUp}
-    //   className="max-w-md mx-auto mt-16 bg-white p-10 rounded-2xl shadow-xl space-y-6"
-    //   data-testid="signup-form"
-    // >
-    //   <h1 className="text-3xl font-bold text-center text-gray-800">
-    //     Sign Up To Order Food
-    //   </h1>
-
-    //   <input
-    //     type="text"
-    //     placeholder="First Name"
-    //     value={firstName}
-    //     onChange={(e) => setFirstName(e.target.value)}
-    //     required
-    //     className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
-    //   />
-
-    //   <input
-    //     type="text"
-    //     placeholder="Last Name"
-    //     value={lastName}
-    //     onChange={(e) => setLastName(e.target.value)}
-    //     required
-    //     className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
-    //   />
-
-    //   <input
-    //     type="email"
-    //     placeholder="Email"
-    //     value={email}
-    //     onChange={(e) => setEmail(e.target.value)}
-    //     required
-    //     className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
-    //   />
-
-    //   <input
-    //     type="password"
-    //     placeholder="Password"
-    //     value={password}
-    //     onChange={(e) => setPassword(e.target.value)}
-    //     required
-    //     className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
-    //   />
-
-    //   <button
-    //     type="submit"
-    //     className="w-full py-4 bg-orange-500 text-white text-lg font-semibold rounded-xl hover:bg-orange-600 transition duration-200"
-    //   >
-    //     Sign Up
-    //   </button>
-    // </form>
   );
 };
 
