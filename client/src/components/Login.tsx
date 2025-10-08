@@ -8,8 +8,6 @@ import { OrderFormData } from "../types/orderformdata";
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 
 const Login = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -31,8 +29,6 @@ const Login = () => {
     (location.state as { OrderFormData?: OrderFormData; from?: string }) || {};
   const OrderFormData = state.OrderFormData;
   const from = state.from;
-
-  // const handleError: SubmitErrorHandler<UserForm>= (errors) => console.log(errors)
 
   const handleLogin = async (data: UserForm) => {
     const { email, password } = data;
@@ -91,32 +87,9 @@ const Login = () => {
 
           <input
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded transition duration-200"
+            className="w-full bg-orange-500 text-white hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded transition duration-200"
           />
         </form>
-
-        {/* <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-4 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-6 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-
-        <button
-          onClick={handleLogin}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded transition duration-200"
-        >
-          Login
-        </button> */}
 
         <div className="mt-4 text-center">
           <SignUpBtn />

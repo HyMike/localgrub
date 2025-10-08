@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SignUpUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -9,8 +10,7 @@ const SignUp = () => {
   const [lastName, setLastName] = useState("");
   const navigate = useNavigate();
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSignUp = async (data: SignUpUser) => {
     if (!firstName || !lastName || !email || !password) {
       console.error("Please fill in all fields");
       return;
@@ -23,59 +23,144 @@ const SignUp = () => {
     }
   };
 
+  type SignUpUser = {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpUser>({
+    defaultValues: {
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+    },
+  });
+
   return (
     <form
-      onSubmit={handleSignUp}
       className="max-w-md mx-auto mt-16 bg-white p-10 rounded-2xl shadow-xl space-y-6"
       data-testid="signup-form"
+      onSubmit={handleSubmit(handleSignUp)}
     >
       <h1 className="text-3xl font-bold text-center text-gray-800">
         Sign Up To Order Food
       </h1>
 
       <input
+        className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
         type="text"
         placeholder="First Name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-        required
-        className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
+        {...register("firstName", {
+          required: true,
+          minLength: {
+            value: 2,
+            message: "Must contain more than 2 characters.",
+          },
+          maxLength: {
+            value: 50,
+            message: "Name is too Long",
+          },
+        })}
       />
-
+      {errors.firstName?.message && (
+        <p className="text-red-500">{errors.firstName.message}</p>
+      )}
       <input
+        className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
         type="text"
         placeholder="Last Name"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-        required
-        className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
+        {...register("lastName", {
+          required: true,
+          minLength: {
+            value: 2,
+            message: "Must contain more than 2 characters.",
+          },
+          maxLength: {
+            value: 50,
+            message: "Name is too Long",
+          },
+        })}
       />
-
+      {errors.lastName?.message && (
+        <p className="text-red-500">{errors.lastName.message}</p>
+      )}
       <input
+        className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
         type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
+        placeholder="Enter Your Email"
+        {...register("email", { required: true })}
       />
-
       <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
         className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
+        type="password"
+        placeholder="Enter Your Password"
+        {...register("password", { required: true })}
       />
-
-      <button
-        type="submit"
+      <input
         className="w-full py-4 bg-orange-500 text-white text-lg font-semibold rounded-xl hover:bg-orange-600 transition duration-200"
-      >
-        Sign Up
-      </button>
+        type="submit"
+      />
     </form>
+
+    // <form
+    //   onSubmit={handleSignUp}
+    //   className="max-w-md mx-auto mt-16 bg-white p-10 rounded-2xl shadow-xl space-y-6"
+    //   data-testid="signup-form"
+    // >
+    //   <h1 className="text-3xl font-bold text-center text-gray-800">
+    //     Sign Up To Order Food
+    //   </h1>
+
+    //   <input
+    //     type="text"
+    //     placeholder="First Name"
+    //     value={firstName}
+    //     onChange={(e) => setFirstName(e.target.value)}
+    //     required
+    //     className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
+    //   />
+
+    //   <input
+    //     type="text"
+    //     placeholder="Last Name"
+    //     value={lastName}
+    //     onChange={(e) => setLastName(e.target.value)}
+    //     required
+    //     className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
+    //   />
+
+    //   <input
+    //     type="email"
+    //     placeholder="Email"
+    //     value={email}
+    //     onChange={(e) => setEmail(e.target.value)}
+    //     required
+    //     className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
+    //   />
+
+    //   <input
+    //     type="password"
+    //     placeholder="Password"
+    //     value={password}
+    //     onChange={(e) => setPassword(e.target.value)}
+    //     required
+    //     className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
+    //   />
+
+    //   <button
+    //     type="submit"
+    //     className="w-full py-4 bg-orange-500 text-white text-lg font-semibold rounded-xl hover:bg-orange-600 transition duration-200"
+    //   >
+    //     Sign Up
+    //   </button>
+    // </form>
   );
 };
 
