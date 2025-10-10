@@ -9,14 +9,17 @@ import CustomerOrderPage from "./pages/CustomerOrderPage";
 import Checkout from "./pages/CheckoutPage";
 import Success from "./pages/Success";
 import useMenu from "./hooks/useMenu";
+import LoginSignUpPage from "./pages/LoginSignUpPage";
 
 function App() {
   const { menu } = useMenu();
 
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
+      {/* <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} /> */}
+      <Route path="/login" element={<LoginSignUpPage />} />
+      <Route path="/signup" element={<LoginSignUpPage />} />
       <Route
         path="/checkout"
         element={

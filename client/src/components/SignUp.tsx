@@ -44,7 +44,7 @@ const SignUp = () => {
 
   return (
     <form
-      className="max-w-md mx-auto mt-16 bg-white p-10 rounded-2xl shadow-xl space-y-6"
+      className="max-w-md mx-auto mt-70 h-[50%] bg-white p-10 rounded-2xl shadow-xl space-y-6"
       data-testid="signup-form"
       onSubmit={handleSubmit(handleSignUp)}
     >
