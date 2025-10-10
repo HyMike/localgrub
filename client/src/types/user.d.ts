@@ -4,7 +4,7 @@ export interface NewUser {
   lastName: string;
 }
 export type UserForm = {
-    email: string;
-    password: string;
-    login_incorrect?: string;
-  };
+  email: string;
+  password: string;
+  login_incorrect?: string;
+};

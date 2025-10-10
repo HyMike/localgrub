@@ -83,11 +83,10 @@ const Login = () => {
             />
           </form>
 
-          <div className="mt-4 text-center">
-          </div>
+          <div className="mt-4 text-center"></div>
         </div>
       </div>
-     </>
+    </>
   );
 };
 
