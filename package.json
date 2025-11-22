@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently -k \"npm run dev  --prefix client \" \"npm run dev --prefix server/payment-service \" \" npm run dev --prefix server/restaurant-service \" \" npm run dev --prefix server/order-service \" \" npm run dev --prefix server/notification-service \" ",
-    "prettier:check": "prettier --check .",
     "build": "tsc",
-    "format": "prettier --write \"src/**/*.{ts,tsx}",
+    "prettier:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\" --ignore-path .gitignore",
+    "prettier:write": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\" --ignore-path .gitignore",
+    "format": "npm run prettier:write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
