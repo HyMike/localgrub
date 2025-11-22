@@ -1,9 +1,8 @@
-const getAPIURL = (): string => { 
-  return import.meta.env.MODE === 'production'
-  ? import.meta.env.VITE_API_URL 
-  : "http://localhost:3000"; 
-
-}
+const getAPIURL = (): string => {
+  return import.meta.env.MODE === "production"
+    ? import.meta.env.VITE_API_URL
+    : "http://localhost:3000";
+};
 
 export const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -15,5 +14,4 @@ export const firebaseConfig = {
 export const config = {
   apiUrl: getAPIURL(),
   firebase: firebaseConfig,
-
 };
