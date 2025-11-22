@@ -1,9 +1,12 @@
-name: Prettier Check
+name: Prettier Formattimg
 
 on:
   push:
     branches:
       - main
+
+permissions: 
+  contents: write 
 
 jobs:
   prettier-check:
