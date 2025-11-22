@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/FirebaseConfig";
+import { auth } from "../utils/firebaseConfig";
 import { useLocation, useNavigate } from "react-router-dom";
 import { sendData } from "../services/orderService";
 import { OrderFormData } from "../types/orderformdata";

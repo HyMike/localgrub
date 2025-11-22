@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../authentication/AuthContext";
 import { Order } from "../types/CustomerOrder";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/FirebaseConfig";
+import { db } from "../utils/firebaseConfig";
 import axios from "axios";
 
 const getAllOrdersForAllUsers = async (): Promise<Order[]> => {
